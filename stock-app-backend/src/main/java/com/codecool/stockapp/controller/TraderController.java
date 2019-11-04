@@ -17,7 +17,7 @@ public class TraderController {
     private Trader trader;
 
     @GetMapping("/")
-    public String print() throws IOException, URISyntaxException {
-        return trader.getCryptoCurrencies();
+    public String print() throws IOException, URISyntaxException, JSONException {
+        return trader.getPrice();
     }
 }

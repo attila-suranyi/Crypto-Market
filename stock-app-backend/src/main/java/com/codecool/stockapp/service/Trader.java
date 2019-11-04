@@ -1,6 +1,7 @@
 package com.codecool.stockapp.service;
 
 import com.codecool.stockapp.model.CryptoAPIService;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class Trader {
     public Trader(CryptoAPIService cryptoAPIService) {
         this.cryptoAPIService = cryptoAPIService;
     }
-    public String getCryptoCurrencies() throws IOException, URISyntaxException {
-        return cryptoAPIService.getCryptoCurrencies("BTC");
+    public String getPrice() throws IOException, URISyntaxException, JSONException {
+        return cryptoAPIService.getPrice("BTC");
     }
 }

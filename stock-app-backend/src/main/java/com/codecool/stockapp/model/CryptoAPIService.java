@@ -4,6 +4,8 @@ package com.codecool.stockapp.model; /**
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
@@ -16,11 +18,15 @@ public class CryptoAPIService {
     @Autowired
     private RemoteURLReader remoteURLReader;
 
-    public String getCryptoCurrencies(String symbol) throws IOException, URISyntaxException {
+    public String getPrice(String symbol) throws IOException, URISyntaxException, JSONException {
         List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-        //parameters.add(new BasicNameValuePair("symbol",symbol));
+        parameters.add(new BasicNameValuePair("start","1"));
+        parameters.add(new BasicNameValuePair("limit","1"));
         String uri = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
-        return remoteURLReader.makeAPICall(uri, parameters);
+        String result = remoteURLReader.makeAPICall(uri, parameters);
+        System.out.println(result);
+        JSONObject json = new JSONObject(result);
+        return json.get("data").toString();
     }
 
 }
