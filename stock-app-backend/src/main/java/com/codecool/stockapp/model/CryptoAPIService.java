@@ -4,6 +4,7 @@ package com.codecool.stockapp.model; /**
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,19 @@ public class CryptoAPIService {
         String uri = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
         String result = remoteURLReader.makeAPICall(uri, parameters);
         System.out.println(result);
-        JSONObject json = new JSONObject(result);
-        return json.get("data").toString();
+        JSONObject jsonObject = new JSONObject(result);
+        JSONArray jsonArray = jsonObject.getJSONArray("data");
+        return jsonArray.getJSONObject(0).getJSONObject("quote").getJSONObject("USD").getString("price");
+    }
+    public String getTopCurrencies(int top) throws IOException, URISyntaxException, JSONException {
+        List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+        parameters.add(new BasicNameValuePair("start","1"));
+        parameters.add(new BasicNameValuePair("limit",String.valueOf(top)));
+        String uri = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
+        String result = remoteURLReader.makeAPICall(uri, parameters);
+        JSONObject jsonObject = new JSONObject(result);
+        return jsonObject.toString();
+
     }
 
 }

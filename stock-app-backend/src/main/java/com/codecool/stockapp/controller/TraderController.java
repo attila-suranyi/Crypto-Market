@@ -18,6 +18,6 @@ public class TraderController {
 
     @GetMapping("/")
     public String print() throws IOException, URISyntaxException, JSONException {
-        return trader.getPrice();
+        return trader.getTopCurrency(10);
     }
 }

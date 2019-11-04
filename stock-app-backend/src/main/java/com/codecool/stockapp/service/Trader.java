@@ -19,4 +19,7 @@ public class Trader {
     public String getPrice() throws IOException, URISyntaxException, JSONException {
         return cryptoAPIService.getPrice("BTC");
     }
+    public String getTopCurrency(int limit) throws JSONException, IOException, URISyntaxException {
+        return cryptoAPIService.getTopCurrencies(limit);
+    }
 }
