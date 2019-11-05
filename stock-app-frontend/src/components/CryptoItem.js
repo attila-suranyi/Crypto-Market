@@ -7,9 +7,9 @@ export default class CryptoItem extends Component {
     render() {
         return (
             <div>
-                <h3>{ this.props.cryptoData.title }</h3>
-                <p>{ this.props.cryptoData.symbol }</p>
-                <p>{ this.props.cryptoData.price }$</p>
+                <h3>{ this.props.cryptoData.symbol }</h3>
+                <p>{ this.props.cryptoData.cmc_rank }</p>
+                <p>{ this.props.cryptoData.quote.usd.price }</p>
             </div>
         )
     }

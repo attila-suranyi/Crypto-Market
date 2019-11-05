@@ -8,16 +8,14 @@ export default class CryptoDataContextProvider extends Component {
     state = {
         cryptoData: [],
         fetchCryptoData: () => {
-            Axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
-        .then(res => this.setState({ cryptoData: res.data }))
+            Axios.get('http://localhost:8080/')
+            .then(res => this.setState({ cryptoData: res.data.data }))
         }
     }
 
     componentDidMount() {
         this.state.fetchCryptoData();
     }
-
-    //TODO axios fetch method in the state
 
     render() {
         return (
