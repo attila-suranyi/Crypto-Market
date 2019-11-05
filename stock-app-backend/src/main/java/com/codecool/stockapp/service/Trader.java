@@ -1,25 +1,19 @@
 package com.codecool.stockapp.service;
 
-import com.codecool.stockapp.model.CryptoAPIService;
-import org.json.JSONException;
+import com.codecool.stockapp.model.CryptoCurrency;
+import com.codecool.stockapp.service.api.CurrencyAPIService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 @Service
 public class Trader {
-    private CryptoAPIService cryptoAPIService;
 
     @Autowired
-    public Trader(CryptoAPIService cryptoAPIService) {
-        this.cryptoAPIService = cryptoAPIService;
-    }
-    public String getPrice() throws IOException, URISyntaxException, JSONException {
-        return cryptoAPIService.getPrice("BTC");
-    }
-    public String getTopCurrency(int limit) throws JSONException, IOException, URISyntaxException {
-        return cryptoAPIService.getTopCurrencies(limit);
+    CurrencyAPIService currencyAPIService;
+
+    public ResponseEntity<CryptoCurrency> getCurrencies() {
+        return currencyAPIService.getCurrencies();
     }
 }
