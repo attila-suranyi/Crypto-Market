@@ -23,4 +23,8 @@ public class Trader {
     public Stream<DataItem> getCurrency(String symbol) {
         return currencyAPIService.getCurrencies().getData().stream().filter(x -> x.getSymbol().equals(symbol));
     }
+
+    public CryptoCurrency getSortedCurrencies(String sortBy) {
+        return currencyAPIService.getSortedCurrencies(sortBy);
+    }
 }

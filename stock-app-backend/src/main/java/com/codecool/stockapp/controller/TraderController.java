@@ -6,8 +6,10 @@ import com.codecool.stockapp.service.Trader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Stream;
 
 @CrossOrigin
@@ -25,5 +27,10 @@ public class TraderController {
     @GetMapping("/btc")
     public Stream<DataItem> getCurrencyByName() {
         return trader.getCurrency("BTC");
+    }
+
+    @GetMapping("/sorted")
+    public CryptoCurrency getSortedCryptoCurrencies(@RequestParam String sort_by) {
+        return trader.getSortedCurrencies(sort_by);
     }
 }
