@@ -1,14 +1,14 @@
 package com.codecool.stockapp.service.api;
 
 import com.codecool.stockapp.model.CryptoCurrency;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.*;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-
+@Service
 public class CurrencyAPIService {
 
-    public ResponseEntity<CryptoCurrency> getCurrencies() {
+    public CryptoCurrency getCurrencies() {
 
         String currenciesURL
                 = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
@@ -25,6 +25,7 @@ public class CurrencyAPIService {
                 HttpMethod.GET,
                 new HttpEntity<>("parameters", headers),
                 CryptoCurrency.class
-        );
+        ).getBody();
+
     }
 }

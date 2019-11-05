@@ -1,15 +1,13 @@
 package com.codecool.stockapp.controller;
 
 import com.codecool.stockapp.model.CryptoCurrency;
+import com.codecool.stockapp.model.DataItem;
 import com.codecool.stockapp.service.Trader;
-import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.util.stream.Stream;
 
 @RestController
 public class TraderController {
@@ -18,7 +16,12 @@ public class TraderController {
     private Trader trader;
 
     @GetMapping("/")
-    public ResponseEntity<CryptoCurrency> showCryptoCurrencies() throws IOException {
+    public CryptoCurrency showCryptoCurrencies() {
         return trader.getCurrencies();
+    }
+
+    @GetMapping("/btc")
+    public Stream<DataItem> getCurrencyByName() {
+        return trader.getCurrency("BTC");
     }
 }

@@ -170,7 +170,7 @@ public class DataItem{
 			",last_updated = '" + lastUpdated + '\'' + 
 			",total_supply = '" + totalSupply + '\'' + 
 			",cmc_rank = '" + cmcRank + '\'' + 
-			",platform = '" + platform + '\'' + 
+			",platform = '" + platform + '\'' +
 			",tags = '" + tags + '\'' + 
 			",date_added = '" + dateAdded + '\'' + 
 			",quote = '" + quote + '\'' + 
@@ -178,7 +178,7 @@ public class DataItem{
 			",name = '" + name + '\'' + 
 			",max_supply = '" + maxSupply + '\'' + 
 			",id = '" + id + '\'' + 
-			",slug = '" + slug + '\'' + 
+			",slug = '" + slug + '\'' +
 			"}";
 		}
 }
