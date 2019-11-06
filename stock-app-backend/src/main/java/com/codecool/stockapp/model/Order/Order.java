@@ -7,11 +7,13 @@ public class Order {
     private String symbol;
     private double boughtPrice;
     private String date;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy HH-mm-ss");
+    private double quantity;
 
-    public Order(String symbol, double boughtPrice) {
+    public Order(String symbol, double quantity, double boughtPrice) {
         this.symbol = symbol;
+        this.quantity = quantity;
         this.boughtPrice = boughtPrice;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy HH-mm-ss");
         this.date = dateFormat.format(new Date());
 
     }
