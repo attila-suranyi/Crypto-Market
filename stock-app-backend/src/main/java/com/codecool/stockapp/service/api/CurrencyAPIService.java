@@ -30,15 +30,15 @@ public class CurrencyAPIService {
         ).getBody();
     }
 
-    public CryptoCurrency getSortedCurrencies(String sortBy) {
+    public CryptoCurrency getSortedCurrencies(String sortBy, String sortDir) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCEPT, "application/json");
         headers.add("X-CMC_PRO_API_KEY", this.apiKey );
 
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(this.latestCurrenciesURL)
-                .queryParam("sort", "price")
-                .queryParam("sort_dir", "asc");
+                .queryParam("sort", sortBy)
+                .queryParam("sort_dir", sortDir);
 
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.exchange(

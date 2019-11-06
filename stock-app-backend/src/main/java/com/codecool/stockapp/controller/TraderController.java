@@ -30,7 +30,7 @@ public class TraderController {
     }
 
     @GetMapping("/sorted")
-    public CryptoCurrency getSortedCryptoCurrencies(@RequestParam String sort_by) {
-        return trader.getSortedCurrencies(sort_by);
+    public CryptoCurrency getSortedCryptoCurrencies(@RequestParam String sort_by, @RequestParam String sort_dir) {
+        return trader.getSortedCurrencies(sort_by, sort_dir);
     }
 }
