@@ -18,6 +18,11 @@ public class Trader {
 
     private Set<Order> orders = new HashSet<>();
 
+    public Trader() {
+        orders.add(new Order("BTC", 1, 9000));
+        orders.add(new Order("ETH", 1, 300));
+    }
+
     public void buy(Order order) {
         orders.add(order);
     }

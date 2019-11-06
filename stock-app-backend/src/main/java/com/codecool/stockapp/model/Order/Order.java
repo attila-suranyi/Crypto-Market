@@ -6,8 +6,8 @@ import java.util.Date;
 public class Order {
     private String symbol;
     private double boughtPrice;
-    private String date;
     private double quantity;
+    private String date;
 
     public Order(String symbol, double quantity, double boughtPrice) {
         this.symbol = symbol;
@@ -28,5 +28,9 @@ public class Order {
 
     public String getDate() {
         return date;
+    }
+
+    public double getQuantity() {
+        return quantity;
     }
 }
