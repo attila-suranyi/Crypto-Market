@@ -24,13 +24,8 @@ public class TraderController {
         return trader.getCurrencies();
     }
 
-    @GetMapping("/btc")
-    public Stream<DataItem> getCurrencyByName() {
-        return trader.getCurrency("BTC");
-    }
-
     @GetMapping("/sorted")
     public CryptoCurrency getSortedCryptoCurrencies(@RequestParam String sort_by, @RequestParam String sort_dir) {
-        return trader.getSortedCurrencies(sort_by, sort_dir);
+        return trader.getCurrencies(sort_by, sort_dir);
     }
 }
