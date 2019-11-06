@@ -1,4 +1,4 @@
-package com.codecool.stockapp.model;
+package com.codecool.stockapp.model.Currencies;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;

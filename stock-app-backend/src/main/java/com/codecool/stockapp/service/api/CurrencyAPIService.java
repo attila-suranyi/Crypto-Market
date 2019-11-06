@@ -1,13 +1,10 @@
 package com.codecool.stockapp.service.api;
 
-import com.codecool.stockapp.model.CryptoCurrency;
+import com.codecool.stockapp.model.Currencies.CryptoCurrency;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class CurrencyAPIService {
