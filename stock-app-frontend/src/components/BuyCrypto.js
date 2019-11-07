@@ -24,6 +24,7 @@ export default class BuyCrypto extends Component {
     }
 
     handleChangeTotal = event => {
+        console.log(event.target.value);
         this.setState({ total: event.target.value });
     }
 
@@ -35,7 +36,7 @@ export default class BuyCrypto extends Component {
             symbol: this.props.symbol,
             price: this.context.currentCryptoData,
             amount: this.state.amount,
-            total: this.state.total
+            total: this.state.amount * this.context.currentCryptoData
         })
             .then(res => {
                 console.log(res);
@@ -56,7 +57,9 @@ export default class BuyCrypto extends Component {
                 </Form.Group>
                 <Form.Group controlId="formTotal">
                     <Form.Label>Total</Form.Label>
-                    <Form.Control placeholder="Total" value={this.context.currentCryptoData * this.state.amount} onChange={this.handleChangeTotal} />
+                    <Form.Control placeholder="Total" 
+                    value={this.context.currentCryptoData * this.state.amount} 
+                    onChange={this.handleChangeTotal} />
                 </Form.Group>
                 <Button variant="primary" type="submit">
                     Buy
