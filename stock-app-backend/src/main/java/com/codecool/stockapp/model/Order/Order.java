@@ -1,36 +1,63 @@
 package com.codecool.stockapp.model.Order;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class Order {
     private String symbol;
-    private double boughtPrice;
-    private double quantity;
+    private double price;
+    private double amount;
+    private double total;
     private String date;
 
-    public Order(String symbol, double quantity, double boughtPrice) {
-        this.symbol = symbol;
-        this.quantity = quantity;
-        this.boughtPrice = boughtPrice;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy HH-mm-ss");
-        this.date = dateFormat.format(new Date());
-
+    public Order() {
     }
 
     public String getSymbol() {
         return symbol;
     }
 
-    public double getBoughtPrice() {
-        return boughtPrice;
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     public String getDate() {
         return date;
     }
 
-    public double getQuantity() {
-        return quantity;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "symbol='" + symbol + '\'' +
+                ", boughtPrice=" + price +
+                ", quantity=" + amount +
+                ", total=" + total +
+                ", date='" + date + '\'' +
+                '}';
     }
 }

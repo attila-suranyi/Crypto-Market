@@ -1,6 +1,6 @@
 package com.codecool.stockapp.service;
 
-import com.codecool.stockapp.model.CryptoCurrency;
+import com.codecool.stockapp.model.Currencies.CryptoCurrency;
 import com.codecool.stockapp.service.api.CurrencyAPIService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
