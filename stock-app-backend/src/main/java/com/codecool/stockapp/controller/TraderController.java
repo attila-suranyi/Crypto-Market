@@ -3,6 +3,7 @@ package com.codecool.stockapp.controller;
 import com.codecool.stockapp.model.Currencies.CryptoCurrency;
 import com.codecool.stockapp.model.Currencies.DataItem;
 import com.codecool.stockapp.model.Order.Order;
+import com.codecool.stockapp.model.Util;
 import com.codecool.stockapp.service.Trader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,8 +43,7 @@ public class TraderController {
 
     @PostMapping("/buy")
     public void buy(@RequestBody Order order) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy HH-mm-ss");
-        order.setDate(dateFormat.format(new Date()));
+        order.setDate(Util.getCurrentDate());
         trader.buy(order);
         System.out.println(trader.getOrders());
     }
