@@ -1,6 +1,9 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
 import CryptoDataContextProvider from './contexts/CryptoDataContext';
 import CryptoList from './components/CryptoList';
+import TradeCrypto from './components/TradeCrypto';
 
 class App extends React.Component {
 
@@ -8,7 +11,14 @@ class App extends React.Component {
     return (
       <div className="App">
         <CryptoDataContextProvider>
-          <CryptoList />
+          <Router>
+            <Route exact path="/">
+              <CryptoList />
+            </Route>
+            <Route path="/trade">
+              <TradeCrypto />
+            </Route>
+          </Router>
         </CryptoDataContextProvider>
       </div>
     );

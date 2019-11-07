@@ -8,7 +8,7 @@ export default class CryptoDataContextProvider extends Component {
     state = {
         cryptoData: [],
         fetchCryptoData: () => {
-            Axios.get('http://localhost:8080/')
+            Axios.get('http://10.44.9.244:8080/')
             .then(res => this.setState({ cryptoData: res.data.data }))
         }
     }
