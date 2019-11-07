@@ -44,8 +44,8 @@ public class TraderController {
     public void buy(@RequestBody Order order) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy HH-mm-ss");
         order.setDate(dateFormat.format(new Date()));
-        System.out.println(trader.getOrders());
         trader.buy(order);
+        System.out.println(trader.getOrders());
     }
 
     @PostMapping("/sell")
