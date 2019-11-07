@@ -15,8 +15,7 @@ class App extends React.Component {
             <Route exact path="/">
               <CryptoList />
             </Route>
-            <Route path="/trade">
-              <TradeCrypto />
+            <Route path="/trade" component={TradeCrypto}>
             </Route>
           </Router>
         </CryptoDataContextProvider>

@@ -7,9 +7,9 @@ export default class CryptoList extends Component {
 
     render() {
         return  (
-            <div class="table-responsive text-nowrap">
-                <table class="table table-striped table-hover">
-                    <thead class="black white-text">
+            <div className="table-responsive text-nowrap">
+                <table className="table table-striped table-hover">
+                    <thead className="black white-text">
                         <tr>
                             <th><p>#</p></th>
                             <th><p>Name</p></th>
