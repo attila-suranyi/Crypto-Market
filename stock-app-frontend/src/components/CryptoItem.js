@@ -5,7 +5,7 @@ import {CryptoDataContext} from '../contexts/CryptoDataContext';
 import Button from 'react-bootstrap/Button';
 
 export default class CryptoItem extends Component {
-    static contextType = CryptoDataContext;
+    /*static contextType = CryptoDataContext;*/
     
     render() {
         return (
@@ -17,7 +17,8 @@ export default class CryptoItem extends Component {
                 <td><p>{ this.props.cryptoData.quote.usd.percent_change_24h }</p></td>
                 <td><p>{ this.props.cryptoData.quote.usd.market_cap }</p></td>
                 <td><p>{ this.props.cryptoData.quote.usd.volume_24h }</p></td>
-                <td><p><Button><Link to={'/trade?symbol=' + this.props.cryptoData.symbol}>Trade</Link></Button></p></td>
+                <td><p><Button>
+                    <Link to={'/trade?symbol=' + this.props.cryptoData.symbol}>Trade</Link></Button></p></td>
             </tr>
         )
     }

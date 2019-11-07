@@ -1,41 +1,46 @@
-import React, { Component } from 'react';
-import BuyCrypto from './BuyCrypto';
+import React, { Component } from "react";
+
+import {CryptoDataContext} from '../contexts/CryptoDataContext';
+import BuyCrypto from "./BuyCrypto";
 
 export default class TradeCrypto extends Component {
+  
+  state = {
+    cryptoData: [],
+    symbol: ""
+  };
 
-    state = {
-        symbol: this.getQueryParam()
-    }
+  static contextType = CryptoDataContext;
 
-    getQueryParam() {
-        const queryString = require('query-string');
-        const parsed = queryString.parse(this.props.location.search);
-        return parsed.symbol;
-    }
+  getQueryParam() {
+    const queryString = require("query-string");
+    const parsed = queryString.parse(this.props.location.search);
+    console.log(parsed.symbol);
+    return parsed.symbol;
+  }
 
-    componentDidMount() {
-        this.getQueryParam();
-    }
+  componentDidMount() {
+    const symbol = this.getQueryParam();
+    this.setState({symbol: symbol})
+    this.context.fetchCurrentCryptoData(`http://10.44.9.244:8080/${symbol}`);
+  }
 
-    render() {
-        return (
-        
-            <div className="trade-crypto-container">
-                {/* Header */}
-                <div className="trade-crypto-header">
+  render() {
 
-                </div>
+    return (
+      <div className="trade-crypto-container">
+      
+        {/* Header */}
+        <div className="trade-crypto-header"></div>
 
-                {/* Buy crypto */}
-                <div >
-                    <BuyCrypto symbol={this.state.symbol}/>
-                </div>
+        {/* Buy crypto */}
+        <div>
+          <BuyCrypto symbol={this.state.symbol} />
+        </div>
 
-                {/* Sell crypto */}
-                <div>
-
-                </div>
-            </div>
-        )
-    }
+        {/* Sell crypto */}
+        <div></div>
+      </div>
+    );
+  }
 }
