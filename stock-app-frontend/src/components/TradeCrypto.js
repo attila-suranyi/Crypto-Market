@@ -35,7 +35,7 @@ export default class TradeCrypto extends Component {
 
         {/* Buy crypto */}
         <div>
-          <BuyCrypto symbol={this.state.symbol} />
+          <BuyCrypto symbol={this.state.symbol}/>
         </div>
 
         {/* Sell crypto */}

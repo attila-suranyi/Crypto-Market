@@ -1,28 +1,66 @@
 import React, { Component } from 'react';
-import {Form, Button} from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
+import { CryptoDataContext } from '../contexts/CryptoDataContext';
+import Axios from 'axios';
 
 
 export default class BuyCrypto extends Component {
+
+    static contextType = CryptoDataContext;
+
+    state = {
+        symbol: '',
+        price: '',
+        amount: '',
+        total: ''
+    }
+
+    handleChangePrice = event => {
+        this.setState({ price: event.target.value });
+    }
+
+    handleChangeAmount = event => {
+        this.setState({ amount: event.target.value });
+    }
+
+    handleChangeTotal = event => {
+        this.setState({ total: event.target.value });
+    }
+
+
+    handleSubmit = event => {
+        event.preventDefault();
+
+
+        Axios.post(`http://10.44.9.244:8080/buy`, {
+            symbol: this.props.symbol,
+            price: this.context.currentCryptoData,
+            amount: this.state.amount,
+            total: this.state.total
+        })
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            })
+    }
+
     render() {
         return (
-            <Form>
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
-                    <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                    </Form.Text>
+            <Form onSubmit={this.handleSubmit}>
+                <Form.Group controlId="formPrice">
+                    <Form.Label>Price</Form.Label>
+                    <Form.Control value={this.context.currentCryptoData} />
                 </Form.Group>
-
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                <Form.Group controlId="formAmount">
+                    <Form.Label>Amount</Form.Label>
+                    <Form.Control placeholder="Amount" onChange={this.handleChangeAmount} />
                 </Form.Group>
-                <Form.Group controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
+                <Form.Group controlId="formTotal">
+                    <Form.Label>Total</Form.Label>
+                    <Form.Control placeholder="Total" onChange={this.handleChangeTotal} />
                 </Form.Group>
                 <Button variant="primary" type="submit">
-                    Submit
+                    Buy
                 </Button>
             </Form>
         )

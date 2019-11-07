@@ -4,18 +4,25 @@ import Axios from 'axios';
 export const CryptoDataContext = createContext();
 
 export default class CryptoDataContextProvider extends Component {
-    
+
     state = {
         cryptoData: [],
         currentCryptoData: [],
         fetchAllCryptoData: (URL) => {
             Axios.get(URL)
-            .then(res => this.setState({ cryptoData: res.data.data }))
+                .then(res => this.setState({ cryptoData: res.data.data }))
         },
         fetchCurrentCryptoData: (URL) => {
             Axios.get(URL)
-            .then(res => this.setState({currentCryptoData: res.data[0]}))
+                .then(res => this.setState({ currentCryptoData: res.data[0] }))
         },
+        sendDataToBackend: (URL, data) => {
+            Axios.post(URL, { data })
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                })
+        }
     }
 
     componentDidMount() {
@@ -24,7 +31,7 @@ export default class CryptoDataContextProvider extends Component {
 
     render() {
         return (
-            <CryptoDataContext.Provider value={{...this.state}}>
+            <CryptoDataContext.Provider value={{ ...this.state }}>
                 {this.props.children}
             </CryptoDataContext.Provider>
         )
