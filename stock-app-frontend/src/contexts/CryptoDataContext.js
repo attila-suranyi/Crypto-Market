@@ -14,10 +14,9 @@ export default class CryptoDataContextProvider extends Component {
         },
         fetchCurrentCryptoData: (URL) => {
             Axios.get(URL)
-            .then(res => this.setState({currentCryptoData: res.data.data}))
+            .then(res => this.setState({currentCryptoData: res.data[0]}))
         },
     }
-
 
     componentDidMount() {
         this.state.fetchAllCryptoData('http://10.44.9.244:8080/');
