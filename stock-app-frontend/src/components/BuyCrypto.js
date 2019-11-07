@@ -31,8 +31,7 @@ export default class BuyCrypto extends Component {
     handleSubmit = event => {
         event.preventDefault();
 
-
-        Axios.post(`http://10.44.9.244:8080/buy`, {
+        Axios.post(`http://localhost:8080/buy`, {
             symbol: this.props.symbol,
             price: this.context.currentCryptoData,
             amount: this.state.amount,
@@ -57,7 +56,7 @@ export default class BuyCrypto extends Component {
                 </Form.Group>
                 <Form.Group controlId="formTotal">
                     <Form.Label>Total</Form.Label>
-                    <Form.Control placeholder="Total" onChange={this.handleChangeTotal} />
+                    <Form.Control placeholder="Total" value={this.context.currentCryptoData * this.state.amount} onChange={this.handleChangeTotal} />
                 </Form.Group>
                 <Button variant="primary" type="submit">
                     Buy

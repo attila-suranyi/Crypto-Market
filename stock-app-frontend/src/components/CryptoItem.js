@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import {CryptoDataContext} from '../contexts/CryptoDataContext';
 import Button from 'react-bootstrap/Button';
 
 export default class CryptoItem extends Component {
-    /*static contextType = CryptoDataContext;*/
     
     render() {
         return (

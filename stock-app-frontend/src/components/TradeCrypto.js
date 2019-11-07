@@ -31,7 +31,7 @@ export default class TradeCrypto extends Component {
       
         {/* Header */}
         <div className="trade-crypto-header"></div>
-          <h3>{this.context.currentCryptoData.symbol}</h3>
+          <h3>{this.state.symbol}</h3>
 
         {/* Buy crypto */}
         <div>
