@@ -33,7 +33,10 @@ public class TraderController {
 
     @GetMapping("/{symbol}")
     public Stream<Double> getCurrency(@PathVariable String symbol) {
-        return trader.getCurrencies().getData().stream().filter(x -> x.getSymbol().equals(symbol)).map(x -> x.getQuote().getUSD().getPrice());
+        return trader.getCurrencies().getData()
+                .stream()
+                .filter(x -> x.getSymbol().equals(symbol))
+                .map(x -> x.getQuote().getUSD().getPrice());
     }
 
     @GetMapping("/orders")

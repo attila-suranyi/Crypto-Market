@@ -1,6 +1,7 @@
 package com.codecool.stockapp.service.api;
 
 import com.codecool.stockapp.model.Currencies.CryptoCurrency;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,7 +11,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class CurrencyAPIService {
 
     private String latestCurrenciesURL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
-    private String apiKey = "047211f4-eaa0-44c7-9801-cd2545e77cf0";
+    @Value("${crypto.apikey}")
+    private String apiKey;
 
     public CryptoCurrency getCurrencies() {
 
