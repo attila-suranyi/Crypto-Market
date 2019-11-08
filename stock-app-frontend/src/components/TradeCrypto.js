@@ -20,7 +20,7 @@ export default class TradeCrypto extends Component {
   componentDidMount() {
     const symbol = this.getQueryParam();
     this.setState({symbol: symbol});
-    this.context.fetchCurrentCryptoData(`http://10.44.9.244:8080/${symbol}` );
+    this.context.fetchCurrentCryptoData(`http://localhost:8080/${symbol}` );
     console.log(this.context.currentCryptoData)
   }
 
