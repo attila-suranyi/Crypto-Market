@@ -1,10 +1,33 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import {CryptoDataContext} from '../contexts/CryptoDataContext';
 import CryptoItem from './CryptoItem';
 
 export default class CryptoList extends Component {
     static contextType = CryptoDataContext;
+
+    getQueryParam() {
+        /*const queryString = require("query-string");
+        const parsed = queryString.parse(this.props.location.search);
+        return parsed.sort_by;*/
+
+        let search = window.location.search;
+        let params = new URLSearchParams(search);
+        let sort_by = params.get('sort_by');
+        return sort_by
+    }
+
+    sortByProperty = () => {
+        let URL = "http://localhost:8080/sorted?sort_by=" + this.getQueryParam() + "&sort_dir=desc";
+        this.context.fetchAllCryptoData(URL);
+    }
+
+    componentDidMount() {
+        if (this.getQueryParam()) {
+            this.sortByProperty();
+        }
+    }
 
     render() {
         return  (
@@ -14,7 +37,7 @@ export default class CryptoList extends Component {
                         <tr>
                             <th><p>#</p></th>
                             <th><p>Name</p></th>
-                            <th><p>Symbol</p></th>
+                            <th><p><Link to="/sorted?sort_by=symbol" >Symbol</Link></p></th>
                             <th><p>Price</p></th>
                             <th><p>Change (24h)</p></th>
                             <th><p>Market Cap</p></th>
@@ -23,7 +46,7 @@ export default class CryptoList extends Component {
                     </thead>
                     <tbody>
                         {this.context.cryptoData.map((cryptoCurrency) =>
-                        <CryptoItem key={cryptoCurrency.symbol} cryptoData={cryptoCurrency}/>)}
+                        <CryptoItem key={cryptoCurrency.name} cryptoData={cryptoCurrency}/>)}
                     </tbody>
                 </table>
             </div>

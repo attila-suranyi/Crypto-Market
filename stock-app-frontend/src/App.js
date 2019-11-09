@@ -17,6 +17,8 @@ class App extends React.Component {
             </Route>
             <Route path="/trade" component={TradeCrypto}>
             </Route>
+            <Route path="/sorted" component={CryptoList}>
+            </Route>
           </Router>
         </CryptoDataContextProvider>
       </div>
