@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
-import Axios from "axios";
 
 export default class BuyCrypto extends Component {
   static contextType = CryptoDataContext;

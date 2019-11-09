@@ -23,7 +23,7 @@ export default class CryptoList extends Component {
                     </thead>
                     <tbody>
                         {this.context.cryptoData.map((cryptoCurrency) =>
-                        <CryptoItem cryptoData={cryptoCurrency}/>)}
+                        <CryptoItem key={cryptoCurrency.symbol} cryptoData={cryptoCurrency}/>)}
                     </tbody>
                 </table>
             </div>
