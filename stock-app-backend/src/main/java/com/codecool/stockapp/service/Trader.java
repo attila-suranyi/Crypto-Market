@@ -34,11 +34,8 @@ public class Trader {
     public Set<Order> getOrders() {
         return orders;
     }
-    public CryptoCurrency getCurrencies() {
-        return currencyAPIService.getCurrencies();
-    }
 
     public CryptoCurrency getCurrencies(String sortBy, String sortDir) {
-        return currencyAPIService.getSortedCurrencies(sortBy, sortDir);
+        return currencyAPIService.getCurrencies(sortBy, sortDir);
     }
 }

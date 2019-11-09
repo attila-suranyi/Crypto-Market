@@ -26,14 +26,7 @@ class TraderTest {
     @Test
     void getCurrenciesTest() {
 
-        when(currencyAPIServiceMock.getCurrencies()).thenReturn(crypto);
-        assertEquals(trader.getCurrencies(), crypto);
-    }
-
-    @Test
-    void getSortedCurrenciesTest() {
-
-        when(currencyAPIServiceMock.getSortedCurrencies(isA(String.class), isA(String.class))).thenReturn(crypto);
-        assertEquals(trader.getCurrencies("symbol", "asc"), crypto);
+        when(currencyAPIServiceMock.getCurrencies(isA(String.class), isA(String.class))).thenReturn(crypto);
+        assertEquals(trader.getCurrencies("default", "default"), crypto);
     }
 }

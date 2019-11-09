@@ -46,7 +46,7 @@ class TraderControllerTest {
 
         crypto.setData(dataItem);
 
-        when(trader.getCurrencies()).thenReturn(crypto);
+        when(trader.getCurrencies("default", "default")).thenReturn(crypto);
 
         mvc.perform( MockMvcRequestBuilders
                 .get("/")

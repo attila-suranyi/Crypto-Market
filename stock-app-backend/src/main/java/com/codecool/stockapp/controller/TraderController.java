@@ -23,7 +23,7 @@ public class TraderController {
 
     @GetMapping("/")
     public CryptoCurrency showCryptoCurrencies() {
-        return trader.getCurrencies();
+        return trader.getCurrencies("default", "default");
     }
 
     @GetMapping("/sorted")
@@ -33,7 +33,7 @@ public class TraderController {
 
     @GetMapping("/{symbol}")
     public Stream<Double> getCurrency(@PathVariable String symbol) {
-        return trader.getCurrencies().getData()
+        return trader.getCurrencies("default", "default").getData()
                 .stream()
                 .filter(x -> x.getSymbol().equals(symbol))
                 .map(x -> x.getQuote().getUSD().getPrice());

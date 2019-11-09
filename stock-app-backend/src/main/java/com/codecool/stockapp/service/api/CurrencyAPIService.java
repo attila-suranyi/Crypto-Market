@@ -10,38 +10,32 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Service
 public class CurrencyAPIService {
 
-    private String latestCurrenciesURL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
     @Value("${crypto.apikey}")
     private String apiKey;
 
-    public CryptoCurrency getCurrencies() {
+    @Value("${crypto.latestCryptoEndpoint}")
+    private String latestCryptoAPIEndpoint;
+
+    public CryptoCurrency getCurrencies(String sortBy, String sortDir) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCEPT, "application/json");
         headers.add("X-CMC_PRO_API_KEY", this.apiKey );
 
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.exchange(
-                this.latestCurrenciesURL,
-                HttpMethod.GET,
-                new HttpEntity<>("parameters", headers),
-                CryptoCurrency.class
-        ).getBody();
-    }
+        String apiEndpoint;
 
-    public CryptoCurrency getSortedCurrencies(String sortBy, String sortDir) {
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.ACCEPT, "application/json");
-        headers.add("X-CMC_PRO_API_KEY", this.apiKey );
-
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(this.latestCurrenciesURL)
-                .queryParam("sort", sortBy)
-                .queryParam("sort_dir", sortDir);
+        if (sortBy.equals("default")) {
+            apiEndpoint = this.latestCryptoAPIEndpoint;
+        } else {
+            UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(this.latestCryptoAPIEndpoint)
+                    .queryParam("sort", sortBy)
+                    .queryParam("sort_dir", sortDir);
+            apiEndpoint = uriBuilder.toUriString();
+        }
 
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.exchange(
-                uriBuilder.toUriString(),
+                apiEndpoint,
                 HttpMethod.GET,
                 new HttpEntity<>("parameters", headers),
                 CryptoCurrency.class
