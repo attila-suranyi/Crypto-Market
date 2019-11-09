@@ -17,7 +17,7 @@ export default class CryptoDataContextProvider extends Component {
                 .then(res => this.setState({ currentCryptoData: res.data[0] }))
         },
         sendDataToBackend: (URL, data) => {
-            Axios.post(URL, { data })
+            Axios.post(URL, data)
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
@@ -26,7 +26,7 @@ export default class CryptoDataContextProvider extends Component {
     }
 
     componentDidMount() {
-        this.state.fetchAllCryptoData('http://10.44.9.244:8080/');
+        this.state.fetchAllCryptoData('http://localhost:8080/');
     }
 
     render() {
