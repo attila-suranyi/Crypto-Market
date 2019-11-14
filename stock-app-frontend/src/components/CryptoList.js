@@ -35,11 +35,11 @@ export default class CryptoList extends Component {
         } 
     }
 
-    componentDidMount() {
+    /* componentDidMount() {
         if (this.getQueryParam("sort_dir")) {
             this.sortByProperty();
         }
-    }
+    } */
 
     render() {
         return  (
@@ -50,7 +50,7 @@ export default class CryptoList extends Component {
                             <th><p>#</p></th>
                             <th><p>Name</p></th>
                             <th><p><Link to={`/sorted?sort_by=symbol&sort_dir=${this.state.sort_dir}`} 
-                                        >Symbol</Link></p></th>
+                                        onClick={this.sortByProperty}>Symbol</Link></p></th>
                             <th><p>Price</p></th>
                             <th><p>Change (24h)</p></th>
                             <th><p>Market Cap</p></th>
