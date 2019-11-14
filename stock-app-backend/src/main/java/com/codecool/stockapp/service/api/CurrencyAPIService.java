@@ -25,13 +25,18 @@ public class CurrencyAPIService {
         String apiEndpoint;
 
         if (sortBy.equals("default")) {
-            apiEndpoint = this.latestCryptoAPIEndpoint;
+            UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(this.latestCryptoAPIEndpoint)
+                    .queryParam("limit", 20);
+            apiEndpoint = uriBuilder.toUriString();
         } else {
             UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(this.latestCryptoAPIEndpoint)
                     .queryParam("sort", sortBy)
-                    .queryParam("sort_dir", sortDir);
+                    .queryParam("sort_dir", sortDir)
+                    .queryParam("limit", 20);
             apiEndpoint = uriBuilder.toUriString();
         }
+
+        System.out.println(apiEndpoint);
 
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.exchange(
