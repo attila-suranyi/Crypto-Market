@@ -27,7 +27,6 @@ export default class CryptoList extends Component {
 
         if (this.state.sort_dir === "desc") {
             this.setState({sort_dir: "asc"})
-            console.log(this.state.sort_dir)
             return;
         } else {
             this.setState({sort_dir: "desc"})
