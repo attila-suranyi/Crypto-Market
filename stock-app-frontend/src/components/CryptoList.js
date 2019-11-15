@@ -11,20 +11,14 @@ export default class CryptoList extends Component {
     sort_by: "market_cap"
   };
 
-  getQueryParam(key) {
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let param = params.get(key);
-    return param;
-  }
-
+  //we build the URL after getting the sorted data, so users can use the link
   loadCryptoData(sort_by, sort_dir) {
     const query_string = `?sort_by=${sort_by}&sort_dir=${sort_dir}`;
     const url = `http://localhost:8080/sorted${query_string}`;
-
     this.context.fetchAllCryptoData(url);
 
     this.setState({ sort_by, sort_dir });
+
     window.history.pushState(
       {},
       "Stock App",
@@ -32,22 +26,24 @@ export default class CryptoList extends Component {
     );
   }
 
+  //only the click event will navigate us here, thus reversing the sort_dir
   sortByProperty = sort_by => {
     const sort_dir = this.state.sort_dir === "desc" ? "asc" : "desc";
 
     this.loadCryptoData(sort_by, sort_dir);
   };
 
+  // first we either get the params from the state (coming from the index page) or the URL (/sorted?sort_by...)
+  // even if it comes from the URL, we store it in the state as well
+  // so either way, the params will be in the state
   componentDidMount() {
-    let sort_by = this.getQueryParam("sort_by");
-    let sort_dir = this.getQueryParam("sort_dir");
+    let sort_by = this.context.getQueryParam("sort_by");
+    let sort_dir = this.context.getQueryParam("sort_dir");
+
     sort_by = sort_by ? sort_by : this.state.sort_by;
     sort_dir = sort_dir ? sort_dir : this.state.sort_dir;
 
-    this.setState({
-      sort_by: sort_by,
-      sort_dir: sort_dir
-    });
+    this.setState({ sort_by, sort_dir });
 
     this.loadCryptoData(sort_by, sort_dir);
   }
