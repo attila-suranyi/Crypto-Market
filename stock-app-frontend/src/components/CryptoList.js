@@ -80,7 +80,7 @@ export default class CryptoList extends Component {
           <tbody>
             {this.context.cryptoData.map(cryptoCurrency => (
               <CryptoItem
-                key={cryptoCurrency.name}
+                key={cryptoCurrency.id}
                 cryptoData={cryptoCurrency}
               />
             ))}
