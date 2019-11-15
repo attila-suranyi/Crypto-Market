@@ -27,7 +27,7 @@ export default class CryptoDataContextProvider extends Component {
     }
 
     componentDidMount() {
-        this.state.fetchAllCryptoData('http://localhost:8080/');
+        // this.state.fetchAllCryptoData('http://localhost:8080/');
     }
 
     render() {
