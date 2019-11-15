@@ -3,10 +3,12 @@ package com.codecool.stockapp.service;
 import com.codecool.stockapp.model.Currencies.CryptoCurrency;
 import com.codecool.stockapp.model.Currencies.DataItem;
 import com.codecool.stockapp.model.Order.Order;
+import com.codecool.stockapp.model.SingleCurrency.SingleCurrency;
 import com.codecool.stockapp.service.api.CurrencyAPIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,5 +39,9 @@ public class Trader {
 
     public CryptoCurrency getCurrencies(String sortBy, String sortDir) {
         return currencyAPIService.getCurrencies(sortBy, sortDir);
+    }
+
+    public SingleCurrency getCurrencyById(int id) {
+        return currencyAPIService.getSingleCurrency(id);
     }
 }
