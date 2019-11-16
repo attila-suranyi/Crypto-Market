@@ -64,11 +64,12 @@ public class CurrencyAPIService {
 
         String apiEndpoint;
 
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl("https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest")
+        String url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest";
+
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("id", id);
 
         apiEndpoint = uriBuilder.toUriString();
-
         System.out.println(apiEndpoint);
 
         RestTemplate restTemplate = new RestTemplate();
