@@ -34,7 +34,14 @@ export default class BuyCrypto extends Component {
       <Form onSubmit={this.handleSubmit}>
         <Form.Group controlId="formPrice">
           <Form.Label>Price</Form.Label>
-          <Form.Control value={this.context.currentCryptoData} />
+          <Form.Control
+            readOnly
+            value={
+              this.context.singleCryptoData.quote
+                ? this.context.singleCryptoData.quote.usd.price
+                : 0
+            }
+          />
         </Form.Group>
         <Form.Group controlId="formAmount">
           <Form.Label>Amount</Form.Label>
@@ -47,6 +54,7 @@ export default class BuyCrypto extends Component {
         <Form.Group controlId="formTotal">
           <Form.Label>Total</Form.Label>
           <Form.Control
+            readOnly
             placeholder="Total"
             value={this.context.currentCryptoData * this.state.amount}
             name="total"

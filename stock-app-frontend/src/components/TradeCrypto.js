@@ -5,16 +5,19 @@ import BuyCrypto from "./BuyCrypto";
 
 export default class TradeCrypto extends Component {
   state = {
-    symbol: ""
+    symbol: "",
+    id: 1
   };
 
   static contextType = CryptoDataContext;
 
   componentDidMount() {
     const symbol = this.context.getQueryParam("symbol");
-    console.log(this.props.location.state);
+    const id = this.context.getQueryParam("id");
+    
     this.setState({ symbol });
-    this.context.fetchCurrentCryptoData(`http://localhost:8080/${symbol}`);
+    this.setState({ id });
+    this.context.fetchCurrentCryptoById(`http://localhost:8080/trade?id=${id}`);
   }
 
   render() {
@@ -22,7 +25,7 @@ export default class TradeCrypto extends Component {
       <div className="trade-crypto-container">
         {/* Header */}
         <div className="trade-crypto-header"></div>
-        <h3>{this.state.symbol}</h3>
+        <h3>{this.context.singleCryptoData.symbol}</h3>
 
         {/* Buy crypto */}
         <div>
