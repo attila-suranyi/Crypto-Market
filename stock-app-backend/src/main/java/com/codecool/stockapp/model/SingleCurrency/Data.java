@@ -7,21 +7,21 @@ import javax.annotation.Generated;
 public class Data{
 
 	@JsonProperty("1")
-	private JsonMember1 jsonMember1;
+	private CurrencyDetails currencyDetails;
 
-	public void setJsonMember1(JsonMember1 jsonMember1){
-		this.jsonMember1 = jsonMember1;
+	public void setCurrencyDetails(CurrencyDetails currencyDetails){
+		this.currencyDetails = currencyDetails;
 	}
 
-	public JsonMember1 getJsonMember1(){
-		return jsonMember1;
+	public CurrencyDetails getCurrencyDetails(){
+		return currencyDetails;
 	}
 
 	@Override
  	public String toString(){
 		return 
 			"Data{" + 
-			"1 = '" + jsonMember1 + '\'' + 
+			"1 = '" + currencyDetails + '\'' +
 			"}";
 		}
 }

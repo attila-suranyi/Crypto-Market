@@ -2,22 +2,23 @@ package com.codecool.stockapp.model.SingleCurrency;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;
+import java.util.Map;
 
 @Generated("com.robohorse.robopojogenerator")
 public class SingleCurrency{
 
 	@JsonProperty("data")
-	private Data data;
+	private Map<Integer, CurrencyDetails> data;
 
 	@JsonProperty("status")
 	private Status status;
 
-	public void setData(Data data){
-		this.data = data;
+	public Map<Integer, CurrencyDetails> getData() {
+		return data;
 	}
 
-	public Data getData(){
-		return data;
+	public void setData(Map<Integer, CurrencyDetails> data) {
+		this.data = data;
 	}
 
 	public void setStatus(Status status){

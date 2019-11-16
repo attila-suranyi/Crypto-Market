@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
-public class JsonMember1{
+public class CurrencyDetails {
 
 	@JsonProperty("symbol")
 	private String symbol;
