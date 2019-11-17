@@ -6,25 +6,18 @@ export const CryptoDataContext = createContext();
 export default class CryptoDataContextProvider extends Component {
   state = {
     cryptoData: [],
-    currentCryptoData: [],
     singleCryptoData: {},
 
     fetchAllCryptoData: URL => {
       Axios.get(URL).then(res => this.setState({ cryptoData: res.data.data }));
     },
-    fetchCurrentCryptoData: URL => {
-      Axios.get(URL).then(res =>
-        this.setState({ currentCryptoData: res.data[0] })
-      );
-    },
-    fetchCurrentCryptoById: URL => {
+    fetchSingleCryptoDataById: URL => {
       Axios.get(URL).then(res => {
         this.setState({ singleCryptoData: res.data });
       });
     },
     sendDataToBackend: (URL, data) => {
       Axios.post(URL, data).then(res => {
-        console.log(res);
         console.log(res.data);
       });
     },

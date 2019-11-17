@@ -14,10 +14,12 @@ export default class TradeCrypto extends Component {
   componentDidMount() {
     const symbol = this.context.getQueryParam("symbol");
     const id = this.context.getQueryParam("id");
-    
+
     this.setState({ symbol });
     this.setState({ id });
-    this.context.fetchCurrentCryptoById(`http://localhost:8080/trade?id=${id}`);
+    this.context.fetchSingleCryptoDataById(
+      `http://localhost:8080/trade?id=${id}`
+    );
   }
 
   render() {

@@ -14,7 +14,6 @@ export default class BuyCrypto extends Component {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-    
   };
 
   handleSubmit = event => {
@@ -57,9 +56,12 @@ export default class BuyCrypto extends Component {
           <Form.Control
             readOnly
             placeholder="Total"
-            value={this.context.singleCryptoData.quote
-              ? this.context.singleCryptoData.quote.usd.price * this.state.amount
-              : 0}
+            value={
+              this.context.singleCryptoData.quote
+                ? this.context.singleCryptoData.quote.usd.price *
+                  this.state.amount
+                : 0
+            }
             name="total"
           />
         </Form.Group>
