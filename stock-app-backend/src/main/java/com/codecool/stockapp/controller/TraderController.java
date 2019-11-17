@@ -1,19 +1,13 @@
 package com.codecool.stockapp.controller;
 
 import com.codecool.stockapp.model.Currencies.CryptoCurrency;
-import com.codecool.stockapp.model.Currencies.DataItem;
 import com.codecool.stockapp.model.Order.Order;
-import com.codecool.stockapp.model.SingleCurrency.CurrencyDetails;
-import com.codecool.stockapp.model.SingleCurrency.SingleCurrency;
+import com.codecool.stockapp.model.Currencies.CurrencyDetails;
 import com.codecool.stockapp.model.Util;
 import com.codecool.stockapp.service.Trader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Stream;
 

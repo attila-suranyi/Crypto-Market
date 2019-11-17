@@ -1,6 +1,7 @@
-package com.codecool.stockapp.model.SingleCurrency;
+package com.codecool.stockapp.model.Currencies;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.annotation.Generated;
 import java.util.Map;
 

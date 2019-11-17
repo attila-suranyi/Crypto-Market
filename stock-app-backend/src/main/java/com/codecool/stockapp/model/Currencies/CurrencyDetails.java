@@ -1,6 +1,8 @@
-package com.codecool.stockapp.model.SingleCurrency;
+package com.codecool.stockapp.model.Currencies;
 
 import java.util.List;
+
+import com.codecool.stockapp.model.Currencies.Quote;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;
 
@@ -11,16 +13,16 @@ public class CurrencyDetails {
 	private String symbol;
 
 	@JsonProperty("circulating_supply")
-	private int circulatingSupply;
+	private long circulatingSupply;
 
 	@JsonProperty("last_updated")
 	private String lastUpdated;
 
 	@JsonProperty("total_supply")
-	private int totalSupply;
+	private long totalSupply;
 
 	@JsonProperty("cmc_rank")
-	private int cmcRank;
+	private long cmcRank;
 
 	@JsonProperty("platform")
 	private Object platform;
@@ -35,13 +37,13 @@ public class CurrencyDetails {
 	private Quote quote;
 
 	@JsonProperty("num_market_pairs")
-	private int numMarketPairs;
+	private long numMarketPairs;
 
 	@JsonProperty("name")
 	private String name;
 
 	@JsonProperty("max_supply")
-	private int maxSupply;
+	private long maxSupply;
 
 	@JsonProperty("id")
 	private int id;
@@ -57,11 +59,11 @@ public class CurrencyDetails {
 		return symbol;
 	}
 
-	public void setCirculatingSupply(int circulatingSupply){
+	public void setCirculatingSupply(long circulatingSupply){
 		this.circulatingSupply = circulatingSupply;
 	}
 
-	public int getCirculatingSupply(){
+	public long getCirculatingSupply(){
 		return circulatingSupply;
 	}
 
@@ -73,19 +75,19 @@ public class CurrencyDetails {
 		return lastUpdated;
 	}
 
-	public void setTotalSupply(int totalSupply){
+	public void setTotalSupply(long totalSupply){
 		this.totalSupply = totalSupply;
 	}
 
-	public int getTotalSupply(){
+	public long getTotalSupply(){
 		return totalSupply;
 	}
 
-	public void setCmcRank(int cmcRank){
+	public void setCmcRank(long cmcRank){
 		this.cmcRank = cmcRank;
 	}
 
-	public int getCmcRank(){
+	public long getCmcRank(){
 		return cmcRank;
 	}
 
@@ -121,11 +123,11 @@ public class CurrencyDetails {
 		return quote;
 	}
 
-	public void setNumMarketPairs(int numMarketPairs){
+	public void setNumMarketPairs(long numMarketPairs){
 		this.numMarketPairs = numMarketPairs;
 	}
 
-	public int getNumMarketPairs(){
+	public long getNumMarketPairs(){
 		return numMarketPairs;
 	}
 
@@ -137,11 +139,11 @@ public class CurrencyDetails {
 		return name;
 	}
 
-	public void setMaxSupply(int maxSupply){
+	public void setMaxSupply(long maxSupply){
 		this.maxSupply = maxSupply;
 	}
 
-	public int getMaxSupply(){
+	public long getMaxSupply(){
 		return maxSupply;
 	}
 

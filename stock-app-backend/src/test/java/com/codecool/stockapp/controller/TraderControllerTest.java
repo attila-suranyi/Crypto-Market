@@ -1,7 +1,7 @@
 package com.codecool.stockapp.controller;
 
 import com.codecool.stockapp.model.Currencies.CryptoCurrency;
-import com.codecool.stockapp.model.Currencies.DataItem;
+import com.codecool.stockapp.model.Currencies.CurrencyDetails;
 import com.codecool.stockapp.service.Trader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -41,8 +40,8 @@ class TraderControllerTest {
     void showCryptoCurrenciesTest() throws Exception {
 
         CryptoCurrency crypto = new CryptoCurrency();
-        List<DataItem> dataItem = new ArrayList<>();
-        dataItem.add(new DataItem());
+        List<CurrencyDetails> dataItem = new ArrayList<>();
+        dataItem.add(new CurrencyDetails());
 
         crypto.setData(dataItem);
 

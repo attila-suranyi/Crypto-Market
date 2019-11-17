@@ -1,6 +1,7 @@
 package com.codecool.stockapp.model.Currencies;
 
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;
 
@@ -8,16 +9,16 @@ import javax.annotation.Generated;
 public class CryptoCurrency{
 
 	@JsonProperty("data")
-	private List<DataItem> data;
+	private List<CurrencyDetails> data;
 
 	@JsonProperty("status")
 	private Status status;
 
-	public void setData(List<DataItem> data){
+	public void setData(List<CurrencyDetails> data){
 		this.data = data;
 	}
 
-	public List<DataItem> getData(){
+	public List<CurrencyDetails> getData(){
 		return data;
 	}
 
