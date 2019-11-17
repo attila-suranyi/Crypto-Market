@@ -14,61 +14,58 @@ public class CurrencyAPIService {
     @Value("${crypto.apikey}")
     private String apiKey;
 
-    @Value("${crypto.latestCryptoEndpoint}")
+    @Value("${crypto.latestAllCryptoEndpoint}")
     private String latestCryptoAPIEndpoint;
 
-    public CryptoCurrency getCurrencies(String sortBy, String sortDir) {
+    @Value("${crypto.latestSingleCryptoEndpoint}")
+    private String latestSingleCryptoData;
 
+    private HttpHeaders buildHeaderWithAPIKey() {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.ACCEPT, "application/json");
         headers.add("X-CMC_PRO_API_KEY", this.apiKey);
+        return headers;
+    }
+
+    public CryptoCurrency getCurrencies(String sortBy, String sortDir) {
 
         String apiEndpoint;
+        UriComponentsBuilder uriBuilder;
 
         if (sortBy.equals("default")) {
-            UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(this.latestCryptoAPIEndpoint)
+            uriBuilder = UriComponentsBuilder.fromHttpUrl(this.latestCryptoAPIEndpoint)
                     .queryParam("limit", 20);
-            apiEndpoint = uriBuilder.toUriString();
         } else {
-            UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(this.latestCryptoAPIEndpoint)
+            uriBuilder = UriComponentsBuilder.fromHttpUrl(this.latestCryptoAPIEndpoint)
                     .queryParam("sort", sortBy)
                     .queryParam("sort_dir", sortDir)
                     .queryParam("limit", 20);
-            apiEndpoint = uriBuilder.toUriString();
         }
 
-        System.out.println(apiEndpoint);
+        apiEndpoint = uriBuilder.toUriString();
 
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.exchange(
                 apiEndpoint,
                 HttpMethod.GET,
-                new HttpEntity<>("parameters", headers),
+                new HttpEntity<>("parameters", this.buildHeaderWithAPIKey()),
                 CryptoCurrency.class
         ).getBody();
     }
 
     public SingleCurrency getSingleCurrency(int id) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.ACCEPT, "application/json");
-        headers.add("X-CMC_PRO_API_KEY", this.apiKey);
 
-        String apiEndpoint;
-
-        String url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest";
-
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(this.latestSingleCryptoData)
                 .queryParam("id", id);
 
-        apiEndpoint = uriBuilder.toUriString();
-        System.out.println(apiEndpoint);
+        String apiEndpoint = uriBuilder.toUriString();
 
         RestTemplate restTemplate = new RestTemplate();
 
         return restTemplate.exchange(
                 apiEndpoint,
                 HttpMethod.GET,
-                new HttpEntity<>("parameters", headers),
+                new HttpEntity<>("parameters", this.buildHeaderWithAPIKey()),
                 SingleCurrency.class
         ).getBody();
     }

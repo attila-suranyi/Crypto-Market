@@ -28,14 +28,6 @@ public class TraderController {
         return trader.getCurrencies(sort_by, sort_dir);
     }
 
-    @GetMapping("/{symbol}")
-    public Stream<Double> getCurrency(@PathVariable String symbol) {
-        return trader.getCurrencies("default", "default").getData()
-                .stream()
-                .filter(x -> x.getSymbol().equals(symbol))
-                .map(x -> x.getQuote().getUSD().getPrice());
-    }
-
     @GetMapping("/trade")
     public CurrencyDetails getCurrencyByID(@RequestParam int id) {
         return trader.getCurrencyById(id);
