@@ -55,25 +55,25 @@ export default class CryptoList extends Component {
           <thead className="black white-text">
             <tr>
               <th>
-                <p>#</p>
+                <p onClick={() => this.sortByProperty("cmc_rank")}>#</p>
               </th>
               <th>
-                <p>Name</p>
+                <p onClick={() => this.sortByProperty("name")}>Name</p>
               </th>
               <th>
                 <p onClick={() => this.sortByProperty("symbol")}>Symbol</p>
               </th>
               <th>
-                <p>Price</p>
+                <p onClick={() => this.sortByProperty("price")}>Price</p>
               </th>
               <th>
-                <p>Change (24h)</p>
+                <p onClick={() => this.sortByProperty("percent_change_24h")}>Change (24h)</p>
               </th>
               <th>
-                <p>Market Cap</p>
+                <p onClick={() => this.sortByProperty("market_cap")}>Market Cap</p>
               </th>
               <th>
-                <p>Volume (24h)</p>
+                <p onClick={() => this.sortByProperty("volume_24h")}>Volume (24h)</p>
               </th>
             </tr>
           </thead>
