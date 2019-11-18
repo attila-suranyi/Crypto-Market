@@ -1,5 +1,6 @@
 package com.codecool.stockapp.model.entity.transaction;
 
+import com.codecool.stockapp.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,6 +34,6 @@ public class Transaction {
     @Column(nullable = false)
     private String date;
 
-    @Column(nullable = false)
-    private long userId;
+    @ManyToOne
+    private User user;
 }
