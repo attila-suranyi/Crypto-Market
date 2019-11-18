@@ -1,4 +1,4 @@
-package com.codecool.stockapp.model.Currencies;
+package com.codecool.stockapp.model.entity.currency;
 
 import java.util.List;
 

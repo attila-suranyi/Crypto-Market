@@ -1,7 +1,7 @@
 package com.codecool.stockapp.controller;
 
-import com.codecool.stockapp.model.Currencies.CryptoCurrency;
-import com.codecool.stockapp.model.Currencies.CurrencyDetails;
+import com.codecool.stockapp.model.entity.currency.CryptoCurrency;
+import com.codecool.stockapp.model.entity.currency.CurrencyDetails;
 import com.codecool.stockapp.service.Trader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

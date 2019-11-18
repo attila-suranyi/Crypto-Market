@@ -1,37 +1,37 @@
-package com.codecool.stockapp.model.Currencies;
+package com.codecool.stockapp.model.entity.currency;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
-public class BTC{
+public class USD{
 
 	@JsonProperty("percent_change_1h")
-	private int percentChange1h;
+	private double percentChange1h;
 
 	@JsonProperty("last_updated")
 	private String lastUpdated;
 
 	@JsonProperty("percent_change_24h")
-	private int percentChange24h;
+	private double percentChange24h;
 
 	@JsonProperty("market_cap")
-	private int marketCap;
+	private long marketCap;
 
 	@JsonProperty("price")
-	private int price;
+	private double price;
 
 	@JsonProperty("volume_24h")
-	private int volume24h;
+	private long volume24h;
 
 	@JsonProperty("percent_change_7d")
-	private int percentChange7d;
+	private double percentChange7d;
 
-	public void setPercentChange1h(int percentChange1h){
+	public void setPercentChange1h(double percentChange1h){
 		this.percentChange1h = percentChange1h;
 	}
 
-	public int getPercentChange1h(){
+	public double getPercentChange1h(){
 		return percentChange1h;
 	}
 
@@ -43,50 +43,50 @@ public class BTC{
 		return lastUpdated;
 	}
 
-	public void setPercentChange24h(int percentChange24h){
+	public void setPercentChange24h(double percentChange24h){
 		this.percentChange24h = percentChange24h;
 	}
 
-	public int getPercentChange24h(){
+	public double getPercentChange24h(){
 		return percentChange24h;
 	}
 
-	public void setMarketCap(int marketCap){
+	public void setMarketCap(long marketCap){
 		this.marketCap = marketCap;
 	}
 
-	public int getMarketCap(){
+	public long getMarketCap(){
 		return marketCap;
 	}
 
-	public void setPrice(int price){
+	public void setPrice(double price){
 		this.price = price;
 	}
 
-	public int getPrice(){
+	public double getPrice(){
 		return price;
 	}
 
-	public void setVolume24h(int volume24h){
+	public void setVolume24h(long volume24h){
 		this.volume24h = volume24h;
 	}
 
-	public int getVolume24h(){
+	public long getVolume24h(){
 		return volume24h;
 	}
 
-	public void setPercentChange7d(int percentChange7d){
+	public void setPercentChange7d(double percentChange7d){
 		this.percentChange7d = percentChange7d;
 	}
 
-	public int getPercentChange7d(){
+	public double getPercentChange7d(){
 		return percentChange7d;
 	}
 
 	@Override
  	public String toString(){
 		return 
-			"BTC{" + 
+			"USD{" + 
 			"percent_change_1h = '" + percentChange1h + '\'' + 
 			",last_updated = '" + lastUpdated + '\'' + 
 			",percent_change_24h = '" + percentChange24h + '\'' + 

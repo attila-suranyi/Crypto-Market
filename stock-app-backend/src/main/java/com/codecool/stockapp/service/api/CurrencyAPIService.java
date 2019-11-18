@@ -1,7 +1,7 @@
 package com.codecool.stockapp.service.api;
 
-import com.codecool.stockapp.model.Currencies.CryptoCurrency;
-import com.codecool.stockapp.model.Currencies.SingleCurrency;
+import com.codecool.stockapp.model.entity.currency.CryptoCurrency;
+import com.codecool.stockapp.model.entity.currency.SingleCurrency;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;

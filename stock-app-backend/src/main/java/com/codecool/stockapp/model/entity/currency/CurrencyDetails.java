@@ -1,8 +1,7 @@
-package com.codecool.stockapp.model.Currencies;
+package com.codecool.stockapp.model.entity.currency;
 
 import java.util.List;
 
-import com.codecool.stockapp.model.Currencies.Quote;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;
 

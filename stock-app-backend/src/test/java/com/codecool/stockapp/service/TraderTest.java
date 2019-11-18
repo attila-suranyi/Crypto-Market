@@ -1,6 +1,6 @@
 package com.codecool.stockapp.service;
 
-import com.codecool.stockapp.model.Currencies.CryptoCurrency;
+import com.codecool.stockapp.model.entity.currency.CryptoCurrency;
 import com.codecool.stockapp.service.api.CurrencyAPIService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -8,7 +8,6 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
 
 

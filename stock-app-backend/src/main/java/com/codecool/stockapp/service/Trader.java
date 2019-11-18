@@ -1,9 +1,9 @@
 package com.codecool.stockapp.service;
 
-import com.codecool.stockapp.model.Currencies.CryptoCurrency;
-import com.codecool.stockapp.model.Order.Order;
-import com.codecool.stockapp.model.Currencies.CurrencyDetails;
-import com.codecool.stockapp.model.Currencies.SingleCurrency;
+import com.codecool.stockapp.model.entity.currency.CryptoCurrency;
+import com.codecool.stockapp.model.entity.transaction.Transaction;
+import com.codecool.stockapp.model.entity.currency.CurrencyDetails;
+import com.codecool.stockapp.model.entity.currency.SingleCurrency;
 import com.codecool.stockapp.service.api.CurrencyAPIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,21 +17,21 @@ public class Trader {
     @Autowired
     CurrencyAPIService currencyAPIService;
 
-    private Set<Order> orders = new HashSet<>();
+    private Set<Transaction> transactions = new HashSet<>();
 
     public Trader() {
     }
 
-    public void buy(Order order) {
-        orders.add(order);
+    public void buy(Transaction transaction) {
+        transactions.add(transaction);
     }
 
-    public void sell(Order order) {
-        orders.remove(order);
+    public void sell(Transaction transaction) {
+        transactions.remove(transaction);
     }
 
-    public Set<Order> getOrders() {
-        return orders;
+    public Set<Transaction> getTransactions() {
+        return transactions;
     }
 
     public CryptoCurrency getCurrencies(String sortBy, String sortDir) {

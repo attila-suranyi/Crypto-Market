@@ -1,15 +1,14 @@
 package com.codecool.stockapp.controller;
 
-import com.codecool.stockapp.model.Currencies.CryptoCurrency;
-import com.codecool.stockapp.model.Order.Order;
-import com.codecool.stockapp.model.Currencies.CurrencyDetails;
+import com.codecool.stockapp.model.entity.currency.CryptoCurrency;
+import com.codecool.stockapp.model.entity.transaction.Transaction;
+import com.codecool.stockapp.model.entity.currency.CurrencyDetails;
 import com.codecool.stockapp.model.Util;
 import com.codecool.stockapp.service.Trader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 @CrossOrigin
 @RestController
@@ -34,19 +33,19 @@ public class TraderController {
     }
 
     @GetMapping("/orders")
-    public Set<Order> getOrders() {
-        return trader.getOrders();
+    public Set<Transaction> getOrders() {
+        return trader.getTransactions();
     }
 
     @PostMapping("/buy")
-    public void buy(@RequestBody Order order) {
-        order.setDate(Util.getCurrentDate());
-        trader.buy(order);
-        System.out.println(trader.getOrders());
+    public void buy(@RequestBody Transaction transaction) {
+        transaction.setDate(Util.getCurrentDate());
+        trader.buy(transaction);
+        System.out.println(trader.getTransactions());
     }
 
     @PostMapping("/sell")
-    public void sell(@RequestBody Order order) {
-        trader.sell(order);
+    public void sell(@RequestBody Transaction transaction) {
+        trader.sell(transaction);
     }
 }
