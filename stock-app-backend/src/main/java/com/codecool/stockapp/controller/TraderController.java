@@ -40,8 +40,7 @@ public class TraderController {
     @PostMapping("/buy")
     public void buy(@RequestBody Transaction transaction) {
         transaction.setDate(Util.getCurrentDate());
-        trader.buy(transaction);
-        System.out.println(trader.getTransactions());
+        trader.buy(transaction, 1);
     }
 
     @PostMapping("/sell")

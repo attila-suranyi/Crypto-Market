@@ -18,6 +18,12 @@ public class User {
     private long id;
 
     @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    @Column(nullable = false)
     private String userName;
 
     @Column(nullable = false)
@@ -30,6 +36,7 @@ public class User {
     private long balance;
 
     @EqualsAndHashCode.Exclude
+    @Singular("transactionList")
     @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Transaction> transactionList;
