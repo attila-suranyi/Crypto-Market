@@ -1,5 +1,6 @@
 package com.codecool.stockapp.model.repository;
 
+import com.codecool.stockapp.model.entity.User;
 import com.codecool.stockapp.model.entity.transaction.Transaction;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,7 +32,6 @@ public class AllRepositoryTest {
                 .date("2015-10-04")
                 .price(150.0)
                 .total(150.0)
-                .userId((long) 1)
                 .symbol("BTC")
                 .build();
 
@@ -44,11 +44,11 @@ public class AllRepositoryTest {
 
     @Test
     public void fieldShouldBeNotNull() {
+
         Transaction transaction = Transaction.builder()
                 .date("2015-10-4")
                 .price(150.0)
                 .total(150.0)
-                .userId((long) 1)
                 .symbol("BTC")
                 .build();
 
