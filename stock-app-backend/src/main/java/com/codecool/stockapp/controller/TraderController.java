@@ -1,5 +1,6 @@
 package com.codecool.stockapp.controller;
 
+import com.codecool.stockapp.model.entity.User;
 import com.codecool.stockapp.model.entity.currency.CryptoCurrency;
 import com.codecool.stockapp.model.entity.transaction.Transaction;
 import com.codecool.stockapp.model.entity.currency.CurrencyDetails;
@@ -16,6 +17,8 @@ public class TraderController {
 
     @Autowired
     private Trader trader;
+
+
 
     @GetMapping("/")
     public CryptoCurrency showCryptoCurrencies() {
@@ -38,9 +41,8 @@ public class TraderController {
     }
 
     @PostMapping("/buy")
-    public void buy(@RequestBody Transaction transaction) {
-        transaction.setDate(Util.getCurrentDate());
-        trader.buy(transaction, 1);
+    public boolean buy(@RequestBody Transaction transaction) {
+        return trader.buy(transaction, 1);
     }
 
     @PostMapping("/sell")

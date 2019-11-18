@@ -32,9 +32,15 @@ public class Trader {
     public Trader() {
     }
 
-    public void buy(Transaction transaction, long userId) {
-        transaction.setUser(userRepository.findById(userId));
-        transactionRepository.save(transaction);
+    public boolean buy(Transaction transaction, long userId) {
+        User user = userRepository.findById(userId);
+        if (checkBalance(transaction, user)) {
+            transaction.setDate(Util.getCurrentDate());
+            transaction.setUser(userRepository.findById(userId));
+            transactionRepository.save(transaction);
+            return true;
+        }
+        return false;
     }
 
     public void sell(Transaction transaction) {
@@ -52,5 +58,9 @@ public class Trader {
     public CurrencyDetails getCurrencyById(int id) {
         SingleCurrency currency = currencyAPIService.getSingleCurrency(id);
         return currency.getData().get(id);
+    }
+
+    private boolean checkBalance(Transaction transaction, User user) {
+        return (transaction.getTotal() < user.getBalance());
     }
 }
