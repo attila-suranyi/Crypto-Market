@@ -33,7 +33,7 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private long balance;
+    private double balance;
 
     @EqualsAndHashCode.Exclude
     @Singular("transactionList")

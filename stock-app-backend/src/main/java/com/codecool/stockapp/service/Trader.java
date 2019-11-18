@@ -11,6 +11,7 @@ import com.codecool.stockapp.model.repository.UserRepository;
 import com.codecool.stockapp.service.api.CurrencyAPIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -32,12 +33,15 @@ public class Trader {
     public Trader() {
     }
 
+    @Transactional
     public boolean buy(Transaction transaction, long userId) {
         User user = userRepository.findById(userId);
         if (checkBalance(transaction, user)) {
             transaction.setDate(Util.getCurrentDate());
             transaction.setUser(userRepository.findById(userId));
             transactionRepository.save(transaction);
+            double balance = user.getBalance()-transaction.getTotal();
+            userRepository.updateBalance(balance, userId);
             return true;
         }
         return false;
