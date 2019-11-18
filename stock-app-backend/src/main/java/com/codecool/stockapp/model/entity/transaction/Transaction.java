@@ -14,6 +14,10 @@ import javax.persistence.*;
 @Entity
 public class Transaction {
 
+    @Id
+    @GeneratedValue
+    private long id;
+
     @Column(nullable = false)
     private String symbol;
 
@@ -29,7 +33,6 @@ public class Transaction {
     @Column(nullable = false)
     private String date;
 
-    @Id
-    @GeneratedValue
+    @Column(nullable = false)
     private long userId;
 }
