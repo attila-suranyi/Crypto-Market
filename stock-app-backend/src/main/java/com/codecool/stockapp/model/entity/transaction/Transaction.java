@@ -17,19 +17,19 @@ public class Transaction {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String symbol;
 
     @Column(nullable = false)
-    private double price;
+    private Double price;
 
     @Column(nullable = false)
-    private double amount;
+    private Double amount;
 
     @Column(nullable = false)
-    private double total;
+    private Double total;
 
     @Column(nullable = false)
     private String date;
