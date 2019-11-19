@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
-import BuyCrypto from "./BuyCrypto";
+import BuyCrypto from "./TradeCryptoForm";
 import '../assets/css/TradeCrypto.css';
 
 export default class TradeCrypto extends Component {

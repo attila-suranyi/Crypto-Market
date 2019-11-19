@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
+import '../assets/css/TradeCryptoForm.css';
 
 export default class BuyCrypto extends Component {
   static contextType = CryptoDataContext;
@@ -31,8 +32,8 @@ export default class BuyCrypto extends Component {
 
   render() {
     return (
-      <div>
-        <div><p>{this.props.tradeDir} {this.props.symbol}</p></div>
+      <div className="trade-form">
+        <div className="crypto-symbol"><p>{this.props.tradeDir} {this.props.symbol}</p></div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formPrice">
             <Form.Label>Price</Form.Label>
