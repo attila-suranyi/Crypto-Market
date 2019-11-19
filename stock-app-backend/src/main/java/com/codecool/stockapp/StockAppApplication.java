@@ -2,6 +2,7 @@ package com.codecool.stockapp;
 
 import com.codecool.stockapp.model.entity.User;
 import com.codecool.stockapp.model.repository.UserRepository;
+import com.codecool.stockapp.service.Trader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +15,9 @@ public class StockAppApplication {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    Trader trader;
 
     public static void main(String[] args) {
         SpringApplication.run(StockAppApplication.class, args);
@@ -33,7 +37,7 @@ public class StockAppApplication {
                     .build();
 
             userRepository.save(defaultUser);
-
+            trader.scanOpenOrders();
         };
     }
 }

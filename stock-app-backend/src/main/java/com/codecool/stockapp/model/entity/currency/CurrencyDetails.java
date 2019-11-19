@@ -3,6 +3,8 @@ package com.codecool.stockapp.model.entity.currency;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
+
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")

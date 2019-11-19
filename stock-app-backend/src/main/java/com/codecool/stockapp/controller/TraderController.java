@@ -5,10 +5,12 @@ import com.codecool.stockapp.model.entity.currency.CryptoCurrency;
 import com.codecool.stockapp.model.entity.transaction.Transaction;
 import com.codecool.stockapp.model.entity.currency.CurrencyDetails;
 import com.codecool.stockapp.model.Util;
+import com.codecool.stockapp.model.entity.transaction.TransactionType;
 import com.codecool.stockapp.service.Trader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @CrossOrigin
@@ -17,7 +19,6 @@ public class TraderController {
 
     @Autowired
     private Trader trader;
-
 
 
     @GetMapping("/")
@@ -36,17 +37,19 @@ public class TraderController {
     }
 
     @GetMapping("/orders")
-    public Set<Transaction> getOrders() {
+    public List<Transaction> getOrders() {
         return trader.getTransactions();
     }
 
     @PostMapping("/buy")
     public boolean buy(@RequestBody Transaction transaction) {
+        transaction.setTransactionType(TransactionType.BUY);
         return trader.buy(transaction, 1);
     }
 
     @PostMapping("/sell")
     public void sell(@RequestBody Transaction transaction) {
+        transaction.setTransactionType(TransactionType.SELL);
         trader.sell(transaction);
     }
 }

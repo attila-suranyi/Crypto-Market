@@ -3,9 +3,10 @@ package com.codecool.stockapp.service;
 import com.codecool.stockapp.model.Util;
 import com.codecool.stockapp.model.entity.User;
 import com.codecool.stockapp.model.entity.currency.CryptoCurrency;
-import com.codecool.stockapp.model.entity.transaction.Transaction;
 import com.codecool.stockapp.model.entity.currency.CurrencyDetails;
 import com.codecool.stockapp.model.entity.currency.SingleCurrency;
+import com.codecool.stockapp.model.entity.transaction.Transaction;
+import com.codecool.stockapp.model.entity.transaction.TransactionType;
 import com.codecool.stockapp.model.repository.TransactionRepository;
 import com.codecool.stockapp.model.repository.UserRepository;
 import com.codecool.stockapp.service.api.CurrencyAPIService;
@@ -13,8 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class Trader {
@@ -28,20 +28,19 @@ public class Trader {
     @Autowired
     UserRepository userRepository;
 
-    private Set<Transaction> transactions = new HashSet<>();
-
     public Trader() {
     }
 
+    //TODO gives back boolean, return the value to the frontend and rename this method according to this
     @Transactional
     public boolean buy(Transaction transaction, long userId) {
         User user = userRepository.findById(userId);
         if (checkBalance(transaction, user)) {
-            transaction.setDate(Util.getCurrentDate());
-            transaction.setUser(userRepository.findById(userId));
-            transactionRepository.save(transaction);
-            double balance = user.getBalance()-transaction.getTotal();
-            userRepository.updateBalance(balance, userId);
+            if (this.isTransactionExecutable(transaction)) {
+                this.saveTransactionWithDetails(transaction, user, true);
+            } else {
+                this.saveTransactionWithDetails(transaction, user, false);
+            }
             return true;
         }
         return false;
@@ -51,15 +50,55 @@ public class Trader {
         transactionRepository.deleteById(transaction.getId());
     }
 
-    public Set<Transaction> getTransactions() {
-        return transactions;
+    private void saveTransactionWithDetails(Transaction transaction, User user, boolean isTransactionClosed) {
+        transaction.setDate(Util.getCurrentDate());
+        transaction.setUser(userRepository.findById(user.getId()));
+        transaction.setClosedTransaction(isTransactionClosed);
+        transactionRepository.saveAndFlush(transaction);
+
+        double balance = user.getBalance()-transaction.getTotal();
+        userRepository.updateBalance(balance, user.getId());
+    }
+
+    public boolean isTransactionExecutable(Transaction transaction) {
+        double currentPrice = currencyAPIService.getSingleCurrencyPrice(transaction.getCurrencyId());
+
+        return transaction.getTransactionType().equals(TransactionType.BUY) && transaction.getPrice() >= currentPrice ||
+                transaction.getTransactionType().equals(TransactionType.SELL) && transaction.getPrice() <= currentPrice;
+    }
+
+    //TODO review this snippet
+    public void scanOpenOrders() {
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+
+                    @Autowired
+                    Trader trader;
+
+                    @Override
+                    public void run() {
+                        List<Transaction> openOrders = transactionRepository.findAllByClosedTransactionFalse();
+                        openOrders.forEach( order -> {
+                            if (trader.isTransactionExecutable(order)) {
+                                order.setClosedTransaction(true);
+                            }
+                        });
+                        scanOpenOrders();
+                    }
+                },
+                10000
+        );
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactionRepository.findAll();
     }
 
     public CryptoCurrency getCurrencies(String sortBy, String sortDir) {
         return currencyAPIService.getCurrencies(sortBy, sortDir);
     }
 
-    public CurrencyDetails getCurrencyById(int id) {
+    public CurrencyDetails getCurrencyById(long id) {
         SingleCurrency currency = currencyAPIService.getSingleCurrency(id);
         return currency.getData().get(id);
     }

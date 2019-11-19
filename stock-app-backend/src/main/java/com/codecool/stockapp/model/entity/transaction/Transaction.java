@@ -23,6 +23,9 @@ public class Transaction {
     private String symbol;
 
     @Column(nullable = false)
+    private Long currencyId;
+
+    @Column(nullable = false)
     private Double price;
 
     @Column(nullable = false)
@@ -33,6 +36,13 @@ public class Transaction {
 
     @Column(nullable = false)
     private String date;
+
+    @Enumerated
+    @Column(nullable = false)
+    private TransactionType transactionType;
+
+    @Column(nullable = false)
+    private boolean closedTransaction;
 
     @ManyToOne
     private User user;

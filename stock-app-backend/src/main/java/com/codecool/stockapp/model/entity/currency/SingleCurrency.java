@@ -1,6 +1,10 @@
 package com.codecool.stockapp.model.entity.currency;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.annotation.Generated;
 import java.util.Map;
@@ -9,16 +13,16 @@ import java.util.Map;
 public class SingleCurrency{
 
 	@JsonProperty("data")
-	private Map<Integer, CurrencyDetails> data;
+	private Map<Long, CurrencyDetails> data;
 
 	@JsonProperty("status")
 	private Status status;
 
-	public Map<Integer, CurrencyDetails> getData() {
+	public Map<Long, CurrencyDetails> getData() {
 		return data;
 	}
 
-	public void setData(Map<Integer, CurrencyDetails> data) {
+	public void setData(Map<Long, CurrencyDetails> data) {
 		this.data = data;
 	}
 

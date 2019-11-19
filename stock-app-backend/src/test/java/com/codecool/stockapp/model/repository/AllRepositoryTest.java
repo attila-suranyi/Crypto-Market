@@ -2,6 +2,7 @@ package com.codecool.stockapp.model.repository;
 
 import com.codecool.stockapp.model.entity.User;
 import com.codecool.stockapp.model.entity.transaction.Transaction;
+import com.codecool.stockapp.model.entity.transaction.TransactionType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class AllRepositoryTest {
                 .price(150.0)
                 .total(150.0)
                 .symbol("BTC")
+                .currencyId((long) 1)
+                .transactionType(TransactionType.BUY)
+                .closedTransaction(false)
                 .build();
 
         transactionRepository.save(transaction);
@@ -77,6 +81,9 @@ public class AllRepositoryTest {
                 .price(150.0)
                 .total(150.0)
                 .symbol("BTC")
+                .currencyId((long) 1)
+                .transactionType(TransactionType.BUY)
+                .closedTransaction(false)
                 .build();
 
         Transaction transaction2 = Transaction.builder()
@@ -85,6 +92,9 @@ public class AllRepositoryTest {
                 .price(150.0)
                 .total(150.0)
                 .symbol("ETH")
+                .currencyId((long) 1027)
+                .transactionType(TransactionType.BUY)
+                .closedTransaction(false)
                 .build();
 
         List<Transaction> transactions = new ArrayList<>();

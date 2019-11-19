@@ -53,7 +53,7 @@ public class CurrencyAPIService {
         ).getBody();
     }
 
-    public SingleCurrency getSingleCurrency(int id) {
+    public SingleCurrency getSingleCurrency(Long id) {
 
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(this.latestSingleCryptoData)
                 .queryParam("id", id);
@@ -68,6 +68,11 @@ public class CurrencyAPIService {
                 new HttpEntity<>("parameters", this.buildHeaderWithAPIKey()),
                 SingleCurrency.class
         ).getBody();
+    }
+
+    public Double getSingleCurrencyPrice(Long id) {
+        SingleCurrency currency = this.getSingleCurrency(id);
+        return currency.getData().get(id).getQuote().getUSD().getPrice();
     }
 }
 

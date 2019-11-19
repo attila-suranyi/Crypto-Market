@@ -10,6 +10,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     List<Transaction> getAllByUser(User user);
 
+    List<Transaction> findAllByClosedTransactionFalse();
+
     void deleteById(Long id);
 
 }
