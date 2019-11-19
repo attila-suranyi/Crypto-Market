@@ -1,0 +1,5 @@
+.trade-crypto-container{
+    display: flex;
+    flex-direction: row;
+}
+
