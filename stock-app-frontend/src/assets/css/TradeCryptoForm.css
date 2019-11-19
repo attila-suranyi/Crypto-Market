@@ -1,0 +1,8 @@
+.trade-form{
+    margin: 10px;
+}
+
+.crypto-symbol{
+    display: flex;
+    justify-content: center;
+}

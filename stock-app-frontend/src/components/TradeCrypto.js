@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
-import BuyCrypto from "./BuyCrypto";
+import BuyCrypto from "./TradeCryptoForm";
+import '../assets/css/TradeCrypto.css';
 
 export default class TradeCrypto extends Component {
   state = {
     symbol: "",
-    id: 1
+    id: 1,
   };
 
   static contextType = CryptoDataContext;
@@ -24,18 +25,21 @@ export default class TradeCrypto extends Component {
 
   render() {
     return (
-      <div className="trade-crypto-container">
+      <div className="trade-container">
         {/* Header */}
-        <div className="trade-crypto-header"></div>
-        <h3>{this.context.singleCryptoData.symbol}</h3>
+        <div className="trade-crypto-header"><h3>{this.state.symbol}</h3></div>
+        <div className="trade-crypto-container">
 
-        {/* Buy crypto */}
-        <div>
-          <BuyCrypto symbol={this.state.symbol} />
+          {/* Buy crypto */}
+          <div className="trade-dir">
+            <BuyCrypto symbol={this.state.symbol} tradeDir="Buy" />
+          </div>
+
+          {/* Sell crypto */}
+          <div className="trade-dir">
+            <BuyCrypto symbol={this.state.symbol} tradeDir="Sell" />
+          </div>
         </div>
-
-        {/* Sell crypto */}
-        <div></div>
       </div>
     );
   }
