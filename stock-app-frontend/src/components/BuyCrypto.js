@@ -19,14 +19,16 @@ export default class BuyCrypto extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    let order = {
+    let transaction = {
       symbol: this.props.symbol,
+      currencyId: this.context.singleCryptoData.id,
       price: this.context.singleCryptoData.quote.usd.price,
       amount: this.state.amount,
-      total: this.state.amount * this.context.singleCryptoData.quote.usd.price
+      total: this.state.amount * this.context.singleCryptoData.quote.usd.price,
+      closedTransaction: false
     };
 
-    this.context.sendDataToBackend("http://localhost:8080/buy", order);
+    this.context.sendDataToBackend("http://localhost:8080/buy", transaction);
   };
 
   render() {
