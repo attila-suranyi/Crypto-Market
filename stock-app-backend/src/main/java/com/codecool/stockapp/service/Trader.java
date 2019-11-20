@@ -2,6 +2,7 @@ package com.codecool.stockapp.service;
 
 import com.codecool.stockapp.model.Util;
 import com.codecool.stockapp.model.entity.User;
+import com.codecool.stockapp.model.entity.Wallet;
 import com.codecool.stockapp.model.entity.currency.CryptoCurrency;
 import com.codecool.stockapp.model.entity.currency.CurrencyDetails;
 import com.codecool.stockapp.model.entity.currency.SingleCurrency;
@@ -9,6 +10,7 @@ import com.codecool.stockapp.model.entity.transaction.Transaction;
 import com.codecool.stockapp.model.entity.transaction.TransactionType;
 import com.codecool.stockapp.model.repository.TransactionRepository;
 import com.codecool.stockapp.model.repository.UserRepository;
+import com.codecool.stockapp.model.repository.WalletRepository;
 import com.codecool.stockapp.service.api.CurrencyAPIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ public class Trader {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    WalletRepository walletRepository;
 
     public Trader() {
     }
@@ -123,5 +128,10 @@ public class Trader {
     //TODO call in isTransactionExecutable, since they always work together
     private boolean checkBalance(Transaction transaction) {
         return (transaction.getTotal() < transaction.getUser().getBalance());
+    }
+
+    public Wallet getWallet(long id) {
+        User user = userRepository.findById(id);
+        return walletRepository.getWalletByUser(user);
     }
 }

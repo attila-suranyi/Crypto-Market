@@ -1,11 +1,13 @@
 package com.codecool.stockapp.controller;
 
 import com.codecool.stockapp.model.entity.User;
+import com.codecool.stockapp.model.entity.Wallet;
 import com.codecool.stockapp.model.entity.currency.CryptoCurrency;
 import com.codecool.stockapp.model.entity.transaction.Transaction;
 import com.codecool.stockapp.model.entity.currency.CurrencyDetails;
 import com.codecool.stockapp.model.Util;
 import com.codecool.stockapp.model.entity.transaction.TransactionType;
+import com.codecool.stockapp.model.repository.UserRepository;
 import com.codecool.stockapp.service.Trader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +56,7 @@ public class TraderController {
     }
 
     @GetMapping("/wallet")
-    public void showWallet() {
-
+    public Wallet showWallet(@RequestParam int id) {
+        return trader.getWallet(id);
     }
 }
