@@ -20,13 +20,13 @@ import java.util.List;
 public class Trader {
 
     @Autowired
-    CurrencyAPIService currencyAPIService;
+    private CurrencyAPIService currencyAPIService;
 
     @Autowired
-    TransactionRepository transactionRepository;
+    private TransactionRepository transactionRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     public Trader() {
     }
@@ -68,8 +68,12 @@ public class Trader {
     public boolean isTransactionExecutable(Transaction transaction) {
         double currentPrice = currencyAPIService.getSingleCurrencyPrice(transaction.getCurrencyId());
 
-        return transaction.getTransactionType().equals(TransactionType.BUY) && transaction.getPrice() >= currentPrice ||
-                transaction.getTransactionType().equals(TransactionType.SELL) && transaction.getPrice() <= currentPrice;
+        if (transaction.getTransactionType().equals(TransactionType.BUY)) {
+            return transaction.getPrice() >= currentPrice;
+        } else if (transaction.getTransactionType().equals(TransactionType.SELL)) {
+            return transaction.getPrice() <= currentPrice;
+        }
+        return false;
     }
 
     //TODO review this snippet
