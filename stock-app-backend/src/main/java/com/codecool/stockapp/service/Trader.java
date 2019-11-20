@@ -41,13 +41,18 @@ public class Trader {
             } else {
                 this.saveTransactionWithDetails(transaction, false);
             }
+            System.out.println(transactionRepository.findAll());
             return true;
         }
         return false;
     }
 
-    public void sell(Transaction transaction) {
-        transactionRepository.deleteById(transaction.getId());
+    @Transactional
+    public boolean sell(Transaction transaction, long userId) {
+        transaction.setUser(userRepository.findById(userId));
+        this.saveTransactionWithDetails(transaction, true);
+        System.out.println(transactionRepository.findAll());
+        return true;
     }
 
     private void saveTransactionWithDetails(Transaction transaction, boolean isTransactionClosed) {
@@ -58,9 +63,15 @@ public class Trader {
         this.modifyUserBalanceByTransactionTotal(transaction);
     }
 
-    //TODO make it usable for sell as well
+
     private void modifyUserBalanceByTransactionTotal(Transaction transaction) {
-        double balance = transaction.getUser().getBalance()-transaction.getTotal();
+        double balance;
+
+        if (transaction.getTransactionType().equals(TransactionType.BUY)) {
+            balance = transaction.getUser().getBalance() - transaction.getTotal();
+        } else {
+            balance = transaction.getUser().getBalance() + transaction.getTotal();
+        }
         userRepository.updateBalance(balance, transaction.getUser().getId());
     }
 
@@ -87,7 +98,7 @@ public class Trader {
                     public void run() {
                         List<Transaction> openTransactions = transactionRepository.findAllByClosedTransactionFalse();
                         openTransactions.forEach( transaction -> {
-                            if (trader.isTransactionExecutable(transaction)) {
+                            if (this.trader.isTransactionExecutable(transaction)) {
                                 transactionRepository.closeTransaction(transaction.getId());
                             }
                         });

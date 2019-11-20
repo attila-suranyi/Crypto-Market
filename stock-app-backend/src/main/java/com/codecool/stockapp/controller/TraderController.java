@@ -48,9 +48,9 @@ public class TraderController {
     }
 
     @PostMapping("/sell")
-    public void sell(@RequestBody Transaction transaction) {
+    public boolean sell(@RequestBody Transaction transaction) {
         transaction.setTransactionType(TransactionType.SELL);
-        trader.sell(transaction);
+        return trader.sell(transaction, 1);
     }
 
     //TODO this piece seems wrong

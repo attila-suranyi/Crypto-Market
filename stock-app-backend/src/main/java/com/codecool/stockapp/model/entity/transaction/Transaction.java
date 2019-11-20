@@ -38,7 +38,7 @@ public class Transaction {
     @Column(nullable = false)
     private String date;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TransactionType transactionType;
 
