@@ -10,10 +10,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-
-        <StockNavBar></StockNavBar>
-
         <CryptoDataContextProvider>
+          <StockNavBar></StockNavBar>
           <Router>
             <Route exact path="/">
               <CryptoList />
