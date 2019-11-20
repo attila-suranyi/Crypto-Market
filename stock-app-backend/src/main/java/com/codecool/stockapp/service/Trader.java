@@ -47,9 +47,11 @@ public class Trader {
         }
         return false;
     }
-
-    public void sell(Transaction transaction) {
-        transactionRepository.deleteById(transaction.getId());
+    @Transactional
+    public boolean sell(Transaction transaction, long userId) {
+        transaction.setUser(userRepository.findById(userId));
+        this.saveTransactionWithDetails(transaction, true);
+        return true;
     }
 
     private void saveTransactionWithDetails(Transaction transaction, boolean isTransactionClosed) {
@@ -63,9 +65,15 @@ public class Trader {
     //TODO make it usable for sell as well
     //TODO save transaction with new state(closed or not)
     private void modifyUserBalanceByTransactionTotal(Transaction transaction) {
-        double balance = transaction.getUser().getBalance()-transaction.getTotal();
-        userRepository.updateBalance(balance, transaction.getUser().getId());
-        transactionRepository.closeTransaction(transaction.getId());
+        if (transaction.getTransactionType().equals(TransactionType.BUY)) {
+            double balance = transaction.getUser().getBalance() - transaction.getTotal();
+            userRepository.updateBalance(balance, transaction.getUser().getId());
+            transactionRepository.closeTransaction(transaction.getId());
+        } else {
+            double balance = transaction.getUser().getBalance() + transaction.getTotal();
+            userRepository.updateBalance(balance, transaction.getUser().getId());
+            transactionRepository.closeTransaction(transaction.getId());
+        }
     }
 
     public boolean isTransactionExecutable(Transaction transaction) {
