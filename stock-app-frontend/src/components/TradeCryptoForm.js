@@ -29,7 +29,11 @@ export default class BuyCrypto extends Component {
       closedTransaction: false
     };
 
-    this.context.sendDataToBackend("http://localhost:8080/buy", transaction);
+    if (this.props.tradeDir === "Sell") {
+      this.context.sendDataToBackend("http://localhost:8080/sell", transaction);
+    } else if (this.props.tradeDir === "Buy") {
+      this.context.sendDataToBackend("http://localhost:8080/buy", transaction);
+    }
   };
 
   render() {
