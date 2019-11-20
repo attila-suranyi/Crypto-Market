@@ -34,13 +34,15 @@ public class Trader {
     //TODO gives back boolean, return the value to the frontend and rename this method according to this
     @Transactional
     public boolean buy(Transaction transaction, long userId) {
-        User user = userRepository.findById(userId);
-        if (checkBalance(transaction, user)) {
+        transaction.setUser(userRepository.findById(userId));
+
+        if (checkBalance(transaction)) {
             if (this.isTransactionExecutable(transaction)) {
-                this.saveTransactionWithDetails(transaction, user, true);
+                this.saveTransactionWithDetails(transaction, true);
             } else {
-                this.saveTransactionWithDetails(transaction, user, false);
+                this.saveTransactionWithDetails(transaction, false);
             }
+            System.out.println(transactionRepository.findAll());
             return true;
         }
         return false;
@@ -50,21 +52,28 @@ public class Trader {
         transactionRepository.deleteById(transaction.getId());
     }
 
-    private void saveTransactionWithDetails(Transaction transaction, User user, boolean isTransactionClosed) {
+    private void saveTransactionWithDetails(Transaction transaction, boolean isTransactionClosed) {
         transaction.setDate(Util.getCurrentDate());
-        transaction.setUser(userRepository.findById(user.getId()));
         transaction.setClosedTransaction(isTransactionClosed);
         transactionRepository.saveAndFlush(transaction);
 
-        double balance = user.getBalance()-transaction.getTotal();
-        userRepository.updateBalance(balance, user.getId());
+        this.modifyUserBalanceByTransactionTotal(transaction);
+    }
+
+    //TODO make it usable for sell as well
+    //TODO save transaction with new state(closed or not)
+    private void modifyUserBalanceByTransactionTotal(Transaction transaction) {
+        double balance = transaction.getUser().getBalance()-transaction.getTotal();
+        userRepository.updateBalance(balance, transaction.getUser().getId());
+        transactionRepository.closeTransaction(transaction.getId());
     }
 
     public boolean isTransactionExecutable(Transaction transaction) {
         double currentPrice = currencyAPIService.getSingleCurrencyPrice(transaction.getCurrencyId());
 
-        return transaction.getTransactionType().equals(TransactionType.BUY) && transaction.getPrice() >= currentPrice ||
-                transaction.getTransactionType().equals(TransactionType.SELL) && transaction.getPrice() <= currentPrice;
+        return (transaction.getTransactionType().equals(TransactionType.BUY) && transaction.getPrice() >= currentPrice ||
+                transaction.getTransactionType().equals(TransactionType.SELL) && transaction.getPrice() <= currentPrice) &&
+                this.checkBalance(transaction);
     }
 
     //TODO review this snippet
@@ -77,16 +86,16 @@ public class Trader {
 
                     @Override
                     public void run() {
-                        List<Transaction> openOrders = transactionRepository.findAllByClosedTransactionFalse();
-                        openOrders.forEach( order -> {
-                            if (trader.isTransactionExecutable(order)) {
-                                order.setClosedTransaction(true);
+                        List<Transaction> openTransactions = transactionRepository.findAllByClosedTransactionFalse();
+                        openTransactions.forEach( transaction -> {
+                            if (trader.isTransactionExecutable(transaction)  && trader.checkBalance(transaction)) {
+                                trader.modifyUserBalanceByTransactionTotal(transaction);
                             }
                         });
                         scanOpenOrders();
                     }
                 },
-                10000
+                60000
         );
     }
 
@@ -103,7 +112,8 @@ public class Trader {
         return currency.getData().get(id);
     }
 
-    private boolean checkBalance(Transaction transaction, User user) {
-        return (transaction.getTotal() < user.getBalance());
+    //TODO call in isTransactionExecutable, since they always work together
+    private boolean checkBalance(Transaction transaction) {
+        return (transaction.getTotal() < transaction.getUser().getBalance());
     }
 }
