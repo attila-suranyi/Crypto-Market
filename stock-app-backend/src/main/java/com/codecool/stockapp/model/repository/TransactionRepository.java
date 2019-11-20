@@ -24,4 +24,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     @Query("select t from Transaction t where t.user.id = :userId AND t.closedTransaction = false")
     List<Transaction> getOpenTransactionsByUserId(@Param("userId") Long userId);
 
+    @Query("select t from Transaction t where t.user.id = :userId AND t.closedTransaction = true")
+    List<Transaction> getClosedTransactionsByUserId(@Param("userId") Long userId);
+
 }

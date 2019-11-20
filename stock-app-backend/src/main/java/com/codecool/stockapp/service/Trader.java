@@ -142,4 +142,8 @@ public class Trader {
 
         return transactionRepository.getOpenTransactionsByUserId(userId);
     }
+
+    public List<Transaction> getTransactionHistoryByUserId(Long userId) {
+        return transactionRepository.getClosedTransactionsByUserId(userId);
+    }
 }

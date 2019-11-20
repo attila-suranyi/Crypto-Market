@@ -60,4 +60,11 @@ public class TraderController {
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         return mapper.writeValueAsString(trader.getOpenTransactions(userId));
     }
+
+    @GetMapping("/order_history")
+    public String getTransactionHistory(@RequestParam Long userId) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        return mapper.writeValueAsString(trader.getTransactionHistoryByUserId(userId));
+    }
 }
