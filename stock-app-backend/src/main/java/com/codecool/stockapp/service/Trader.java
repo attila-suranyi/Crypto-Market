@@ -115,6 +115,7 @@ public class Trader {
         return (transaction.getTotal() < transaction.getUser().getBalance());
     }
 
+    //TODO delete custom open order
     public List<Transaction> getOpenTransactions(Long userId) {
         Transaction openTransaction = Transaction.builder()
                 .closedTransaction(false)
@@ -129,9 +130,6 @@ public class Trader {
                 .build();
 
         transactionRepository.saveAndFlush(openTransaction);
-
-        /*TransactionList transActionList = new TransactionList();
-        transActionList.setTransactionList(transactionRepository.getOpenTransactionsByUserId(userId));*/
 
         return transactionRepository.getOpenTransactionsByUserId(userId);
     }

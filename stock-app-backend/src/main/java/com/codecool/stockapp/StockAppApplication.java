@@ -16,7 +16,7 @@ public class StockAppApplication {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
+    @Autowired(required = true)
     Trader trader;
 
     public static void main(String[] args) {
