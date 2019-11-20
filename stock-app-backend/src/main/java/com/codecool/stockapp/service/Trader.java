@@ -130,8 +130,8 @@ public class Trader {
         return (transaction.getTotal() < transaction.getUser().getBalance());
     }
 
-    public Wallet getWallet(long id) {
+    public List<Wallet> getWallet(long id) {
         User user = userRepository.findById(id);
-        return walletRepository.getWalletByUser(user);
+        return walletRepository.getWalletsByUser(user);
     }
 }

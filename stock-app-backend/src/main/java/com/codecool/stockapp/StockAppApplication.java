@@ -28,6 +28,8 @@ public class StockAppApplication {
     @Profile("production")
     public CommandLineRunner init() {
         return args -> {
+            Wallet wallet = Wallet.builder().build();
+
             User defaultUser = User.builder()
                     .firstName("Satosi")
                     .lastName("Nakamoto")
@@ -35,10 +37,12 @@ public class StockAppApplication {
                     .email("satoshinakamoto@gmail.com")
                     .userName("satosi")
                     .password("Test123")
-                    .wallet(Wallet.builder().build())
+                    .wallet(wallet)
                     .build();
 
+            wallet.setUser(defaultUser);
             userRepository.save(defaultUser);
+
             trader.scanOpenOrders();
         };
     }

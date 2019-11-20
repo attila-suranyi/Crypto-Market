@@ -4,6 +4,8 @@ import com.codecool.stockapp.model.entity.User;
 import com.codecool.stockapp.model.entity.Wallet;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface WalletRepository extends JpaRepository<Wallet, Long> {
-    Wallet getWalletByUser(User user);
+    List<Wallet> getWalletsByUser(User user);
 }
