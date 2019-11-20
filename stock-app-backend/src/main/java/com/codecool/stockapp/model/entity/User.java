@@ -35,6 +35,9 @@ public class User {
     @Column(nullable = false)
     private double balance;
 
+    @OneToOne
+    private Wallet wallet;
+
     @EqualsAndHashCode.Exclude
     @Singular("transactionList")
     @ToString.Exclude

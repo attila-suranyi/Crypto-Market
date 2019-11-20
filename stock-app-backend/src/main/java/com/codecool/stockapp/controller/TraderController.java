@@ -52,4 +52,9 @@ public class TraderController {
         transaction.setTransactionType(TransactionType.SELL);
         return trader.sell(transaction, 1);
     }
+
+    @GetMapping("/wallet")
+    public void showWallet() {
+
+    }
 }
