@@ -60,11 +60,9 @@ public class Trader {
     }
 
     //TODO make it usable for sell as well
-    //TODO save transaction with new state(closed or not)
     private void modifyUserBalanceByTransactionTotal(Transaction transaction) {
         double balance = transaction.getUser().getBalance()-transaction.getTotal();
         userRepository.updateBalance(balance, transaction.getUser().getId());
-        transactionRepository.closeTransaction(transaction.getId());
     }
 
     public boolean isTransactionExecutable(Transaction transaction) {
@@ -87,7 +85,7 @@ public class Trader {
                         List<Transaction> openTransactions = transactionRepository.findAllByClosedTransactionFalse();
                         openTransactions.forEach( transaction -> {
                             if (trader.isTransactionExecutable(transaction)) {
-                                trader.modifyUserBalanceByTransactionTotal(transaction);
+                                transactionRepository.closeTransaction(transaction.getId());
                             }
                         });
                         scanOpenOrders();
