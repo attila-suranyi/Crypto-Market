@@ -35,7 +35,7 @@ public class User {
     @Column(nullable = false)
     private double balance;
 
-    @OneToOne
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Wallet wallet;
 
     @EqualsAndHashCode.Exclude

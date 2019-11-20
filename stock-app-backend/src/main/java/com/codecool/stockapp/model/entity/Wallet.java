@@ -25,6 +25,6 @@ public class Wallet {
     private double inOrder;
     private double usdValue;
 
-    @OneToOne(mappedBy = "wallet", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne()
     private User user;
 }
