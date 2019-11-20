@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
-import "../assets/css/TradeCryptoForm.css";
+import '../assets/css/TradeCryptoForm.css';
 
 export default class BuyCrypto extends Component {
   static contextType = CryptoDataContext;
@@ -10,7 +10,8 @@ export default class BuyCrypto extends Component {
     symbol: "",
     price: "",
     amount: "",
-    total: ""
+    total: "",
+    tradeType: this.props.tradeDir === "Buy" ? "buy" : "sell"
   };
 
   handleChange = event => {
@@ -29,15 +30,10 @@ export default class BuyCrypto extends Component {
       closedTransaction: false
     };
 
-    if (this.props.tradeDir === "Sell") {
-      this.context.sendDataToBackend("http://localhost:8080/sell", transaction);
-    } else if (this.props.tradeDir === "Buy") {
-      this.context.sendDataToBackend("http://localhost:8080/buy", transaction);
-    }
+    this.context.sendDataToBackend(`http://localhost:8080/${this.state.tradeType}`, transaction);
   };
 
   render() {
-
     return (
       <div className="trade-form">
         <div className="crypto-symbol">
@@ -73,7 +69,7 @@ export default class BuyCrypto extends Component {
               value={
                 this.context.singleCryptoData.quote
                   ? this.context.singleCryptoData.quote.usd.price *
-                    this.state.amount
+                  this.state.amount
                   : 0
               }
               name="total"

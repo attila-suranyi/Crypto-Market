@@ -41,7 +41,6 @@ public class Trader {
             } else {
                 this.saveTransactionWithDetails(transaction, false);
             }
-            System.out.println(transactionRepository.findAll());
             return true;
         }
         return false;
@@ -51,7 +50,6 @@ public class Trader {
     public boolean sell(Transaction transaction, long userId) {
         transaction.setUser(userRepository.findById(userId));
         this.saveTransactionWithDetails(transaction, true);
-        System.out.println(transactionRepository.findAll());
         return true;
     }
 
