@@ -42,7 +42,6 @@ public class Trader {
             } else {
                 this.saveTransactionWithDetails(transaction, false);
             }
-            System.out.println(transactionRepository.findAll());
             return true;
         }
         return false;
@@ -71,9 +70,8 @@ public class Trader {
     public boolean isTransactionExecutable(Transaction transaction) {
         double currentPrice = currencyAPIService.getSingleCurrencyPrice(transaction.getCurrencyId());
 
-        return (transaction.getTransactionType().equals(TransactionType.BUY) && transaction.getPrice() >= currentPrice ||
-                transaction.getTransactionType().equals(TransactionType.SELL) && transaction.getPrice() <= currentPrice) &&
-                this.checkBalance(transaction);
+        return transaction.getTransactionType().equals(TransactionType.BUY) && transaction.getPrice() >= currentPrice ||
+                transaction.getTransactionType().equals(TransactionType.SELL) && transaction.getPrice() <= currentPrice;
     }
 
     //TODO review this snippet
@@ -88,7 +86,7 @@ public class Trader {
                     public void run() {
                         List<Transaction> openTransactions = transactionRepository.findAllByClosedTransactionFalse();
                         openTransactions.forEach( transaction -> {
-                            if (trader.isTransactionExecutable(transaction)  && trader.checkBalance(transaction)) {
+                            if (trader.isTransactionExecutable(transaction)) {
                                 trader.modifyUserBalanceByTransactionTotal(transaction);
                             }
                         });
@@ -112,7 +110,6 @@ public class Trader {
         return currency.getData().get(id);
     }
 
-    //TODO call in isTransactionExecutable, since they always work together
     private boolean checkBalance(Transaction transaction) {
         return (transaction.getTotal() < transaction.getUser().getBalance());
     }
