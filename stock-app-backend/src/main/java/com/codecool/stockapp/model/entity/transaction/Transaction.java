@@ -1,6 +1,7 @@
 package com.codecool.stockapp.model.entity.transaction;
 
 import com.codecool.stockapp.model.entity.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -44,6 +45,7 @@ public class Transaction {
     @Column(nullable = false)
     private boolean closedTransaction;
 
+    @JsonIgnore
     @ManyToOne
     private User user;
 }

@@ -1,7 +1,6 @@
 package com.codecool.stockapp.service;
 
 import com.codecool.stockapp.model.Util;
-import com.codecool.stockapp.model.entity.User;
 import com.codecool.stockapp.model.entity.currency.CryptoCurrency;
 import com.codecool.stockapp.model.entity.currency.CurrencyDetails;
 import com.codecool.stockapp.model.entity.currency.SingleCurrency;
@@ -114,5 +113,26 @@ public class Trader {
 
     private boolean checkBalance(Transaction transaction) {
         return (transaction.getTotal() < transaction.getUser().getBalance());
+    }
+
+    public List<Transaction> getOpenTransactions(Long userId) {
+        Transaction openTransaction = Transaction.builder()
+                .closedTransaction(false)
+                .price(150.0)
+                .symbol("BTC")
+                .currencyId((long) 1)
+                .amount(1.0)
+                .total(150.0)
+                .user(userRepository.findById(1))
+                .date("2015-10-05")
+                .transactionType(TransactionType.BUY)
+                .build();
+
+        transactionRepository.saveAndFlush(openTransaction);
+
+        /*TransactionList transActionList = new TransactionList();
+        transActionList.setTransactionList(transactionRepository.getOpenTransactionsByUserId(userId));*/
+
+        return transactionRepository.getOpenTransactionsByUserId(userId);
     }
 }

@@ -5,6 +5,9 @@ import com.codecool.stockapp.model.entity.currency.CurrencyDetails;
 import com.codecool.stockapp.model.entity.transaction.Transaction;
 import com.codecool.stockapp.model.entity.transaction.TransactionType;
 import com.codecool.stockapp.service.Trader;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,5 +51,13 @@ public class TraderController {
     public void sell(@RequestBody Transaction transaction) {
         transaction.setTransactionType(TransactionType.SELL);
         trader.sell(transaction);
+    }
+
+    //TODO this piece seems wrong
+    @GetMapping("/open_order")
+    public String getOpenOrders(@RequestParam Long userId) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        return mapper.writeValueAsString(trader.getOpenTransactions(userId));
     }
 }
