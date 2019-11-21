@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
-import OpenOrderItem from "./OpenOrderItem"
+import OpenOrderItem from "./OpenOrderItem";
 
 export default class OpenOrder extends Component {
   static contextType = CryptoDataContext;
@@ -9,6 +9,12 @@ export default class OpenOrder extends Component {
     this.context.fetchUserOpenOrders(
       "http://localhost:8080/open_order?userId=1"
     );
+  }
+
+  getCurrentPriceForOpenOrderCryptos() {
+      let currenyIdList = [];
+      this.context.userOpenOrders.map(openOrderData => 
+        currenyIdList.push(openOrderData.id))
   }
 
   render() {
@@ -38,16 +44,16 @@ export default class OpenOrder extends Component {
                   <p>Current Price</p>
                 </th>
                 <th>
-                  <p>Profit</p>
-                </th>
-                <th>
                   <p>Date</p>
                 </th>
               </tr>
             </thead>
             <tbody>
               {this.context.userOpenOrders.map(openOrderData => (
-                <OpenOrderItem key={openOrderData.id} openOrderData={openOrderData} />
+                <OpenOrderItem
+                  key={openOrderData.id}
+                  openOrderData={openOrderData}
+                />
               ))}
             </tbody>
           </table>

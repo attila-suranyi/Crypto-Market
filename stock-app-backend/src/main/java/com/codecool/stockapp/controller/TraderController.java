@@ -25,7 +25,7 @@ public class TraderController {
 
 
     @GetMapping("/")
-    public CryptoCurrency showCryptoCurrencies() {
+    public CryptoCurrency getCryptoCurrencies() {
         return trader.getCurrencies("default", "default");
     }
 
