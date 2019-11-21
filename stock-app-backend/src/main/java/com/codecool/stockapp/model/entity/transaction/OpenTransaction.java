@@ -1,10 +1,13 @@
 package com.codecool.stockapp.model.entity.transaction;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Data
 @NoArgsConstructor
@@ -18,13 +21,15 @@ public class OpenTransaction {
 
     private Double price;
 
-    private Double currentPrice;
-
     private Double amount;
 
     private Double total;
 
     private String date;
 
+    private Double currentPrice;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TransactionType transactionType;
 }

@@ -195,8 +195,8 @@ public class Trader {
 
     //TODO mutyizás ezerrel
     public List<OpenTransaction> getOpenTransactions(Long userId) {
-        List<Transaction> transactions = transactionRepository.getOpenTransactionsByUserId(userId);
         List<OpenTransaction> openTransactions = new ArrayList<>();
+        List<Transaction> transactions = transactionRepository.getOpenTransactionsByUserId(userId);
 
         for (Transaction transaction : transactions) {
             OpenTransaction openTransaction = new OpenTransaction();
@@ -206,7 +206,6 @@ public class Trader {
             openTransaction.setCurrentPrice(currentPrice);
             openTransactions.add(openTransaction);
         }
-
         return openTransactions;
     }
 
