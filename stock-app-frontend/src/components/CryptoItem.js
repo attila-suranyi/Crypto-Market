@@ -52,7 +52,7 @@ export default class CryptoItem extends Component {
         </td>
         <td>
           <p>
-            <Button variant="dark" size="sm">
+            <Button variant="dark" size="lg">
               <Link
                 to={`/trade?symbol=${this.props.cryptoData.symbol}&id=${this.props.cryptoData.id}`}
                 style={{ color: '#FFF' }}

@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
 import OrderHistoryItem from "./OrderHistoryItem";
 import Table from "react-bootstrap/Table";
+import '../assets/css/OpenOrder.css';
 
 export default class OrderHistory extends Component {
   static contextType = CryptoDataContext;
@@ -17,7 +18,7 @@ export default class OrderHistory extends Component {
   render() {
     return (
       <div>
-        <h4>Order History</h4>
+        <div className="title-container"><h4 className="title">Order History</h4></div>
         <div className="table-responsive text-nowrap">
           <Table striped bordered hover variant="dark">
             <thead className="black white-text">

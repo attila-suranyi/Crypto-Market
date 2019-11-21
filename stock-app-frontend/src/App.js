@@ -8,7 +8,6 @@ import StockNavBar from "./components/StockNavBar";
 import OrderHistory from "./components/OrderHistory";
 import OpenOrder from "./components/OpenOrder";
 import Wallet from "./components/Wallet";
-import { Jumbotron } from "react-bootstrap";
 
 class App extends React.Component {
   render() {
