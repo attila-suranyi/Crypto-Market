@@ -23,6 +23,6 @@ public class Wallet {
     private double usdValue;
 
     @ToString.Exclude
-    @OneToOne()
+    @ManyToOne()
     private User user;
 }
