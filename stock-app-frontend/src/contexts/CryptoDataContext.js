@@ -9,6 +9,7 @@ export default class CryptoDataContextProvider extends Component {
     singleCryptoData: {},
 
     userOpenOrders: [],
+    userOrderHistory:[],
 
     fetchAllCryptoData: URL => {
       Axios.get(URL).then(res => 
@@ -20,10 +21,10 @@ export default class CryptoDataContextProvider extends Component {
       });
     },
 
-    fetchData: (URL, destinationPlace) => {
+    fetchUserOrderHistory: URL => {
       Axios.get(URL).then(res => 
-        this.setState({destinationPlace: res.data}))
-        .then(res => console.log(this.state.userOpenOrders))
+        this.setState({userOrderHistory: res.data}))
+        .then(res => console.log(this.state.userOrderHistory))
     },
 
     sendDataToBackend: (URL, data) => {

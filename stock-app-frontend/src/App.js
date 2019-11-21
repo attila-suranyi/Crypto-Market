@@ -5,6 +5,7 @@ import CryptoDataContextProvider from "./contexts/CryptoDataContext";
 import CryptoList from "./components/CryptoList";
 import TradeCrypto from "./components/TradeCrypto";
 import StockNavBar from "./components/StockNavBar";
+import OrderHistory from "./components/OrderHistory";
 
 class App extends React.Component {
   render() {
@@ -18,6 +19,7 @@ class App extends React.Component {
             </Route>
             <Route path="/trade" component={TradeCrypto}></Route>
             <Route path="/sorted" component={CryptoList}></Route>
+            <Route path="/order-history" component={OrderHistory}></Route>
           </Router>
         </CryptoDataContextProvider>
       </div>

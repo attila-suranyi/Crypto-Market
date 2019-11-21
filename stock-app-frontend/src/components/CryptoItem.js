@@ -29,7 +29,7 @@ export default class CryptoItem extends Component {
           <p>{this.props.cryptoData.symbol}</p>
         </td>
         <td>
-          <p>${this.props.cryptoData.quote.usd.price.toFixed(4)}</p>
+          <p>${this.props.cryptoData.quote.usd.price.toLocaleString()}</p>
         </td>
         <td>
           <p
@@ -37,17 +37,17 @@ export default class CryptoItem extends Component {
               this.props.cryptoData.quote.usd.percent_change_24h
             )}}
           >
-            {this.props.cryptoData.quote.usd.percent_change_24h.toFixed(2)}%
+            {this.props.cryptoData.quote.usd.percent_change_24h.toLocaleString()}%
           </p>
         </td>
         <td>
           <p>
-            ${this.formatNumber(this.props.cryptoData.quote.usd.market_cap)}
+            ${this.props.cryptoData.quote.usd.market_cap.toLocaleString()}
           </p>
         </td>
         <td>
           <p>
-            ${this.formatNumber(this.props.cryptoData.quote.usd.volume_24h)}
+            ${this.props.cryptoData.quote.usd.volume_24h.toLocaleString()}
           </p>
         </td>
         <td>
