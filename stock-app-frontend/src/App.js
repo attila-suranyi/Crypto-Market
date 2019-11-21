@@ -7,6 +7,7 @@ import TradeCrypto from "./components/TradeCrypto";
 import StockNavBar from "./components/StockNavBar";
 import OrderHistory from "./components/OrderHistory";
 import OpenOrder from "./components/OpenOrder";
+import Wallet from "./components/Wallet";
 
 class App extends React.Component {
   render() {
@@ -23,6 +24,7 @@ class App extends React.Component {
               <Route path="/sorted" component={CryptoList}></Route>
               <Route path="/order-history" component={OrderHistory}></Route>
               <Route path="/open-order" component={OpenOrder}></Route>
+              <Route path="/wallet" component={Wallet}></Route>
             </Router>
           </div>
         </CryptoDataContextProvider>

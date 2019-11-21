@@ -15,7 +15,7 @@ export default class StockNavBar extends Component {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="#features">Wallet</Nav.Link>
+            <Nav.Link href="/wallet">Wallet</Nav.Link>
             <Nav.Link href="#pricing">Portfolio</Nav.Link>
             <NavDropdown title="Orders" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/open-order">
