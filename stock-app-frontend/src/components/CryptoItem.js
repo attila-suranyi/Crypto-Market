@@ -4,6 +4,18 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
 export default class CryptoItem extends Component {
+  formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
+
+  colorNumber(num) {
+    if (num < 0) {
+      return 'red';
+    } else {
+      return 'green';
+    }
+  }
+
   render() {
     return (
       <tr>
@@ -17,16 +29,26 @@ export default class CryptoItem extends Component {
           <p>{this.props.cryptoData.symbol}</p>
         </td>
         <td>
-          <p>{this.props.cryptoData.quote.usd.price}</p>
+          <p>${this.props.cryptoData.quote.usd.price.toFixed(4)}</p>
         </td>
         <td>
-          <p>{this.props.cryptoData.quote.usd.percent_change_24h}</p>
+          <p
+            style={{color : this.colorNumber(
+              this.props.cryptoData.quote.usd.percent_change_24h
+            )}}
+          >
+            {this.props.cryptoData.quote.usd.percent_change_24h.toFixed(2)}%
+          </p>
         </td>
         <td>
-          <p>{this.props.cryptoData.quote.usd.market_cap}</p>
+          <p>
+            ${this.formatNumber(this.props.cryptoData.quote.usd.market_cap)}
+          </p>
         </td>
         <td>
-          <p>{this.props.cryptoData.quote.usd.volume_24h}</p>
+          <p>
+            ${this.formatNumber(this.props.cryptoData.quote.usd.volume_24h)}
+          </p>
         </td>
         <td>
           <p>
