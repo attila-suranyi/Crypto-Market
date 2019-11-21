@@ -190,22 +190,7 @@ public class Trader {
         return (transaction.getTotal() < transaction.getUser().getBalance());
     }
 
-    //TODO delete custom open order
     public List<Transaction> getOpenTransactions(Long userId) {
-        Transaction openTransaction = Transaction.builder()
-                .closedTransaction(false)
-                .price(150.0)
-                .symbol("BTC")
-                .currencyId((long) 1)
-                .amount(1.0)
-                .total(150.0)
-                .user(userRepository.findById(1))
-                .date("2015-10-05")
-                .transactionType(TransactionType.BUY)
-                .build();
-
-        transactionRepository.saveAndFlush(openTransaction);
-
         return transactionRepository.getOpenTransactionsByUserId(userId);
     }
 
