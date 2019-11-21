@@ -36,13 +36,13 @@ public class User {
     private double balance;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Wallet> wallet;
 
     @EqualsAndHashCode.Exclude
     @Singular("transactionList")
     @ToString.Exclude
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Transaction> transactionList;
 
 }
