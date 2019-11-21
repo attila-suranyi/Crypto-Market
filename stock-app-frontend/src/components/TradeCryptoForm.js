@@ -8,11 +8,19 @@ export default class BuyCrypto extends Component {
 
   state = {
     symbol: "",
-    price: "",
-    amount: "",
+    price: 0,
+    amount: 0,
     total: "",
     transactionType: this.props.tradeDir === "Buy" ? "buy" : "sell"
   };
+
+  componentDidMount() {
+    this.setState({
+      price: this.props.singleCryptoData.quote.usd.price
+    });
+  }
+
+  title = "";
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -23,10 +31,10 @@ export default class BuyCrypto extends Component {
 
     let transaction = {
       symbol: this.props.symbol,
-      currencyId: this.context.singleCryptoData.id,
-      price: this.context.singleCryptoData.quote.usd.price,
+      currencyId: this.state.formData.id,
+      price: this.state.formData.quote.usd.price,
       amount: this.state.amount,
-      total: this.state.amount * this.context.singleCryptoData.quote.usd.price,
+      total: this.state.amount * this.state.formData.quote.usd.price,
       closedTransaction: false
     };
 
@@ -41,18 +49,17 @@ export default class BuyCrypto extends Component {
           <Form.Group controlId="formPrice">
             <Form.Label>Price</Form.Label>
             <Form.Control
-              readOnly
-              value={
-                this.context.singleCryptoData.quote
-                  ? this.context.singleCryptoData.quote.usd.price
-                  : 0
-              }
+            // readOnly
+            value={this.state.price}
+            onChange={this.handleChange}
+            name="price"
             />
           </Form.Group>
           <Form.Group controlId="formAmount">
             <Form.Label>Amount</Form.Label>
             <Form.Control
               placeholder="Amount"
+              value={this.state.amount}
               onChange={this.handleChange}
               name="amount"
             />
@@ -63,10 +70,7 @@ export default class BuyCrypto extends Component {
               readOnly
               placeholder="Total"
               value={
-                this.context.singleCryptoData.quote
-                  ? this.context.singleCryptoData.quote.usd.price *
-                  this.state.amount
-                  : 0
+                this.state.price * this.state.amount
               }
               name="total"
             />
