@@ -1,9 +1,12 @@
 package com.codecool.stockapp.controller;
 
+import com.codecool.stockapp.model.entity.User;
+import com.codecool.stockapp.model.entity.Wallet;
 import com.codecool.stockapp.model.entity.currency.CryptoCurrency;
 import com.codecool.stockapp.model.entity.currency.CurrencyDetails;
 import com.codecool.stockapp.model.entity.transaction.Transaction;
 import com.codecool.stockapp.model.entity.transaction.TransactionType;
+import com.codecool.stockapp.model.repository.UserRepository;
 import com.codecool.stockapp.service.Trader;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,6 +54,11 @@ public class TraderController {
     public boolean sell(@RequestBody Transaction transaction) {
         transaction.setTransactionType(TransactionType.SELL);
         return trader.sell(transaction, 1);
+    }
+
+    @GetMapping("/wallet")
+    public List<Wallet> showWallet(@RequestParam int id) {
+        return trader.getWallet(id);
     }
 
     //TODO this piece seems wrong

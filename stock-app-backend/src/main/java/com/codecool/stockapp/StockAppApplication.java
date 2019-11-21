@@ -1,6 +1,7 @@
 package com.codecool.stockapp;
 
 import com.codecool.stockapp.model.entity.User;
+import com.codecool.stockapp.model.entity.Wallet;
 import com.codecool.stockapp.model.repository.UserRepository;
 import com.codecool.stockapp.service.Trader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class StockAppApplication {
     @Profile("production")
     public CommandLineRunner init() {
         return args -> {
+
             User defaultUser = User.builder()
                     .firstName("Satosi")
                     .lastName("Nakamoto")
@@ -36,7 +38,9 @@ public class StockAppApplication {
                     .password("Test123")
                     .build();
 
+
             userRepository.save(defaultUser);
+
             trader.scanOpenOrders();
         };
     }

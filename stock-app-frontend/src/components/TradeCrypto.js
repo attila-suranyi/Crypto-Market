@@ -30,15 +30,20 @@ export default class TradeCrypto extends Component {
         <div className="trade-crypto-header"><h3>{this.state.symbol}</h3></div>
         <div className="trade-crypto-container">
 
-          {/* Buy crypto */}
-          <div className="trade-dir">
-            <BuyCrypto symbol={this.state.symbol} tradeDir="Buy" />
-          </div>
+          {this.context.singleCryptoData.quote ?
+            <>
+              <div className="trade-dir">
+                <BuyCrypto symbol={this.state.symbol} singleCryptoData={this.context.singleCryptoData} tradeDir="Buy" />
+              </div>
+              
+              <div className="trade-dir">
+                <BuyCrypto symbol={this.state.symbol} singleCryptoData={this.context.singleCryptoData} tradeDir="Sell" />
+              </div>
+            </> :
+            <div>Fetching...</div>}
 
           {/* Sell crypto */}
-          <div className="trade-dir">
-            <BuyCrypto symbol={this.state.symbol} tradeDir="Sell" />
-          </div>
+
         </div>
       </div>
     );
