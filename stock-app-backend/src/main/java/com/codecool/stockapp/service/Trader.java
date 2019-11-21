@@ -15,6 +15,7 @@ import com.codecool.stockapp.model.repository.WalletRepository;
 import com.codecool.stockapp.service.api.CurrencyAPIService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,7 +75,6 @@ public class Trader {
 
         this.modifyUserBalanceByTransactionTotal(transaction);
     }
-
 
     private void setWallet(Transaction transaction, long userId) {
         User user = userRepository.findById(userId);
@@ -153,28 +153,18 @@ public class Trader {
         return false;
     }
 
-    //TODO review this snippet
+    @Scheduled(fixedDelay=5000)
     public void scanOpenOrders() {
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
 
-                    @Autowired
-                    Trader trader;
-
-                    @Override
-                    public void run() {
-                        List<Transaction> openTransactions = transactionRepository.findAllByClosedTransactionFalse();
-                        openTransactions.forEach( transaction -> {
-                            if (this.trader.isTransactionExecutable(transaction)) {
-                                transactionRepository.closeTransaction(transaction.getId());
-                            }
-                        });
-                        scanOpenOrders();
-                    }
-                },
-                60000
-        );
+        List<Transaction> openTransactions = transactionRepository.findAllByClosedTransactionFalse();
+        openTransactions.forEach( transaction -> {
+            if (Trader.this.isTransactionExecutable(transaction)) {
+                transactionRepository.closeTransaction(transaction.getId());
+            }
+        });
     }
+
+
 
     public List<Transaction> getTransactions() {
         return transactionRepository.findAll();
@@ -193,7 +183,6 @@ public class Trader {
         return (transaction.getTotal() < transaction.getUser().getBalance());
     }
 
-    //TODO mutyizás ezerrel
     public List<OpenTransaction> getOpenTransactions(Long userId) {
         List<OpenTransaction> openTransactions = new ArrayList<>();
         List<Transaction> transactions = transactionRepository.getOpenTransactionsByUserId(userId);
