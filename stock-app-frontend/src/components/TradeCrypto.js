@@ -13,6 +13,7 @@ export default class TradeCrypto extends Component {
   static contextType = CryptoDataContext;
 
   componentDidMount() {
+    this.context.clearSingleCryptoData();
     const symbol = this.context.getQueryParam("symbol");
     const id = this.context.getQueryParam("id");
 

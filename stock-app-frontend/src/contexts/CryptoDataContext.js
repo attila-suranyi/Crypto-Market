@@ -47,6 +47,9 @@ export default class CryptoDataContextProvider extends Component {
       let params = new URLSearchParams(search);
       let param = params.get(key);
       return param;
+    },
+    clearSingleCryptoData: () => {
+      this.setState({singleCryptoData: {} })
     }
   };
 
