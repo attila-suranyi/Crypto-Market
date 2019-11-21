@@ -44,10 +44,10 @@ public class Trader {
         if (checkBalance(transaction)) {
             if (this.isTransactionExecutable(transaction)) {
                 this.saveTransactionWithDetails(transaction, true);
-                updateWallet(transaction, userId);
+                setWallet(transaction, userId);
             } else {
                 this.saveTransactionWithDetails(transaction, false);
-                updateWallet(transaction, userId);
+                setWallet(transaction, userId);
             }
             System.out.println(transactionRepository.findAll());
             return true;
@@ -59,7 +59,7 @@ public class Trader {
     public boolean sell(Transaction transaction, long userId) {
         transaction.setUser(userRepository.findById(userId));
         this.saveTransactionWithDetails(transaction, true);
-        updateWallet(transaction, userId);
+        setWallet(transaction, userId);
         return true;
     }
 
@@ -71,56 +71,59 @@ public class Trader {
         this.modifyUserBalanceByTransactionTotal(transaction);
     }
 
-    private void updateWallet(Transaction transaction, long userId) {
+    private void setWallet(Transaction transaction, long userId) {
         User user = userRepository.findById(userId);
-        if (walletRepository.getWalletsByUser(user)
+        if (isCryptoInWallet(transaction, user)) {
+            Wallet updatableWallet = walletRepository.getWalletsByUser(user).stream()
+                            .filter(x -> x.getSymbol()
+                            .equals(transaction.getSymbol()))
+                            .findFirst()
+                            .get();
+
+            updateWallet(transaction, updatableWallet, user);
+
+        } else {
+            createWallet(transaction, user);
+        }
+    }
+
+    private void updateWallet(Transaction transaction, Wallet wallet, User user) {
+        if (transaction.getTransactionType().equals(TransactionType.BUY)) {
+            wallet.setTotalAmount(wallet.getTotalAmount() + transaction.getAmount());
+        } else {
+            wallet.setTotalAmount(wallet.getTotalAmount() - transaction.getAmount());
+        }
+        wallet.setInOrder(
+                wallet.getTotalAmount() - transactionRepository.findAllByClosedTransactionFalseAndUserId(user.getId()).stream()
+                        .filter(x -> x.getSymbol().equals(transaction.getSymbol()))
+                        .mapToDouble(Transaction::getAmount)
+                        .sum());
+        wallet.setAvailableAmount(wallet.getAvailableAmount() - wallet.getInOrder());
+
+        walletRepository.updateWallet(
+                wallet.getTotalAmount(),
+                wallet.getAvailableAmount(),
+                wallet.getInOrder(),
+                wallet.getSymbol());
+    }
+
+    private boolean isCryptoInWallet(Transaction transaction, User user) {
+        return walletRepository.getWalletsByUser(user)
                 .stream()
                 .anyMatch(x -> x.getSymbol()
-                        .equals(transaction.getSymbol()))) {
+                        .equals(transaction.getSymbol()));
+    }
 
-            Wallet updatableWallet = walletRepository.getWalletsByUser(user).stream().filter(x -> x.getSymbol().equals(transaction.getSymbol())).findFirst().get();
+    private void createWallet(Transaction transaction, User user) {
+        Wallet wallet = Wallet.builder()
+                .availableAmount(transaction.getAmount())
+                .symbol(transaction.getSymbol())
+                .totalAmount(transaction.getAmount())
+                .inOrder(0)
+                .user(user)
+                .build();
 
-            if (transaction.getTransactionType().equals(TransactionType.BUY)) {
-                updatableWallet.setTotalAmount(updatableWallet.getTotalAmount() + transaction.getAmount());
-                updatableWallet.setInOrder(
-                        updatableWallet.getTotalAmount() - transactionRepository.findAllByClosedTransactionFalseAndUserId(userId).stream()
-                                .filter(x -> x.getSymbol().equals(transaction.getSymbol()))
-                                .mapToDouble(Transaction::getAmount)
-                                .sum());
-                updatableWallet.setAvailableAmount(updatableWallet.getAvailableAmount() - updatableWallet.getInOrder());
-
-                walletRepository.updateWallet(
-                        updatableWallet.getTotalAmount(),
-                        updatableWallet.getAvailableAmount(),
-                        updatableWallet.getInOrder(),
-                        updatableWallet.getSymbol());
-
-            } else {
-                updatableWallet.setTotalAmount(updatableWallet.getTotalAmount() - transaction.getAmount());
-                updatableWallet.setInOrder(
-                        updatableWallet.getTotalAmount() - transactionRepository.findAllByClosedTransactionFalseAndUserId(userId).stream()
-                                .filter(x -> x.getSymbol().equals(transaction.getSymbol()))
-                                .mapToDouble(Transaction::getAmount)
-                                .sum());
-                updatableWallet.setAvailableAmount(updatableWallet.getAvailableAmount() - updatableWallet.getInOrder());
-
-                walletRepository.updateWallet(
-                        updatableWallet.getTotalAmount(),
-                        updatableWallet.getAvailableAmount(),
-                        updatableWallet.getInOrder(),
-                        updatableWallet.getSymbol());
-            }
-        } else {
-            Wallet wallet = Wallet.builder()
-                    .availableAmount(transaction.getAmount())
-                    .symbol(transaction.getSymbol())
-                    .totalAmount(transaction.getAmount())
-                    .inOrder(0)
-                    .user(user)
-                    .build();
-
-            walletRepository.save(wallet);
-        }
+        walletRepository.save(wallet);
     }
 
     //TODO make it usable for sell as well

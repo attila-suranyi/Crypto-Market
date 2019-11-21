@@ -18,9 +18,8 @@ export default class BuyCrypto extends Component {
     this.setState({
       price: this.props.singleCryptoData.quote.usd.price
     });
+    console.log(this.props.singleCryptoData.quote.usd.price)
   }
-
-  title = "";
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -31,10 +30,10 @@ export default class BuyCrypto extends Component {
 
     let transaction = {
       symbol: this.props.symbol,
-      currencyId: this.state.formData.id,
-      price: this.state.formData.quote.usd.price,
+      currencyId: this.context.singleCryptoData.id,
+      price: this.state.price,
       amount: this.state.amount,
-      total: this.state.amount * this.state.formData.quote.usd.price,
+      total: this.state.amount * this.context.singleCryptoData.quote.usd.price,
       closedTransaction: false
     };
 
