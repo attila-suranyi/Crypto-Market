@@ -1,9 +1,6 @@
 package com.codecool.stockapp.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -25,6 +22,7 @@ public class Wallet {
     private double inOrder;
     private double usdValue;
 
+    @ToString.Exclude
     @OneToOne()
     private User user;
 }

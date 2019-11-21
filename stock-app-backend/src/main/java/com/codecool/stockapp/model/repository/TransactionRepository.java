@@ -15,6 +15,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     List<Transaction> findAllByClosedTransactionFalse();
 
+    List<Transaction> findAllByClosedTransactionFalseAndUserId(long userId);
+
     void deleteById(Long id);
 
     @Query("update Transaction t set t.closedTransaction = true where t.id = :id")

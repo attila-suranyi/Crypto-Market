@@ -1,10 +1,7 @@
 package com.codecool.stockapp.model.entity.transaction;
 
 import com.codecool.stockapp.model.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -44,6 +41,7 @@ public class Transaction {
     @Column(nullable = false)
     private boolean closedTransaction;
 
+    @ToString.Exclude
     @ManyToOne
     private User user;
 }

@@ -44,18 +44,22 @@ public class Trader {
         if (checkBalance(transaction)) {
             if (this.isTransactionExecutable(transaction)) {
                 this.saveTransactionWithDetails(transaction, true);
+                updateWallet(transaction, userId);
             } else {
                 this.saveTransactionWithDetails(transaction, false);
+                updateWallet(transaction, userId);
             }
             System.out.println(transactionRepository.findAll());
             return true;
         }
         return false;
     }
+
     @Transactional
     public boolean sell(Transaction transaction, long userId) {
         transaction.setUser(userRepository.findById(userId));
         this.saveTransactionWithDetails(transaction, true);
+        updateWallet(transaction, userId);
         return true;
     }
 
@@ -65,6 +69,58 @@ public class Trader {
         transactionRepository.saveAndFlush(transaction);
 
         this.modifyUserBalanceByTransactionTotal(transaction);
+    }
+
+    private void updateWallet(Transaction transaction, long userId) {
+        User user = userRepository.findById(userId);
+        if (walletRepository.getWalletsByUser(user)
+                .stream()
+                .anyMatch(x -> x.getSymbol()
+                        .equals(transaction.getSymbol()))) {
+
+            Wallet updatableWallet = walletRepository.getWalletsByUser(user).stream().filter(x -> x.getSymbol().equals(transaction.getSymbol())).findFirst().get();
+
+            if (transaction.getTransactionType().equals(TransactionType.BUY)) {
+                updatableWallet.setTotalAmount(updatableWallet.getTotalAmount() + transaction.getAmount());
+                updatableWallet.setInOrder(
+                        updatableWallet.getTotalAmount() - transactionRepository.findAllByClosedTransactionFalseAndUserId(userId).stream()
+                                .filter(x -> x.getSymbol().equals(transaction.getSymbol()))
+                                .mapToDouble(Transaction::getAmount)
+                                .sum());
+                updatableWallet.setAvailableAmount(updatableWallet.getAvailableAmount() - updatableWallet.getInOrder());
+
+                walletRepository.updateWallet(
+                        updatableWallet.getTotalAmount(),
+                        updatableWallet.getAvailableAmount(),
+                        updatableWallet.getInOrder(),
+                        updatableWallet.getSymbol());
+
+            } else {
+                updatableWallet.setTotalAmount(updatableWallet.getTotalAmount() - transaction.getAmount());
+                updatableWallet.setInOrder(
+                        updatableWallet.getTotalAmount() - transactionRepository.findAllByClosedTransactionFalseAndUserId(userId).stream()
+                                .filter(x -> x.getSymbol().equals(transaction.getSymbol()))
+                                .mapToDouble(Transaction::getAmount)
+                                .sum());
+                updatableWallet.setAvailableAmount(updatableWallet.getAvailableAmount() - updatableWallet.getInOrder());
+
+                walletRepository.updateWallet(
+                        updatableWallet.getTotalAmount(),
+                        updatableWallet.getAvailableAmount(),
+                        updatableWallet.getInOrder(),
+                        updatableWallet.getSymbol());
+            }
+        } else {
+            Wallet wallet = Wallet.builder()
+                    .availableAmount(transaction.getAmount())
+                    .symbol(transaction.getSymbol())
+                    .totalAmount(transaction.getAmount())
+                    .inOrder(0)
+                    .user(user)
+                    .build();
+
+            walletRepository.save(wallet);
+        }
     }
 
     //TODO make it usable for sell as well
@@ -100,8 +156,8 @@ public class Trader {
                     @Override
                     public void run() {
                         List<Transaction> openTransactions = transactionRepository.findAllByClosedTransactionFalse();
-                        openTransactions.forEach( transaction -> {
-                            if (trader.isTransactionExecutable(transaction)  && trader.checkBalance(transaction)) {
+                        openTransactions.forEach(transaction -> {
+                            if (trader.isTransactionExecutable(transaction) && trader.checkBalance(transaction)) {
                                 trader.modifyUserBalanceByTransactionTotal(transaction);
                             }
                         });
