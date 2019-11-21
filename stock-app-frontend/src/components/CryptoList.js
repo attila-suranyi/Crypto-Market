@@ -50,42 +50,50 @@ export default class CryptoList extends Component {
 
   render() {
     return (
-      <div className="table-responsive text-nowrap">
-        <table className="table table-striped table-hover">
-          <thead className="black white-text">
-            <tr>
-              <th>
-                <p onClick={() => this.sortByProperty("cmc_rank")}>#</p>
-              </th>
-              <th>
-                <p onClick={() => this.sortByProperty("name")}>Name</p>
-              </th>
-              <th>
-                <p onClick={() => this.sortByProperty("symbol")}>Symbol</p>
-              </th>
-              <th>
-                <p onClick={() => this.sortByProperty("price")}>Price</p>
-              </th>
-              <th>
-                <p onClick={() => this.sortByProperty("percent_change_24h")}>Change (24h)</p>
-              </th>
-              <th>
-                <p onClick={() => this.sortByProperty("market_cap")}>Market Cap</p>
-              </th>
-              <th>
-                <p onClick={() => this.sortByProperty("volume_24h")}>Volume (24h)</p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.context.cryptoData.map(cryptoCurrency => (
-              <CryptoItem
-                key={cryptoCurrency.id}
-                cryptoData={cryptoCurrency}
-              />
-            ))}
-          </tbody>
-        </table>
+      <div>
+        <div className="table-responsive text-nowrap">
+          <table className="table table-striped table-hover">
+            <thead className="black white-text">
+              <tr>
+                <th>
+                  <p onClick={() => this.sortByProperty("cmc_rank")}>#</p>
+                </th>
+                <th>
+                  <p onClick={() => this.sortByProperty("name")}>Name</p>
+                </th>
+                <th>
+                  <p onClick={() => this.sortByProperty("symbol")}>Symbol</p>
+                </th>
+                <th>
+                  <p onClick={() => this.sortByProperty("price")}>Price</p>
+                </th>
+                <th>
+                  <p onClick={() => this.sortByProperty("percent_change_24h")}>
+                    Change (24h)
+                  </p>
+                </th>
+                <th>
+                  <p onClick={() => this.sortByProperty("market_cap")}>
+                    Market Cap
+                  </p>
+                </th>
+                <th>
+                  <p onClick={() => this.sortByProperty("volume_24h")}>
+                    Volume (24h)
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.context.cryptoData.map(cryptoCurrency => (
+                <CryptoItem
+                  key={cryptoCurrency.id}
+                  cryptoData={cryptoCurrency}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

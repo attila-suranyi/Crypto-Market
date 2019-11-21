@@ -1,22 +1,20 @@
 import React, { Component } from "react";
-
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
-import OrderHistoryItem from "./OrderHistoryItem";
+import OpenOrderItem from "./OpenOrderItem"
 
-export default class OrderHistory extends Component {
+export default class OpenOrder extends Component {
   static contextType = CryptoDataContext;
 
-  //TODO make user ID dynamic
   componentDidMount() {
-    this.context.fetchUserOrderHistory(
-      "http://localhost:8080/order_history?userId=1"
+    this.context.fetchUserOpenOrders(
+      "http://localhost:8080/open_order?userId=1"
     );
   }
 
   render() {
     return (
       <div>
-        <h4>Order History</h4>
+        <h4>Open Orders</h4>
         <div className="table-responsive text-nowrap">
           <table className="table table-striped table-hover">
             <thead className="black white-text">
@@ -37,13 +35,19 @@ export default class OrderHistory extends Component {
                   <p>Price</p>
                 </th>
                 <th>
+                  <p>Current Price</p>
+                </th>
+                <th>
+                  <p>Profit</p>
+                </th>
+                <th>
                   <p>Date</p>
                 </th>
               </tr>
             </thead>
             <tbody>
-              {this.context.userOrderHistory.map(orderData => (
-                <OrderHistoryItem key={orderData.id} orderData={orderData} />
+              {this.context.userOpenOrders.map(openOrderData => (
+                <OpenOrderItem key={openOrderData.id} openOrderData={openOrderData} />
               ))}
             </tbody>
           </table>

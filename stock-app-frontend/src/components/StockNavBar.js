@@ -8,13 +8,6 @@ import { CryptoDataContext } from "../contexts/CryptoDataContext";
 export default class StockNavBar extends Component {
   static contextType = CryptoDataContext;
 
-  handleEvent = event => {
-    this.context.fetchData(
-      "http://localhost:8080/open_order?userId=1",
-      this.context.userOpenOrders
-    );
-  };
-
   render() {
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -25,7 +18,7 @@ export default class StockNavBar extends Component {
             <Nav.Link href="#features">Wallet</Nav.Link>
             <Nav.Link href="#pricing">Portfolio</Nav.Link>
             <NavDropdown title="Orders" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1" onClick={this.handleEvent}>
+              <NavDropdown.Item href="/open-order">
                 Open Orders
               </NavDropdown.Item>
               <NavDropdown.Item href="/order-history">
