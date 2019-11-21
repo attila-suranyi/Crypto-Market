@@ -215,6 +215,7 @@ public class Trader {
 
     public List<Wallet> getWallet(long id) {
         User user = userRepository.findById(id);
+        System.out.println(walletRepository.getWalletsByUser(user));
         return walletRepository.getWalletsByUser(user);
     }
 }

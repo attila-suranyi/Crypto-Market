@@ -35,6 +35,7 @@ public class User {
     @Column(nullable = false)
     private double balance;
 
+    @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Wallet> wallet;
@@ -42,7 +43,7 @@ public class User {
     @EqualsAndHashCode.Exclude
     @Singular("transactionList")
     @ToString.Exclude
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> transactionList;
 
 }

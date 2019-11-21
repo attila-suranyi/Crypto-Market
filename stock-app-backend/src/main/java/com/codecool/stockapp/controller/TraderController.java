@@ -57,8 +57,8 @@ public class TraderController {
     }
 
     @GetMapping("/wallet")
-    public List<Wallet> showWallet(@RequestParam int id) {
-        return trader.getWallet(id);
+    public List<Wallet> showWallet() {
+        return trader.getWallet(1);
     }
 
     //TODO this piece seems wrong

@@ -1,5 +1,6 @@
 package com.codecool.stockapp.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,7 +23,8 @@ public class Wallet {
     private double inOrder;
     private double usdValue;
 
+    @JsonIgnore
     @ToString.Exclude
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 }
