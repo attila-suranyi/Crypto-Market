@@ -19,9 +19,6 @@ public class StockAppApplication {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    Trader trader;
-
     public static void main(String[] args) {
         SpringApplication.run(StockAppApplication.class, args);
     }
