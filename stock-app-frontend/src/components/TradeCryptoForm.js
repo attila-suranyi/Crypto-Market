@@ -10,7 +10,8 @@ export default class BuyCrypto extends Component {
     symbol: "",
     price: "",
     amount: "",
-    total: ""
+    total: "",
+    transactionType: this.props.tradeDir === "Buy" ? "buy" : "sell"
   };
 
   handleChange = event => {
@@ -29,7 +30,7 @@ export default class BuyCrypto extends Component {
       closedTransaction: false
     };
 
-    this.context.sendDataToBackend("http://localhost:8080/buy", transaction);
+    this.context.sendDataToBackend(`http://localhost:8080/${this.state.transactionType}`, transaction);
   };
 
   render() {
