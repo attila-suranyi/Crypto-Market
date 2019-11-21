@@ -13,8 +13,6 @@ export default class OpenOrderItem extends Component {
     }
   }
 
-  componentDidMount() {}
-
   render() {
     return (
       <tr>
@@ -22,30 +20,30 @@ export default class OpenOrderItem extends Component {
           <p
             style={{
               color: this.colorTransactionType(
-                this.props.orderData.transactionType
+                this.props.openOrderData.transactionType
               )
             }}
           >
-            {this.props.orderData.transactionType}
+            {this.props.openOrderData.transactionType}
           </p>
         </td>
         <td>
-          <p>{this.props.orderData.symbol}</p>
+          <p>{this.props.openOrderData.symbol}</p>
         </td>
         <td>
-          <p>{this.props.orderData.amount}</p>
+          <p>{this.props.openOrderData.amount}</p>
         </td>
         <td>
-          <p>${this.props.orderData.total.toLocaleString()}</p>
+          <p>${this.props.openOrderData.total.toLocaleString()}</p>
         </td>
         <td>
-          <p>${this.props.orderData.price.toLocaleString()}</p>
+          <p>${this.props.openOrderData.price.toLocaleString()}</p>
         </td>
         <td>
-          <p>${}</p>
+          <p>${this.props.openOrderData.currentPrice.toLocaleString()}</p>
         </td>
         <td>
-          <p>{this.props.orderData.date}</p>
+          <p>{this.props.openOrderData.date}</p>
         </td>
       </tr>
     );
