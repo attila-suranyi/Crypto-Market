@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
-import WalletItem from "./WalletItem"
+import WalletItem from "./WalletItem";
+import Table from "react-bootstrap/Table";
 
 export default class Wallet extends Component {
   static contextType = CryptoDataContext;
@@ -16,7 +17,7 @@ export default class Wallet extends Component {
       <div>
         <h4>Wallet</h4>
         <div className="table-responsive text-nowrap">
-          <table className="table table-striped table-hover">
+          <Table striped bordered hover variant="dark">
             <thead className="black white-text">
               <tr>
                 <th>
@@ -41,7 +42,7 @@ export default class Wallet extends Component {
                 <WalletItem key={userWallet.symbol} userWallet={userWallet} />
               ))}
             </tbody>
-          </table>
+          </Table>
         </div>
       </div>
     );

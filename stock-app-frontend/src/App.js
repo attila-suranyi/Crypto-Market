@@ -8,6 +8,7 @@ import StockNavBar from "./components/StockNavBar";
 import OrderHistory from "./components/OrderHistory";
 import OpenOrder from "./components/OpenOrder";
 import Wallet from "./components/Wallet";
+import { Jumbotron } from "react-bootstrap";
 
 class App extends React.Component {
   render() {
@@ -15,6 +16,7 @@ class App extends React.Component {
       <div className="App">
         <CryptoDataContextProvider>
           <StockNavBar></StockNavBar>
+
           <div>
             <Router>
               <Route exact path="/">
@@ -27,6 +29,7 @@ class App extends React.Component {
               <Route path="/wallet" component={Wallet}></Route>
             </Router>
           </div>
+
         </CryptoDataContextProvider>
       </div>
     );

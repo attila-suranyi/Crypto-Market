@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
 import CryptoItem from "./CryptoItem";
 
+import Table from "react-bootstrap/Table";
+
 export default class CryptoList extends Component {
   static contextType = CryptoDataContext;
 
@@ -52,7 +54,7 @@ export default class CryptoList extends Component {
     return (
       <div>
         <div className="table-responsive text-nowrap">
-          <table className="table table-striped table-hover">
+          <Table striped bordered hover variant="dark">
             <thead className="black white-text">
               <tr>
                 <th>
@@ -92,7 +94,7 @@ export default class CryptoList extends Component {
                 />
               ))}
             </tbody>
-          </table>
+          </Table>
         </div>
       </div>
     );
