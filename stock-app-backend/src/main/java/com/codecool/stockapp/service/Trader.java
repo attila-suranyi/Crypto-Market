@@ -6,16 +6,21 @@ import com.codecool.stockapp.model.entity.Wallet;
 import com.codecool.stockapp.model.entity.currency.CryptoCurrency;
 import com.codecool.stockapp.model.entity.currency.CurrencyDetails;
 import com.codecool.stockapp.model.entity.currency.SingleCurrency;
+import com.codecool.stockapp.model.entity.transaction.OpenTransaction;
 import com.codecool.stockapp.model.entity.transaction.Transaction;
 import com.codecool.stockapp.model.entity.transaction.TransactionType;
 import com.codecool.stockapp.model.repository.TransactionRepository;
 import com.codecool.stockapp.model.repository.UserRepository;
 import com.codecool.stockapp.model.repository.WalletRepository;
 import com.codecool.stockapp.service.api.CurrencyAPIService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -126,8 +131,6 @@ public class Trader {
         walletRepository.save(wallet);
     }
 
-    //TODO make it usable for sell as well
-    //TODO save transaction with new state(closed or not)
     private void modifyUserBalanceByTransactionTotal(Transaction transaction) {
         double balance;
 
@@ -190,8 +193,21 @@ public class Trader {
         return (transaction.getTotal() < transaction.getUser().getBalance());
     }
 
-    public List<Transaction> getOpenTransactions(Long userId) {
-        return transactionRepository.getOpenTransactionsByUserId(userId);
+    //TODO mutyizás ezerrel
+    public List<OpenTransaction> getOpenTransactions(Long userId) {
+        List<Transaction> transactions = transactionRepository.getOpenTransactionsByUserId(userId);
+        List<OpenTransaction> openTransactions = new ArrayList<>();
+
+        for (Transaction transaction : transactions) {
+            OpenTransaction openTransaction = new OpenTransaction();
+            BeanUtils.copyProperties(transaction, openTransaction);
+            Long id = transaction.getCurrencyId();
+            Double currentPrice = currencyAPIService.getSingleCurrencyPrice(id);
+            openTransaction.setCurrentPrice(currentPrice);
+            openTransactions.add(openTransaction);
+        }
+
+        return openTransactions;
     }
 
     public List<Transaction> getTransactionHistoryByUserId(Long userId) {
