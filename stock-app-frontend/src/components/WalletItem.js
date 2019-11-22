@@ -20,10 +20,10 @@ export default class WalletItem extends Component {
           <p>{this.props.userWallet.availableAmount}</p>
         </td>
         <td>
-          <p>{this.props.userWallet.inOrderAmount}</p>
+          <p>{this.props.userWallet.inOrder}</p>
         </td>
         <td>
-          <p>{this.props.userWallet.usdValue}</p>
+          <p>${this.props.userWallet.usdValue.toLocaleString()}</p>
         </td>
       </tr>
     );

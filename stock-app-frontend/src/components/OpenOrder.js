@@ -53,7 +53,7 @@ export default class OpenOrder extends Component {
             <tbody>
               {this.context.userOpenOrders.map(openOrderData => (
                 <OpenOrderItem
-                  key={openOrderData.id}
+                  key={openOrderData.date}
                   openOrderData={openOrderData}
                 />
               ))}

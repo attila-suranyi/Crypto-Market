@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,37 +78,42 @@ public class Trader {
     private void setWallet(Transaction transaction, long userId) {
         User user = userRepository.findById(userId);
         if (isCryptoInWallet(transaction, user)) {
-            Wallet updatableWallet = walletRepository.getWalletsByUser(user).stream()
+            Wallet updatableWallet =
+                    walletRepository.getWalletsByUser(user).stream()
                             .filter(x -> x.getSymbol()
                             .equals(transaction.getSymbol()))
                             .findFirst()
                             .get();
 
-            updateWallet(transaction, updatableWallet, user);
+            updateWallet(transaction, updatableWallet);
 
         } else {
             createWallet(transaction, user);
         }
     }
 
-    private void updateWallet(Transaction transaction, Wallet wallet, User user) {
-        if (transaction.getTransactionType().equals(TransactionType.BUY)) {
+    private void updateWallet(Transaction transaction, Wallet wallet) {
+        if (transaction.getTransactionType().equals(TransactionType.BUY) && transaction.isClosedTransaction()) {
             wallet.setTotalAmount(wallet.getTotalAmount() + transaction.getAmount());
-        } else {
+        } else if (transaction.getTransactionType().equals(TransactionType.SELL) && transaction.isClosedTransaction()) {
             wallet.setTotalAmount(wallet.getTotalAmount() - transaction.getAmount());
+        } else if (transaction.getTransactionType().equals(TransactionType.BUY) && !transaction.isClosedTransaction()) {
+            //TODO
+        } else if (transaction.getTransactionType().equals(TransactionType.SELL) && !transaction.isClosedTransaction()) {
+            wallet.setTotalAmount(wallet.getTotalAmount() - transaction.getAmount());
+            wallet.setInOrder(wallet.getInOrder() + transaction.getAmount());
         }
-        wallet.setInOrder(
-                wallet.getTotalAmount() - transactionRepository.findAllByClosedTransactionFalseAndUserId(user.getId()).stream()
-                        .filter(x -> x.getSymbol().equals(transaction.getSymbol()))
-                        .mapToDouble(Transaction::getAmount)
-                        .sum());
-        wallet.setAvailableAmount(wallet.getAvailableAmount() - wallet.getInOrder());
+
+        wallet.setAvailableAmount(wallet.getTotalAmount() - wallet.getInOrder());
+        wallet.setUsdValue(wallet.getTotalAmount() * transaction.getPrice());
 
         walletRepository.updateWallet(
-                wallet.getTotalAmount(),
                 wallet.getAvailableAmount(),
                 wallet.getInOrder(),
+                wallet.getTotalAmount(),
+                wallet.getUsdValue(),
                 wallet.getSymbol());
+
     }
 
     private boolean isCryptoInWallet(Transaction transaction, User user) {
@@ -125,6 +129,7 @@ public class Trader {
                 .symbol(transaction.getSymbol())
                 .totalAmount(transaction.getAmount())
                 .inOrder(0)
+                .usdValue(transaction.getAmount() * transaction.getPrice())
                 .user(user)
                 .build();
 
@@ -153,17 +158,16 @@ public class Trader {
         return false;
     }
 
-    @Scheduled(fixedDelay=5000)
+    @Scheduled(fixedDelay = 5000)
     public void scanOpenOrders() {
 
         List<Transaction> openTransactions = transactionRepository.findAllByClosedTransactionFalse();
-        openTransactions.forEach( transaction -> {
+        openTransactions.forEach(transaction -> {
             if (Trader.this.isTransactionExecutable(transaction)) {
                 transactionRepository.closeTransaction(transaction.getId());
             }
         });
     }
-
 
 
     public List<Transaction> getTransactions() {
