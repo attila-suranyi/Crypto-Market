@@ -9,13 +9,14 @@ import lombok.NoArgsConstructor;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class Transaction {
+public class Transaction extends CurrencyBase {
 
     @Id
     @GeneratedValue
@@ -50,4 +51,12 @@ public class Transaction {
     @ToString.Exclude
     @ManyToOne
     private User user;
+
+    public void addUser(User user) {
+        this.setUser(user);
+        if (user.getTransactionList() == null) {
+            user.setTransactionList(new ArrayList<>());
+        }
+        user.getTransactionList().add(this);
+    }
 }

@@ -13,7 +13,7 @@ import javax.persistence.Enumerated;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OpenTransaction {
+public class OpenTransaction  extends CurrencyBase{
 
     private String symbol;
 
