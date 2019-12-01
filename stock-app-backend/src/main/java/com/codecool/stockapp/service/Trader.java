@@ -41,7 +41,6 @@ public class Trader {
     public Trader() {
     }
 
-    //TODO gives back boolean, return the value to the frontend and rename this method according to this
     @Transactional
     public boolean buy(Transaction transaction, long userId) {
         transaction.setUser(userRepository.findById(userId));
@@ -59,6 +58,7 @@ public class Trader {
         return false;
     }
 
+    //TODO checks!!!: checkBalance, isTransactionExecutable
     @Transactional
     public boolean sell(Transaction transaction, long userId) {
         transaction.setUser(userRepository.findById(userId));
@@ -158,6 +158,7 @@ public class Trader {
         return false;
     }
 
+    //TODO replace this
     @Scheduled(fixedDelay = 5000)
     public void scanOpenOrders() {
 
@@ -169,15 +170,15 @@ public class Trader {
         });
     }
 
-
+    //TODO replace this, not business logic
     public List<Transaction> getTransactions() {
         return transactionRepository.findAll();
     }
-
+    //TODO replace this, not business logic
     public CryptoCurrency getCurrencies(String sortBy, String sortDir) {
         return currencyAPIService.getCurrencies(sortBy, sortDir);
     }
-
+    //TODO replace this, not business logic
     public CurrencyDetails getCurrencyById(long id) {
         SingleCurrency currency = currencyAPIService.getSingleCurrency(id);
         return currency.getData().get(id);
@@ -187,10 +188,12 @@ public class Trader {
         return (transaction.getTotal() < transaction.getUser().getBalance());
     }
 
+    //TODO test new repository method
     public List<OpenTransaction> getOpenTransactions(Long userId) {
         List<OpenTransaction> openTransactions = new ArrayList<>();
-        List<Transaction> transactions = transactionRepository.getOpenTransactionsByUserId(userId);
+        List<Transaction> transactions = transactionRepository.getTransactionsByUserIdAndTransactionType(userId, false);
 
+        //TODO refactor this with CurrencyBase superclass
         for (Transaction transaction : transactions) {
             OpenTransaction openTransaction = new OpenTransaction();
             BeanUtils.copyProperties(transaction, openTransaction);
@@ -202,13 +205,14 @@ public class Trader {
         return openTransactions;
     }
 
+    //TODO replace this, not business logic
     public List<Transaction> getTransactionHistoryByUserId(Long userId) {
-        return transactionRepository.getClosedTransactionsByUserId(userId);
+        return transactionRepository.getTransactionsByUserIdAndTransactionType(userId, true);
     }
 
+    //TODO replace this, not business logic
     public List<Wallet> getWallet(long id) {
         User user = userRepository.findById(id);
-        System.out.println(walletRepository.getWalletsByUser(user));
         return walletRepository.getWalletsByUser(user);
     }
 }
