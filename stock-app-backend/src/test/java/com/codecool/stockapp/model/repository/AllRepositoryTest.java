@@ -158,20 +158,13 @@ public class AllRepositoryTest {
                 .closedTransaction(false)
                 .build();
 
-        List<Transaction> user1Transactions = new ArrayList<>();
-        user1Transactions.add(transaction1);
-
-        List<Transaction> user2Transactions = new ArrayList<>();
-        user2Transactions.add(transaction2);
-
-        user1.setTransactionList(user1Transactions);
-        user2.setTransactionList(user2Transactions);
+        transaction1.addUser(user1);
+        transaction2.addUser(user2);
 
         userRepository.saveAll(Lists.newArrayList(user1, user2));
 
-        assertThat(transactionRepository.getOpenTransactionsByUserId(user1.getId()))
+        assertThat(transactionRepository.getTransactionsByUserIdAndTransactionType(user1.getId(), false))
                 .hasSize(1)
                 .contains(transaction1);
-
     }
 }
