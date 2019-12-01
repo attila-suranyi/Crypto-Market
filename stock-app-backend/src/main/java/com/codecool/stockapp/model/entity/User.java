@@ -41,7 +41,6 @@ public class User {
     private List<Wallet> wallet;
 
     @EqualsAndHashCode.Exclude
-    @Singular("transactionList")
     @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> transactionList;

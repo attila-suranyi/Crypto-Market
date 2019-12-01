@@ -1,12 +1,11 @@
 package com.codecool.stockapp.controller;
 
-import com.codecool.stockapp.model.entity.User;
 import com.codecool.stockapp.model.entity.Wallet;
 import com.codecool.stockapp.model.entity.currency.CryptoCurrency;
 import com.codecool.stockapp.model.entity.currency.CurrencyDetails;
+import com.codecool.stockapp.model.entity.transaction.OpenTransaction;
 import com.codecool.stockapp.model.entity.transaction.Transaction;
 import com.codecool.stockapp.model.entity.transaction.TransactionType;
-import com.codecool.stockapp.model.repository.UserRepository;
 import com.codecool.stockapp.service.Trader;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -61,12 +60,10 @@ public class TraderController {
         return trader.getWallet(1);
     }
 
-    //TODO this piece seems wrong
+    //TODO test if this gives back proper format
     @GetMapping("/open_order")
-    public String getOpenOrders(@RequestParam Long userId) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
-        return mapper.writeValueAsString(trader.getOpenTransactions(userId));
+    public List<OpenTransaction> getOpenOrders(@RequestParam Long userId) throws JsonProcessingException {
+        return trader.getOpenTransactions(userId);
     }
 
     @GetMapping("/order_history")
