@@ -1,6 +1,6 @@
 package com.codecool.stockapp.model.repository;
 
-import com.codecool.stockapp.model.entity.User;
+import com.codecool.stockapp.model.entity.StockAppUser;
 import com.codecool.stockapp.model.entity.Wallet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface WalletRepository extends JpaRepository<Wallet, Long> {
-    List<Wallet> getWalletsByUser(User user);
+    List<Wallet> getWalletsByStockAppUser(StockAppUser user);
 
     @Modifying(clearAutomatically = true)
     @Query("UPDATE Wallet w SET w.availableAmount = :availableAmount, w.inOrder = :inOrder, w.totalAmount = :totalAmount, w.usdValue = :usdValue WHERE w.symbol = :symbol")

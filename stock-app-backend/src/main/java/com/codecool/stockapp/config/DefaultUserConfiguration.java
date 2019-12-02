@@ -1,6 +1,6 @@
 package com.codecool.stockapp.config;
 
-import com.codecool.stockapp.model.entity.User;
+import com.codecool.stockapp.model.entity.StockAppUser;
 import com.codecool.stockapp.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -29,7 +29,7 @@ public class DefaultUserConfiguration {
     public CommandLineRunner init() {
         return args -> {
 
-            User defaultUser = User.builder()
+            userRepository.save(StockAppUser.builder()
                     .firstName("Satosi")
                     .lastName("Nakamoto")
                     .balance(1000000)
@@ -37,9 +37,17 @@ public class DefaultUserConfiguration {
                     .userName("satosi")
                     .password(passwordEncoder.encode("pwd"))
                     .roles(Arrays.asList("ROLE_USER"))
-                    .build();
+                    .build());
 
-            userRepository.save(defaultUser);
+            userRepository.save(StockAppUser.builder()
+                    .firstName("Admin")
+                    .lastName("Admin")
+                    .balance(1000000)
+                    .email("admin@gmail.com")
+                    .userName("admin")
+                    .password(passwordEncoder.encode("admin"))
+                    .roles(Arrays.asList("ROLE_USER", "ROLE_ADMIN"))
+                    .build());
         };
     }
 }

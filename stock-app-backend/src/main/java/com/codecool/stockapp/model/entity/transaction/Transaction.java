@@ -1,6 +1,6 @@
 package com.codecool.stockapp.model.entity.transaction;
 
-import com.codecool.stockapp.model.entity.User;
+import com.codecool.stockapp.model.entity.StockAppUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,10 +50,10 @@ public class Transaction extends CurrencyBase {
     @JsonIgnore
     @ToString.Exclude
     @ManyToOne
-    private User user;
+    private StockAppUser stockAppUser;
 
-    public void addUser(User user) {
-        this.setUser(user);
+    public void addUser(StockAppUser user) {
+        this.setStockAppUser(user);
         if (user.getTransactionList() == null) {
             user.setTransactionList(new ArrayList<>());
         }

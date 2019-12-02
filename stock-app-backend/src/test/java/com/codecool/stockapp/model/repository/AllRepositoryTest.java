@@ -1,6 +1,7 @@
 package com.codecool.stockapp.model.repository;
 
-import com.codecool.stockapp.model.entity.User;
+
+import com.codecool.stockapp.model.entity.StockAppUser;
 import com.codecool.stockapp.model.entity.transaction.Transaction;
 import com.codecool.stockapp.model.entity.transaction.TransactionType;
 import org.assertj.core.util.Lists;
@@ -67,7 +68,7 @@ public class AllRepositoryTest {
 
     @Test
     public void transactionsArePersistedAndDeletedWithUser() {
-        User user = User.builder()
+        StockAppUser user = StockAppUser.builder()
                 .firstName("Satosi")
                 .lastName("Nakamoto")
                 .balance(1000000)
@@ -118,7 +119,7 @@ public class AllRepositoryTest {
 
     @Test
     void getTransactionsByUserIdAndTransactionTypeTest() {
-        User user1 = User.builder()
+        StockAppUser user1 = StockAppUser.builder()
                 .firstName("Satosi")
                 .lastName("Nakamoto")
                 .balance(1000000)
@@ -127,7 +128,7 @@ public class AllRepositoryTest {
                 .password("Test123")
                 .build();
 
-        User user2 = User.builder()
+        StockAppUser user2 = StockAppUser.builder()
                 .firstName("gergo")
                 .lastName("kis")
                 .balance(1000000)

@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class User {
+public class StockAppUser {
 
     @Id
     @GeneratedValue
@@ -42,12 +42,12 @@ public class User {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "stockAppUser", cascade = CascadeType.ALL)
     private List<Wallet> wallet;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "stockAppUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> transactionList;
 
 }

@@ -1,7 +1,7 @@
 package com.codecool.stockapp.service;
 
 import com.codecool.stockapp.model.Util;
-import com.codecool.stockapp.model.entity.User;
+import com.codecool.stockapp.model.entity.StockAppUser;
 import com.codecool.stockapp.model.entity.Wallet;
 import com.codecool.stockapp.model.entity.currency.CryptoCurrency;
 import com.codecool.stockapp.model.entity.currency.CurrencyDetails;
@@ -43,7 +43,7 @@ public class Trader {
 
     @Transactional
     public boolean buy(Transaction transaction, long userId) {
-        transaction.setUser(userRepository.findById(userId));
+        transaction.setStockAppUser(userRepository.findById(userId));
 
         if (checkBalance(transaction)) {
             if (this.isTransactionExecutable(transaction)) {
@@ -61,7 +61,7 @@ public class Trader {
     //TODO checks!!!: checkBalance, isTransactionExecutable
     @Transactional
     public boolean sell(Transaction transaction, long userId) {
-        transaction.setUser(userRepository.findById(userId));
+        transaction.setStockAppUser(userRepository.findById(userId));
         this.saveTransactionWithDetails(transaction, true);
         setWallet(transaction, userId);
         return true;
@@ -76,10 +76,10 @@ public class Trader {
     }
 
     private void setWallet(Transaction transaction, long userId) {
-        User user = userRepository.findById(userId);
+        StockAppUser user = userRepository.findById(userId);
         if (isCryptoInWallet(transaction, user)) {
             Wallet updatableWallet =
-                    walletRepository.getWalletsByUser(user).stream()
+                    walletRepository.getWalletsByStockAppUser(user).stream()
                             .filter(x -> x.getSymbol()
                             .equals(transaction.getSymbol()))
                             .findFirst()
@@ -116,21 +116,21 @@ public class Trader {
 
     }
 
-    private boolean isCryptoInWallet(Transaction transaction, User user) {
-        return walletRepository.getWalletsByUser(user)
+    private boolean isCryptoInWallet(Transaction transaction, StockAppUser user) {
+        return walletRepository.getWalletsByStockAppUser(user)
                 .stream()
                 .anyMatch(x -> x.getSymbol()
                         .equals(transaction.getSymbol()));
     }
 
-    private void createWallet(Transaction transaction, User user) {
+    private void createWallet(Transaction transaction, StockAppUser user) {
         Wallet wallet = Wallet.builder()
                 .availableAmount(transaction.getAmount())
                 .symbol(transaction.getSymbol())
                 .totalAmount(transaction.getAmount())
                 .inOrder(0)
                 .usdValue(transaction.getAmount() * transaction.getPrice())
-                .user(user)
+                .stockAppUser(user)
                 .build();
 
         walletRepository.save(wallet);
@@ -140,11 +140,11 @@ public class Trader {
         double balance;
 
         if (transaction.getTransactionType().equals(TransactionType.BUY)) {
-            balance = transaction.getUser().getBalance() - transaction.getTotal();
+            balance = transaction.getStockAppUser().getBalance() - transaction.getTotal();
         } else {
-            balance = transaction.getUser().getBalance() + transaction.getTotal();
+            balance = transaction.getStockAppUser().getBalance() + transaction.getTotal();
         }
-        userRepository.updateBalance(balance, transaction.getUser().getId());
+        userRepository.updateBalance(balance, transaction.getStockAppUser().getId());
     }
 
     public boolean isTransactionExecutable(Transaction transaction) {
@@ -185,7 +185,7 @@ public class Trader {
     }
 
     private boolean checkBalance(Transaction transaction) {
-        return (transaction.getTotal() < transaction.getUser().getBalance());
+        return (transaction.getTotal() < transaction.getStockAppUser().getBalance());
     }
 
     public List<OpenTransaction> getOpenTransactions(Long userId) {
@@ -211,7 +211,7 @@ public class Trader {
 
     //TODO replace this, not business logic
     public List<Wallet> getWallet(long id) {
-        User user = userRepository.findById(id);
-        return walletRepository.getWalletsByUser(user);
+        StockAppUser user = userRepository.findById(id);
+        return walletRepository.getWalletsByStockAppUser(user);
     }
 }
