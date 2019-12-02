@@ -62,9 +62,17 @@ public class Trader {
     @Transactional
     public boolean sell(Transaction transaction, long userId) {
         transaction.setUser(userRepository.findById(userId));
-        this.saveTransactionWithDetails(transaction, true);
-        setWallet(transaction, userId);
-        return true;
+
+        if (checkAmount(transaction)) {
+            if (this.isTransactionExecutable(transaction)) {
+                this.saveTransactionWithDetails(transaction, true);
+                updateWallet(transaction);
+            } else {
+                this.saveTransactionWithDetails(transaction, false);
+            }
+            return true;
+        }
+        return false;
     }
 
     private void saveTransactionWithDetails(Transaction transaction, boolean isTransactionClosed) {
@@ -78,27 +86,24 @@ public class Trader {
     private void setWallet(Transaction transaction, long userId) {
         User user = userRepository.findById(userId);
         if (isCryptoInWallet(transaction, user)) {
-            Wallet updatableWallet =
-                    walletRepository.getWalletsByUser(user).stream()
-                            .filter(x -> x.getSymbol()
-                            .equals(transaction.getSymbol()))
-                            .findFirst()
-                            .get();
-
-            updateWallet(transaction, updatableWallet);
-
+            updateWallet(transaction);
         } else {
             createWallet(transaction, user);
         }
     }
 
-    private void updateWallet(Transaction transaction, Wallet wallet) {
+    private void updateWallet(Transaction transaction) {
+        Wallet wallet = transaction.getUser().getWallet().stream()
+                .filter(x->x.getSymbol().equals(transaction.getSymbol()))
+                .findFirst()
+                .get();
+
         if (transaction.getTransactionType().equals(TransactionType.BUY) && transaction.isClosedTransaction()) {
             wallet.setTotalAmount(wallet.getTotalAmount() + transaction.getAmount());
         } else if (transaction.getTransactionType().equals(TransactionType.SELL) && transaction.isClosedTransaction()) {
             wallet.setTotalAmount(wallet.getTotalAmount() - transaction.getAmount());
         } else if (transaction.getTransactionType().equals(TransactionType.BUY) && !transaction.isClosedTransaction()) {
-            //TODO
+            //doesnt need any modification
         } else if (transaction.getTransactionType().equals(TransactionType.SELL) && !transaction.isClosedTransaction()) {
             wallet.setTotalAmount(wallet.getTotalAmount() - transaction.getAmount());
             wallet.setInOrder(wallet.getInOrder() + transaction.getAmount());
@@ -158,6 +163,7 @@ public class Trader {
         return false;
     }
 
+    @Transactional
     @Scheduled(fixedDelay = 5000)
     public void scanOpenOrders() {
 
@@ -187,6 +193,13 @@ public class Trader {
         return (transaction.getTotal() < transaction.getUser().getBalance());
     }
 
+    private boolean checkAmount(Transaction transaction) {
+        return (transaction.getAmount() < transaction.getUser().getWallet().stream()
+                .filter(x->x.getSymbol().equals(transaction.getSymbol()))
+                .findFirst().get()
+                .getTotalAmount());
+    }
+
     public List<OpenTransaction> getOpenTransactions(Long userId) {
         List<OpenTransaction> openTransactions = new ArrayList<>();
         List<Transaction> transactions = transactionRepository.getOpenTransactionsByUserId(userId);
@@ -208,7 +221,6 @@ public class Trader {
 
     public List<Wallet> getWallet(long id) {
         User user = userRepository.findById(id);
-        System.out.println(walletRepository.getWalletsByUser(user));
         return walletRepository.getWalletsByUser(user);
     }
 }
