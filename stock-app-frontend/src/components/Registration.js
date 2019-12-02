@@ -14,10 +14,6 @@ export default class Registration extends Component {
         confirmedPassword: ""
     };
 
-    componentDidMount() {
-
-    }
-
     handleChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };

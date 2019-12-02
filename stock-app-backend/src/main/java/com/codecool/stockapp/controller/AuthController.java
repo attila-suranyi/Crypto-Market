@@ -41,23 +41,19 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity signin(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity signin(@RequestBody UserCredentials userCredentials) {
         try {
-            UserCredentials data = UserCredentials.builder()
-                    .password(password)
-                    .username(username)
-                    .build();
             // authenticationManager.authenticate calls loadUserByUsername in CustomUserDetailsService
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(data.getUsername(), data.getPassword()));
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userCredentials.getUsername(), userCredentials.getPassword()));
             List<String> roles = authentication.getAuthorities()
                     .stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toList());
 
-            String token = jwtTokenServices.createToken(username, roles);
+            String token = jwtTokenServices.createToken(userCredentials.getUsername(), roles);
 
             Map<Object, Object> model = new HashMap<>();
-            model.put("username", username);
+            model.put("username", userCredentials.getUsername());
             model.put("roles", roles);
             model.put("token", token);
             return ResponseEntity.ok(model);
