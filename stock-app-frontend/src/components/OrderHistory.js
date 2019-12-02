@@ -10,6 +10,9 @@ export default class OrderHistory extends Component {
 
   //TODO make user ID dynamic
   componentDidMount() {
+    if (this.context.loggedInUser) {
+      //redirect to login route
+    }
     this.context.fetchUserOrderHistory(
       "http://localhost:8080/order_history?userId=1"
     );
