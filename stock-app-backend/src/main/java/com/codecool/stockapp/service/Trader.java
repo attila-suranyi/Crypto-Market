@@ -188,7 +188,6 @@ public class Trader {
         return (transaction.getTotal() < transaction.getUser().getBalance());
     }
 
-    //TODO test new repository method
     public List<OpenTransaction> getOpenTransactions(Long userId) {
         List<OpenTransaction> openTransactions = new ArrayList<>();
         List<Transaction> transactions = transactionRepository.getTransactionsByUserIdAndTransactionType(userId, false);

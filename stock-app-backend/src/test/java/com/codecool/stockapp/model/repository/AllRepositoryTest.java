@@ -11,13 +11,13 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -117,7 +117,7 @@ public class AllRepositoryTest {
     }
 
     @Test
-    void getOpenTransactionsTest() {
+    void getTransactionsByUserIdAndTransactionTypeTest() {
         User user1 = User.builder()
                 .firstName("Satosi")
                 .lastName("Nakamoto")
@@ -158,13 +158,32 @@ public class AllRepositoryTest {
                 .closedTransaction(false)
                 .build();
 
+        Transaction transaction3 = Transaction.builder()
+                .amount(3.0)
+                .date("2015-10-04")
+                .price(100.0)
+                .total(300.0)
+                .symbol("XRM")
+                .currencyId((long) 30)
+                .transactionType(TransactionType.BUY)
+                .closedTransaction(true)
+                .build();
+
         transaction1.addUser(user1);
         transaction2.addUser(user2);
+        transaction3.addUser(user2);
 
         userRepository.saveAll(Lists.newArrayList(user1, user2));
 
         assertThat(transactionRepository.getTransactionsByUserIdAndTransactionType(user1.getId(), false))
                 .hasSize(1)
                 .contains(transaction1);
+
+        assertThat(transactionRepository.getTransactionsByUserIdAndTransactionType(user2.getId(), true))
+                .hasSize(1)
+                .contains(transaction3);
+
+        assertThat(transactionRepository.getTransactionsByUserIdAndTransactionType(user1.getId(), true))
+                .hasSize(0);
     }
 }

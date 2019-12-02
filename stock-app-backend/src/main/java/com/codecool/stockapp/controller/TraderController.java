@@ -62,14 +62,12 @@ public class TraderController {
 
     //TODO test if this gives back proper format
     @GetMapping("/open_order")
-    public List<OpenTransaction> getOpenOrders(@RequestParam Long userId) throws JsonProcessingException {
+    public List<OpenTransaction> getOpenOrders(@RequestParam Long userId) {
         return trader.getOpenTransactions(userId);
     }
 
     @GetMapping("/order_history")
-    public String getTransactionHistory(@RequestParam Long userId) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
-        return mapper.writeValueAsString(trader.getTransactionHistoryByUserId(userId));
+    public List<Transaction> getTransactionHistory(@RequestParam Long userId) {
+        return trader.getTransactionHistoryByUserId(userId);
     }
 }
