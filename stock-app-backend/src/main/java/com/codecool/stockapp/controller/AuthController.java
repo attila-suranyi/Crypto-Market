@@ -11,8 +11,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,10 +31,13 @@ public class AuthController {
 
     private final UserRepository userRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     public AuthController(AuthenticationManager authenticationManager, JwtTokenServices jwtTokenServices, UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenServices = jwtTokenServices;
         this.userRepository = userRepository;
+        this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @PostMapping("/signin")
@@ -62,7 +68,10 @@ public class AuthController {
 
     @PostMapping("/registration")
     public void registration(@RequestBody StockAppUser stockAppUser ) {
-
-        userRepository.save(stockAppUser);
+        stockAppUser.setPassword(passwordEncoder.encode(stockAppUser.getPassword()));
+        stockAppUser.setBalance(1000000);
+        stockAppUser.setRoles(Arrays.asList("ROLE_USER"));
+        System.out.println(stockAppUser);
+        userRepository.saveAndFlush(stockAppUser);
     }
 }

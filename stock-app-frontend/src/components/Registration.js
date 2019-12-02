@@ -6,9 +6,9 @@ export default class Registration extends Component {
     static contextType = CryptoDataContext;
 
     state = {
-        firstname: "",
-        lastname: "",
-        username: "",
+        firstName: "",
+        lastName: "",
+        userName: "",
         email: "",
         password: "",
         confirmedPassword: ""
@@ -26,9 +26,9 @@ export default class Registration extends Component {
         event.preventDefault();
 
         let user = {
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
-            username: this.state.username,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            userName: this.state.userName,
             email: this.state.email,
             password: this.state.password
         };
@@ -54,7 +54,7 @@ export default class Registration extends Component {
                                     error="wrong"
                                     success="right"
                                     onInput={this.handleChange}
-                                    name="firstname"
+                                    name="firstName"
 
                                 />
                                 <MDBInput
@@ -66,7 +66,7 @@ export default class Registration extends Component {
                                     error="wrong"
                                     success="right"
                                     onInput={this.handleChange}
-                                    name="lastname"
+                                    name="lastName"
                             
                                 />
                                 <MDBInput
@@ -78,7 +78,7 @@ export default class Registration extends Component {
                                     error="wrong"
                                     success="right"
                                     onInput={this.handleChange}
-                                    name="username"
+                                    name="userName"
 
                                 />
                                 <MDBInput

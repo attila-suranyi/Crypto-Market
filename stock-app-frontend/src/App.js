@@ -8,6 +8,8 @@ import StockNavBar from "./components/StockNavBar";
 import OrderHistory from "./components/OrderHistory";
 import OpenOrder from "./components/OpenOrder";
 import Wallet from "./components/Wallet";
+import Registration from "./components/Registration";
+import Login from "./components/Login";
 
 class App extends React.Component {
   render() {
@@ -26,6 +28,8 @@ class App extends React.Component {
               <Route path="/order-history" component={OrderHistory}></Route>
               <Route path="/open-order" component={OpenOrder}></Route>
               <Route path="/wallet" component={Wallet}></Route>
+              <Route path="/registration" component={Registration}></Route>
+              <Route path="/signin" component={Login}></Route>
             </Router>
           </div>
 
