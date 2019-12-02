@@ -4,6 +4,7 @@ import com.codecool.stockapp.model.entity.transaction.Transaction;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -11,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class User {
+public class StockAppUser {
 
     @Id
     @GeneratedValue
@@ -35,15 +36,18 @@ public class User {
     @Column(nullable = false)
     private double balance;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
+
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "stockAppUser", cascade = CascadeType.ALL)
     private List<Wallet> wallet;
 
     @EqualsAndHashCode.Exclude
-    @Singular("transactionList")
     @ToString.Exclude
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "stockAppUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> transactionList;
 
 }

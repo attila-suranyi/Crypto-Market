@@ -9,17 +9,16 @@ export default class CryptoDataContextProvider extends Component {
     singleCryptoData: {},
 
     userOpenOrders: [],
-    userOrderHistory:[],
+    userOrderHistory: [],
 
     userWallet: [],
 
     fetchDataWithCallback: (URL, callback) => {
-      Axios.get(URL).then(res => callback(res))
+      Axios.get(URL).then(res => callback(res));
     },
 
     fetchAllCryptoData: URL => {
-      Axios.get(URL).then(res => 
-        this.setState({ cryptoData: res.data.data }));
+      Axios.get(URL).then(res => this.setState({ cryptoData: res.data.data }));
     },
     fetchSingleCryptoDataById: URL => {
       Axios.get(URL).then(res => {
@@ -28,21 +27,21 @@ export default class CryptoDataContextProvider extends Component {
     },
 
     fetchUserOrderHistory: URL => {
-      Axios.get(URL).then(res => 
-        this.setState({userOrderHistory: res.data}))
-        .then(res => console.log(this.state.userOrderHistory))
+      Axios.get(URL)
+        .then(res => this.setState({ userOrderHistory: res.data }))
+        .then(res => console.log(this.state.userOrderHistory));
     },
 
     fetchUserOpenOrders: URL => {
-      Axios.get(URL).then(res => 
-        this.setState({userOpenOrders: res.data}))
-        .then(res => console.log(this.state.userOpenOrders))
+      Axios.get(URL)
+        .then(res => this.setState({ userOpenOrders: res.data }))
+        .then(res => console.log(this.state.userOpenOrders));
     },
 
     fetchUserWallet: URL => {
-      Axios.get(URL).then(res => 
-        this.setState({userWallet: res.data}))
-        .then(res => console.log(this.state.userWallet))
+      Axios.get(URL)
+        .then(res => this.setState({ userWallet: res.data }))
+        .then(res => console.log(this.state.userWallet));
     },
 
     sendDataToBackend: (URL, data) => {
@@ -57,7 +56,7 @@ export default class CryptoDataContextProvider extends Component {
       return param;
     },
     clearSingleCryptoData: () => {
-      this.setState({singleCryptoData: {} })
+      this.setState({ singleCryptoData: {} });
     }
   };
 

@@ -37,7 +37,7 @@ class TraderControllerTest {
     void setUp() {
     }
 
-    /*@Test
+    @Test
     void showCryptoCurrenciesTest() throws Exception {
 
         CryptoCurrency crypto = new CryptoCurrency();
@@ -54,5 +54,5 @@ class TraderControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data").exists());
-    }*/
+    }
 }

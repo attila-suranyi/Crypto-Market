@@ -26,5 +26,5 @@ public class Wallet {
     @JsonIgnore
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    private StockAppUser stockAppUser;
 }

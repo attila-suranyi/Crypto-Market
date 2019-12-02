@@ -1,6 +1,7 @@
 package com.codecool.stockapp.model.repository;
 
-import com.codecool.stockapp.model.entity.User;
+
+import com.codecool.stockapp.model.entity.StockAppUser;
 import com.codecool.stockapp.model.entity.transaction.Transaction;
 import com.codecool.stockapp.model.entity.transaction.TransactionType;
 import org.assertj.core.util.Lists;
@@ -11,13 +12,13 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -67,7 +68,7 @@ public class AllRepositoryTest {
 
     @Test
     public void transactionsArePersistedAndDeletedWithUser() {
-        User user = User.builder()
+        StockAppUser user = StockAppUser.builder()
                 .firstName("Satosi")
                 .lastName("Nakamoto")
                 .balance(1000000)
@@ -117,8 +118,8 @@ public class AllRepositoryTest {
     }
 
     @Test
-    void getOpenTransactionsTest() {
-        User user1 = User.builder()
+    void getTransactionsByUserIdAndTransactionTypeTest() {
+        StockAppUser user1 = StockAppUser.builder()
                 .firstName("Satosi")
                 .lastName("Nakamoto")
                 .balance(1000000)
@@ -127,7 +128,7 @@ public class AllRepositoryTest {
                 .password("Test123")
                 .build();
 
-        User user2 = User.builder()
+        StockAppUser user2 = StockAppUser.builder()
                 .firstName("gergo")
                 .lastName("kis")
                 .balance(1000000)
@@ -158,20 +159,32 @@ public class AllRepositoryTest {
                 .closedTransaction(false)
                 .build();
 
-        List<Transaction> user1Transactions = new ArrayList<>();
-        user1Transactions.add(transaction1);
+        Transaction transaction3 = Transaction.builder()
+                .amount(3.0)
+                .date("2015-10-04")
+                .price(100.0)
+                .total(300.0)
+                .symbol("XRM")
+                .currencyId((long) 30)
+                .transactionType(TransactionType.BUY)
+                .closedTransaction(true)
+                .build();
 
-        List<Transaction> user2Transactions = new ArrayList<>();
-        user2Transactions.add(transaction2);
-
-        user1.setTransactionList(user1Transactions);
-        user2.setTransactionList(user2Transactions);
+        transaction1.addUser(user1);
+        transaction2.addUser(user2);
+        transaction3.addUser(user2);
 
         userRepository.saveAll(Lists.newArrayList(user1, user2));
 
-        assertThat(transactionRepository.getOpenTransactionsByUserId(user1.getId()))
+        assertThat(transactionRepository.getTransactionsByUserIdAndTransactionType(user1.getId(), false))
                 .hasSize(1)
                 .contains(transaction1);
 
+        assertThat(transactionRepository.getTransactionsByUserIdAndTransactionType(user2.getId(), true))
+                .hasSize(1)
+                .contains(transaction3);
+
+        assertThat(transactionRepository.getTransactionsByUserIdAndTransactionType(user1.getId(), true))
+                .hasSize(0);
     }
 }
