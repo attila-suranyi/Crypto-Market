@@ -6,6 +6,8 @@ export default class Registration extends Component {
     static contextType = CryptoDataContext;
 
     state = {
+        firstname: "",
+        lastname: "",
         username: "",
         email: "",
         password: "",
@@ -13,7 +15,7 @@ export default class Registration extends Component {
     };
 
     componentDidMount() {
-        
+
     }
 
     handleChange = event => {
@@ -24,13 +26,14 @@ export default class Registration extends Component {
         event.preventDefault();
 
         let user = {
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
             username: this.state.username,
             email: this.state.email,
-            password: this.state.password,
-            confirmedPassword: this.state.confirmedPassword
+            password: this.state.password
         };
 
-        this.context.sendDataToBackend(`http://localhost:8080/registration`, user);
+        this.context.sendDataToBackend("http://localhost:8080/auth/registration", user);
     };
 
 
@@ -39,20 +42,44 @@ export default class Registration extends Component {
             <MDBContainer>
                 <MDBRow>
                     <MDBCol md="6">
-                        <form onSubmit={this.handleSubmit}>
+                        <form>
                             <p className="h5 text-center mb-4">Registration</p>
                             <div className="grey-text">
                                 <MDBInput
-                                    label="Your name"
+                                    label="First name"
                                     icon="user"
                                     group
                                     type="text"
                                     validate
                                     error="wrong"
                                     success="right"
-                                    onChange={this.handleChange}
-                                    name="username"
+                                    onInput={this.handleChange}
+                                    name="firstname"
+
+                                />
+                                <MDBInput
+                                    label="Last name"
+                                    icon="user"
+                                    group
+                                    type="text"
+                                    validate
+                                    error="wrong"
+                                    success="right"
+                                    onInput={this.handleChange}
+                                    name="lastname"
                             
+                                />
+                                <MDBInput
+                                    label="Username"
+                                    icon="user"
+                                    group
+                                    type="text"
+                                    validate
+                                    error="wrong"
+                                    success="right"
+                                    onInput={this.handleChange}
+                                    name="username"
+
                                 />
                                 <MDBInput
                                     label="Your email"
@@ -62,7 +89,7 @@ export default class Registration extends Component {
                                     validate
                                     error="wrong"
                                     success="right"
-                                    onChange={this.handleChange}
+                                    onInput={this.handleChange}
                                     name="email"
                                 />
                                 <MDBInput
@@ -71,7 +98,7 @@ export default class Registration extends Component {
                                     group
                                     type="password"
                                     validate
-                                    onChange={this.handleChange}
+                                    onInput={this.handleChange}
                                     name="password"
                                 />
                                 <MDBInput
@@ -80,12 +107,12 @@ export default class Registration extends Component {
                                     group
                                     type="password"
                                     validate
-                                    onChange={this.handleChange}
+                                    onInput={this.handleChange}
                                     name="confirmedPassword"
                                 />
                             </div>
                             <div className="text-center">
-                                <MDBBtn color="primary">Registration</MDBBtn>
+                                <MDBBtn onClick={this.handleSubmit} color="primary">Registration</MDBBtn>
                             </div>
                         </form>
                     </MDBCol>

@@ -62,6 +62,7 @@ public class AuthController {
 
     @PostMapping("/registration")
     public void registration(@RequestBody StockAppUser stockAppUser ) {
+
         userRepository.save(stockAppUser);
     }
 }
