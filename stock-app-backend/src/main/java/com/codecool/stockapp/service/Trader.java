@@ -69,6 +69,7 @@ public class Trader {
                 updateWallet(transaction);
             } else {
                 this.saveTransactionWithDetails(transaction, false);
+                updateWallet(transaction);
             }
             return true;
         }
