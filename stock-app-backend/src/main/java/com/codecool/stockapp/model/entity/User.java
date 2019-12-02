@@ -4,6 +4,7 @@ import com.codecool.stockapp.model.entity.transaction.Transaction;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -34,6 +35,10 @@ public class User {
 
     @Column(nullable = false)
     private double balance;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

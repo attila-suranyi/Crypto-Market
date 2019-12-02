@@ -36,7 +36,7 @@ public class Trader {
     private UserRepository userRepository;
 
     @Autowired
-    WalletRepository walletRepository;
+    private WalletRepository walletRepository;
 
     public Trader() {
     }
