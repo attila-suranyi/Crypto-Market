@@ -1,5 +1,6 @@
 package com.codecool.stockapp.controller;
 
+import com.codecool.stockapp.model.entity.StockAppUser;
 import com.codecool.stockapp.model.entity.UserCredentials;
 import com.codecool.stockapp.model.repository.UserRepository;
 import com.codecool.stockapp.security.JwtTokenServices;
@@ -25,9 +26,12 @@ public class AuthController {
 
     private final JwtTokenServices jwtTokenServices;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenServices jwtTokenServices, UserRepository users) {
+    private final UserRepository userRepository;
+
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenServices jwtTokenServices, UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenServices = jwtTokenServices;
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/signin")
@@ -54,5 +58,10 @@ public class AuthController {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
+    }
+
+    @PostMapping("/registration")
+    public void registration(@RequestBody StockAppUser stockAppUser ) {
+        userRepository.save(stockAppUser);
     }
 }
