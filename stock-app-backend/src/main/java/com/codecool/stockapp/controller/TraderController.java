@@ -60,7 +60,7 @@ public class TraderController {
         return trader.getWallet(1);
     }
 
-    //TODO test if this gives back proper format
+
     @GetMapping("/open_order")
     public List<OpenTransaction> getOpenOrders(@RequestParam Long userId) {
         return trader.getOpenTransactions(userId);
