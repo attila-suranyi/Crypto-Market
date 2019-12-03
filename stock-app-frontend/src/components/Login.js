@@ -37,7 +37,7 @@ export default class Login extends Component {
   render() {
     return (
       <MDBContainer>
-        <MDBRow>
+        <MDBRow center true>
           <MDBCol md="6">
             <form>
               <p className="h5 text-center mb-4">Login</p>

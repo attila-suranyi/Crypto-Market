@@ -36,10 +36,10 @@ export default class Registration extends Component {
     render() {
         return (
             <MDBContainer>
-                <MDBRow>
+                <MDBRow center true>
                     <MDBCol md="6">
                         <form>
-                            <p className="h5 text-center mb-4">Registration</p>
+                            <p className="h5 text-center mb-4">Sign up</p>
                             <div className="grey-text">
                                 <MDBInput
                                     label="First name"
@@ -108,7 +108,7 @@ export default class Registration extends Component {
                                 />
                             </div>
                             <div className="text-center">
-                                <MDBBtn onClick={this.handleSubmit} color="primary">Registration</MDBBtn>
+                                <MDBBtn onClick={this.handleSubmit} color="primary">Sign up</MDBBtn>
                             </div>
                         </form>
                     </MDBCol>
