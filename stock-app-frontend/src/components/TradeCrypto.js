@@ -2,12 +2,12 @@ import React, { Component } from "react";
 
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
 import BuyCrypto from "./TradeCryptoForm";
-import '../assets/css/TradeCrypto.css';
+import "../assets/css/TradeCrypto.css";
 
 export default class TradeCrypto extends Component {
   state = {
     symbol: "",
-    id: 1,
+    id: 1
   };
 
   static contextType = CryptoDataContext;
@@ -28,23 +28,33 @@ export default class TradeCrypto extends Component {
     return (
       <div className="trade-container">
         {/* Header */}
-        <div className="trade-crypto-header"><h3>{this.state.symbol}</h3></div>
+        <div className="trade-crypto-header">
+          <h3>{this.state.symbol}</h3>
+        </div>
         <div className="trade-crypto-container">
-
-          {this.context.singleCryptoData.quote ?
+          {this.context.singleCryptoData.quote ? (
             <>
+              {/* Buy crypto */}
               <div className="trade-dir">
-                <BuyCrypto symbol={this.state.symbol} singleCryptoData={this.context.singleCryptoData} tradeDir="Buy" />
+                <BuyCrypto
+                  symbol={this.state.symbol}
+                  singleCryptoData={this.context.singleCryptoData}
+                  tradeDir="Buy"
+                />
               </div>
-              
+
+              {/* Sell crypto */}
               <div className="trade-dir">
-                <BuyCrypto symbol={this.state.symbol} singleCryptoData={this.context.singleCryptoData} tradeDir="Sell" />
+                <BuyCrypto
+                  symbol={this.state.symbol}
+                  singleCryptoData={this.context.singleCryptoData}
+                  tradeDir="Sell"
+                />
               </div>
-            </> :
-            <div>Fetching...</div>}
-
-          {/* Sell crypto */}
-
+            </>
+          ) : (
+            <div>Fetching...</div>
+          )}
         </div>
       </div>
     );
