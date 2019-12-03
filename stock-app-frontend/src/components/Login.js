@@ -14,8 +14,9 @@ export default class Login extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  saveTokenToLocalStorage(token) {
-      localStorage.setItem("token", token)
+  saveTokenToLocalStorage = (token) => {
+    localStorage.setItem("token", token);
+    this.props.history.push("/protected");
   }
 
   handleSubmit = event => {
@@ -31,12 +32,7 @@ export default class Login extends Component {
       userDetails,
       this.saveTokenToLocalStorage
     );
-    this.routeChange('/protected');
   };
-
-  routeChange(path) {
-    this.props.history.push(path);
-  }
 
   render() {
     return (
