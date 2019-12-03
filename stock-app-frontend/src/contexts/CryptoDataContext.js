@@ -47,7 +47,6 @@ export default class CryptoDataContextProvider extends Component {
     sendDataToBackend: (URL, data, callback) => {
       Axios.post(URL, data).then(res => {
         callback(res.data.token);
-        console.log(res.data.token);
       });
     },
 
