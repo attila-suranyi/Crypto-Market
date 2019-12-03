@@ -8,7 +8,12 @@ import StockNavBar from "./components/StockNavBar";
 import OrderHistory from "./components/OrderHistory";
 import OpenOrder from "./components/OpenOrder";
 import Wallet from "./components/Wallet";
+<<<<<<< HEAD
 import PrivateRoute from "./security/PrivateRoute";
+=======
+import Registration from "./components/Registration";
+import Login from "./components/Login";
+>>>>>>> f_multiple_users
 
 class App extends React.Component {
   render() {
@@ -28,6 +33,9 @@ class App extends React.Component {
               <Route path="/open-order" component={OpenOrder}></Route>
               {/*<Route path="/wallet" component={Wallet}></Route>*/}
               <PrivateRoute path="/protected" component={Wallet}></PrivateRoute>
+              <Route path="/wallet" component={Wallet}></Route>
+              <Route path="/registration" component={Registration}></Route>
+              <Route path="/signin" component={Login}></Route>
             </Router>
           </div>
 
