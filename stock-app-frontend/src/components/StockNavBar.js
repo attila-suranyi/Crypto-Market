@@ -8,8 +8,9 @@ import { CryptoDataContext } from "../contexts/CryptoDataContext";
 export default class StockNavBar extends Component {
   static contextType = CryptoDataContext;
 
-  handleSelect(){
+  removeToken = () => {
     localStorage.removeItem("token");
+    //this.props.history.push("/sorted");
   }
 
   render() {
@@ -32,8 +33,8 @@ export default class StockNavBar extends Component {
               </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
-              <Nav onSelect={this.handleSelect}>
-                <Nav.Link href="/logout">Logout</Nav.Link>
+              <Nav onSelect={this.removeToken}>
+                <Nav.Link href="/sorted">Logout</Nav.Link>
               </Nav>
             </React.Fragment> :
             <React.Fragment>
