@@ -33,11 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                     .authorizeRequests()
-                    /*.antMatchers("/auth/signin").permitAll() // allowed by anyone
+                    .antMatchers("/auth/signin").permitAll() // allowed by anyone
                     .antMatchers("/").permitAll()
-
-                    .antMatchers(HttpMethod.POST, "/list").hasRole("USER") // allowed only when signed in*/
-                    .anyRequest().permitAll() // anything else need admin role
+                    .antMatchers("/sorted").permitAll()
+                    .anyRequest().authenticated() // anything else need admin role
                 .and()
                 .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);
     }
