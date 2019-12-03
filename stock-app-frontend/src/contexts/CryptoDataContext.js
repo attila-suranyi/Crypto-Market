@@ -44,11 +44,12 @@ export default class CryptoDataContextProvider extends Component {
         .then(res => console.log(this.state.userWallet));
     },
 
-    sendDataToBackend: (URL, data) => {
+    sendDataToBackend: (URL, data, callback) => {
       Axios.post(URL, data).then(res => {
-        console.log(res.data);
+        callback(res.data.token);
       });
     },
+
     getQueryParam(key) {
       let search = window.location.search;
       let params = new URLSearchParams(search);

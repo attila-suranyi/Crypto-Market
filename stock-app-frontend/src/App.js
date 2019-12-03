@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import CryptoDataContextProvider from "./contexts/CryptoDataContext";
 import CryptoList from "./components/CryptoList";
@@ -28,9 +28,8 @@ class App extends React.Component {
               <Route path="/sorted" component={CryptoList}></Route>
               <Route path="/order-history" component={OrderHistory}></Route>
               <Route path="/open-order" component={OpenOrder}></Route>
-              {/*<Route path="/wallet" component={Wallet}></Route>*/}
-              <PrivateRoute path="/protected" component={Wallet}></PrivateRoute>
               <Route path="/wallet" component={Wallet}></Route>
+              <PrivateRoute path="/protected" component={Redirect}></PrivateRoute>
               <Route path="/registration" component={Registration}></Route>
               <Route path="/signin" component={Login}></Route>
             </Router>
