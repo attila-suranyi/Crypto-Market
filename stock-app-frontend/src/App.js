@@ -8,12 +8,9 @@ import StockNavBar from "./components/StockNavBar";
 import OrderHistory from "./components/OrderHistory";
 import OpenOrder from "./components/OpenOrder";
 import Wallet from "./components/Wallet";
-<<<<<<< HEAD
 import PrivateRoute from "./security/PrivateRoute";
-=======
 import Registration from "./components/Registration";
 import Login from "./components/Login";
->>>>>>> f_multiple_users
 
 class App extends React.Component {
   render() {
