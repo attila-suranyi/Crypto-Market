@@ -37,7 +37,7 @@ export default class BuyCrypto extends Component {
       closedTransaction: false
     };
 
-    this.context.sendDataToBackend(`http://localhost:8080/${this.state.transactionType}`, transaction);
+    this.context.sendDataToBackend(`http://localhost:8080/${this.state.transactionType}`, transaction, console.log);
   };
 
   render() {

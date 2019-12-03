@@ -14,31 +14,38 @@ export default class CryptoDataContextProvider extends Component {
     userWallet: [],
 
     fetchDataWithCallback: (URL, callback) => {
+      Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
       Axios.get(URL).then(res => callback(res));
     },
 
     fetchAllCryptoData: URL => {
+      Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
       Axios.get(URL).then(res => this.setState({ cryptoData: res.data.data }));
     },
+
     fetchSingleCryptoDataById: URL => {
+      Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
       Axios.get(URL).then(res => {
         this.setState({ singleCryptoData: res.data });
       });
     },
 
     fetchUserOrderHistory: URL => {
+      Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
       Axios.get(URL)
         .then(res => this.setState({ userOrderHistory: res.data }))
         .then(res => console.log(this.state.userOrderHistory));
     },
 
     fetchUserOpenOrders: URL => {
+      Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
       Axios.get(URL)
         .then(res => this.setState({ userOpenOrders: res.data }))
         .then(res => console.log(this.state.userOpenOrders));
     },
 
     fetchUserWallet: URL => {
+      Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
       Axios.get(URL)
         .then(res => this.setState({ userWallet: res.data }))
         .then(res => console.log(this.state.userWallet));
@@ -56,9 +63,10 @@ export default class CryptoDataContextProvider extends Component {
       let param = params.get(key);
       return param;
     },
+
     clearSingleCryptoData: () => {
       this.setState({ singleCryptoData: {} });
-    }
+    },
   };
 
   render() {
