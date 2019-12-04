@@ -9,7 +9,7 @@ export default class OpenOrder extends Component {
 
   componentDidMount() {
     this.context.fetchUserOpenOrders(
-      "http://localhost:8080/open_order?userId=1"
+      `http://localhost:8080/open_order?userId=${this.context.userId}`
     );
   }
 

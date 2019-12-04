@@ -50,11 +50,13 @@ public class AuthController {
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toList());
 
+            long userId = userRepository.findByUserName(userCredentials.getUsername()).get().getId();
             String token = jwtTokenServices.createToken(userCredentials.getUsername(), roles);
 
             Map<Object, Object> model = new HashMap<>();
             model.put("username", userCredentials.getUsername());
             model.put("roles", roles);
+            model.put("id", userId);
             model.put("token", token);
             return ResponseEntity.ok(model);
         } catch (AuthenticationException e) {

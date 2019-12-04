@@ -18,7 +18,6 @@ export default class BuyCrypto extends Component {
     this.setState({
       price: this.props.singleCryptoData.quote.usd.price
     });
-    console.log(this.props.singleCryptoData.quote.usd.price)
   }
 
   handleChange = event => {

@@ -13,6 +13,12 @@ export default class CryptoDataContextProvider extends Component {
 
     userWallet: [],
 
+    userId: "",
+
+    setUserId: (userId) => {
+      this.setState({userId});
+    },
+
     fetchDataWithCallback: (URL, callback) => {
       Axios.get(URL).then(res => callback(res));
     },
@@ -29,24 +35,26 @@ export default class CryptoDataContextProvider extends Component {
     fetchUserOrderHistory: URL => {
       Axios.get(URL)
         .then(res => this.setState({ userOrderHistory: res.data }))
-        .then(res => console.log(this.state.userOrderHistory));
     },
 
     fetchUserOpenOrders: URL => {
       Axios.get(URL)
         .then(res => this.setState({ userOpenOrders: res.data }))
-        .then(res => console.log(this.state.userOpenOrders));
     },
 
     fetchUserWallet: URL => {
       Axios.get(URL)
         .then(res => this.setState({ userWallet: res.data }))
-        .then(res => console.log(this.state.userWallet));
     },
 
     sendDataToBackend: (URL, data, callback) => {
       Axios.post(URL, data).then(res => {
-        callback(res.data.token);
+        callback(res.data);
+      });
+    },
+
+    sendDataToBackend: (URL, data) => {
+      Axios.post(URL, data).then(res => {
       });
     },
 
