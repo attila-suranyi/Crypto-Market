@@ -10,9 +10,13 @@ export default class WalletChart extends Component {
 	static contextType = CryptoDataContext;
 
 	state = {
-		uploadedBalance: "",
-		currentBalance: "",
-		wallet: this.context.userWallet
+		wallet: [
+			{ y: 18, label: "Direct" },
+			{ y: 49, label: "Organic Search" },
+			{ y: 9, label: "Paid Search" },
+			{ y: 5, label: "Referral" },
+			{ y: 19, label: "Social" }
+		]
 	}
 
 	componentDidMount() {
@@ -36,13 +40,7 @@ export default class WalletChart extends Component {
 				legendText: "{label}",
 				indexLabelFontSize: 16,
 				indexLabel: "{label} - {y}%",
-				dataPoints: [
-					{ y: 18, label: "Direct" },
-					{ y: 49, label: "Organic Search" },
-					{ y: 9, label: "Paid Search" },
-					{ y: 5, label: "Referral" },
-					{ y: 19, label: "Social" }
-				]
+				dataPoints: this.state.wallet
 			}]
 		}
 		return (

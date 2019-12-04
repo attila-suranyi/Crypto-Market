@@ -231,11 +231,11 @@ public class Trader {
         return walletRepository.getWalletsByStockAppUser(user);
     }
 
-    public List<Object> getPortfolio(StockAppUser stockAppUser) {
+    /*public List<Object> getPortfolio(StockAppUser stockAppUser) {
         List<Wallet> walletList = walletRepository.getWalletsByStockAppUser(stockAppUser);
         HashMap<> portfolio = new ArrayList<>();
         for (Wallet wallet : walletList) {
             portfolio.add({"y": wallet.getUsdValue(), "label": wallet.getSymbol()})
         }
-    }
+    }*/
 }
