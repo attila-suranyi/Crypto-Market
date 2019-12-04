@@ -48,7 +48,6 @@ export default class BuyCrypto extends Component {
           <Form.Group controlId="formPrice">
             <Form.Label>Price</Form.Label>
             <Form.Control
-            // readOnly
             value={this.state.price}
             onChange={this.handleChange}
             name="price"
