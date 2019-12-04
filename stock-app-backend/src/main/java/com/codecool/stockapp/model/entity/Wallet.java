@@ -25,6 +25,6 @@ public class Wallet {
 
     @JsonIgnore
     @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private StockAppUser stockAppUser;
 }

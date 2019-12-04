@@ -10,9 +10,9 @@ export default class CryptoItem extends Component {
 
   colorNumber(num) {
     if (num < 0) {
-      return 'red';
+      return "red";
     } else {
-      return 'green';
+      return "green";
     }
   }
 
@@ -33,29 +33,28 @@ export default class CryptoItem extends Component {
         </td>
         <td>
           <p
-            style={{color : this.colorNumber(
-              this.props.cryptoData.quote.usd.percent_change_24h
-            )}}
+            style={{
+              color: this.colorNumber(
+                this.props.cryptoData.quote.usd.percent_change_24h
+              )
+            }}
           >
-            {this.props.cryptoData.quote.usd.percent_change_24h.toLocaleString()}%
+            {this.props.cryptoData.quote.usd.percent_change_24h.toLocaleString()}
+            %
           </p>
         </td>
         <td>
-          <p>
-            ${this.props.cryptoData.quote.usd.market_cap.toLocaleString()}
-          </p>
+          <p>${this.props.cryptoData.quote.usd.market_cap.toLocaleString()}</p>
         </td>
         <td>
-          <p>
-            ${this.props.cryptoData.quote.usd.volume_24h.toLocaleString()}
-          </p>
+          <p>${this.props.cryptoData.quote.usd.volume_24h.toLocaleString()}</p>
         </td>
         <td>
           <p>
             <Button variant="dark" size="lg">
               <Link
                 to={`/trade?symbol=${this.props.cryptoData.symbol}&id=${this.props.cryptoData.id}`}
-                style={{ color: '#FFF' }}
+                style={{ color: "#FFF" }}
               >
                 Trade
               </Link>

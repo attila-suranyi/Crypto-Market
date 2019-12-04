@@ -27,13 +27,15 @@ export default class BuyCrypto extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
+    console.log(this.context.userId);
+
     let transaction = {
       symbol: this.props.symbol,
       currencyId: this.context.singleCryptoData.id,
       price: this.state.price,
       amount: this.state.amount,
       total: this.state.amount * this.state.price,
-      closedTransaction: false,
+      closedTransaction: false
     };
 
     this.context.sendDataToBackend(`http://localhost:8080/${this.state.transactionType}?userId=${this.context.userId}`, transaction);
@@ -47,7 +49,6 @@ export default class BuyCrypto extends Component {
           <Form.Group controlId="formPrice">
             <Form.Label>Price</Form.Label>
             <Form.Control
-            // readOnly
             value={this.state.price}
             onChange={this.handleChange}
             name="price"

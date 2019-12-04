@@ -24,11 +24,11 @@ class App extends React.Component {
               <Route exact path="/">
                 <CryptoList />
               </Route>
-              <Route path="/trade" component={TradeCrypto}></Route>
+              <PrivateRoute path="/trade" component={TradeCrypto}></PrivateRoute>
               <Route path="/sorted" component={CryptoList}></Route>
-              <Route path="/order-history" component={OrderHistory}></Route>
-              <Route path="/open-order" component={OpenOrder}></Route>
-              <Route path="/wallet" component={Wallet}></Route>
+              <PrivateRoute path="/order-history" component={OrderHistory}></PrivateRoute>
+              <PrivateRoute path="/open-order" component={OpenOrder}></PrivateRoute>
+              <PrivateRoute path="/wallet" component={Wallet}></PrivateRoute>
               <PrivateRoute path="/protected" component={Redirect}></PrivateRoute>
               <Route path="/registration" component={Registration}></Route>
               <Route path="/signin" component={Login}></Route>

@@ -69,7 +69,6 @@ public class AuthController {
         stockAppUser.setPassword(passwordEncoder.encode(stockAppUser.getPassword()));
         stockAppUser.setBalance(1000000);
         stockAppUser.setRoles(Arrays.asList("ROLE_USER"));
-        System.out.println(stockAppUser);
         userRepository.saveAndFlush(stockAppUser);
     }
 }

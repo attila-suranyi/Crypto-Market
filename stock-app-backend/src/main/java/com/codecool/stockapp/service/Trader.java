@@ -167,7 +167,7 @@ public class Trader {
 
     @Transactional
     //TODO replace this
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 60000)
     public void scanOpenOrders() {
 
         List<Transaction> openTransactions = transactionRepository.findAllByClosedTransactionFalse();

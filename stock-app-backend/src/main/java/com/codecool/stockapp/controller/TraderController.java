@@ -7,9 +7,6 @@ import com.codecool.stockapp.model.entity.transaction.OpenTransaction;
 import com.codecool.stockapp.model.entity.transaction.Transaction;
 import com.codecool.stockapp.model.entity.transaction.TransactionType;
 import com.codecool.stockapp.service.Trader;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,7 +56,6 @@ public class TraderController {
     public List<Wallet> showWallet() {
         return trader.getWallet(1);
     }
-
 
     @GetMapping("/open_order")
     public List<OpenTransaction> getOpenOrders(@RequestParam Long userId) {
