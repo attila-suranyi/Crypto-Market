@@ -11,6 +11,7 @@ import Wallet from "./components/Wallet";
 import PrivateRoute from "./security/PrivateRoute";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
+import Portfolio from "./components/Portfolio";
 
 class App extends React.Component {
   render() {
@@ -32,6 +33,7 @@ class App extends React.Component {
               <PrivateRoute path="/protected" component={Redirect}></PrivateRoute>
               <Route path="/registration" component={Registration}></Route>
               <Route path="/signin" component={Login}></Route>
+              <Route path="/portfolio" component={Portfolio}></Route>
             </Router>
           </div>
 

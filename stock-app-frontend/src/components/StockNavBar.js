@@ -23,7 +23,7 @@ export default class StockNavBar extends Component {
             <React.Fragment>
               <Nav className="mr-auto">
                 <Nav.Link href="/wallet">Wallet</Nav.Link>
-                <Nav.Link href="#pricing">Portfolio</Nav.Link>
+                <Nav.Link href="/portfolio">Portfolio</Nav.Link>
                 <NavDropdown title="Orders" id="collasible-nav-dropdown">
                   <NavDropdown.Item href="/open-order">
                     Open Orders
