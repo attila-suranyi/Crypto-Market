@@ -1,16 +1,32 @@
 import React, { Component } from "react";
+import { CryptoDataContext } from "../contexts/CryptoDataContext";
 import * as CanvasJSReact from '../assets/canvasjs.react';
 //var CanvasJSReact = require('../assets/canvasjs.react');
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
+
 export default class WalletChart extends Component {
+	static contextType = CryptoDataContext;
+
+	state = {
+		uploadedBalance: "",
+		currentBalance: "",
+		wallet: this.context.userWallet
+	}
+
+	componentDidMount() {
+		this.context.fetchUserWallet(
+		  "http://localhost:8080/wallet"
+		);
+	  }
+
 	render() {
 		const options = {
 			exportEnabled: true,
 			animationEnabled: true,
 			title: {
-				text: "Website Traffic Sources"
+				text: "Portfolio"
 			},
 			data: [{
 				type: "pie",

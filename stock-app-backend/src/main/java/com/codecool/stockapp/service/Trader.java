@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -228,5 +229,13 @@ public class Trader {
     public List<Wallet> getWallet(long id) {
         StockAppUser user = userRepository.findById(id);
         return walletRepository.getWalletsByStockAppUser(user);
+    }
+
+    public List<Object> getPortfolio(StockAppUser stockAppUser) {
+        List<Wallet> walletList = walletRepository.getWalletsByStockAppUser(stockAppUser);
+        HashMap<> portfolio = new ArrayList<>();
+        for (Wallet wallet : walletList) {
+            portfolio.add({"y": wallet.getUsdValue(), "label": wallet.getSymbol()})
+        }
     }
 }
