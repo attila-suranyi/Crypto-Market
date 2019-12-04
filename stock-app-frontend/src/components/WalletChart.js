@@ -10,20 +10,26 @@ export default class WalletChart extends Component {
 	static contextType = CryptoDataContext;
 
 	state = {
-		wallet: [
-			{ y: 18, label: "Direct" },
-			{ y: 49, label: "Organic Search" },
-			{ y: 9, label: "Paid Search" },
-			{ y: 5, label: "Referral" },
-			{ y: 19, label: "Social" }
-		]
+		defaultWallet: [{y: 100, label: "fetching"}],
+		wallet: []
 	}
 
 	componentDidMount() {
 		this.context.fetchUserWallet(
-		  "http://localhost:8080/wallet"
+			`http://localhost:8080/wallet?userId=${this.context.userId}`
 		);
-	  }
+		this.buildChartObject();
+	}
+
+	buildChartObject = () => {
+		let chartObj = [];
+
+		for (let currency of this.context.userWallet) {
+			let singleCurrencyData = {"y": Math.round(currency.usdValue * 100) / 100, "label": currency.symbol};
+			chartObj.push(singleCurrencyData);
+		}
+		this.setState({wallet : chartObj});
+	}
 
 	render() {
 		const options = {
@@ -35,21 +41,21 @@ export default class WalletChart extends Component {
 			data: [{
 				type: "pie",
 				startAngle: 75,
-				toolTipContent: "<b>{label}</b>: {y}%",
+				toolTipContent: "<b>{label}</b>: {y} USD",
 				showInLegend: "true",
 				legendText: "{label}",
 				indexLabelFontSize: 16,
-				indexLabel: "{label} - {y}%",
-				dataPoints: this.state.wallet
+				indexLabel: "{label} - {y} USD",
+				dataPoints: this.context.userWallet ? this.state.wallet : this.state.defaultWallet
 			}]
 		}
 		return (
-		<div>
-			<CanvasJSChart options = {options}
+			<div>
+				<CanvasJSChart options={options}
 				/* onRef={ref => this.chart = ref} */
-			/>
-			{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-		</div>
+				/>
+				{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+			</div>
 		);
 	}
 }

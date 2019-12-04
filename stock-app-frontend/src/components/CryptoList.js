@@ -53,7 +53,9 @@ export default class CryptoList extends Component {
   render() {
     return (
       <div>
-        <div className="title-container"><h4 className="title">Market</h4></div>
+        <div className="title-container">
+          <h4 className="title">Market</h4>
+        </div>
         <div className="table-responsive text-nowrap">
           <Table striped bordered hover variant="dark">
             <thead className="black white-text">
@@ -84,6 +86,9 @@ export default class CryptoList extends Component {
                   <p onClick={() => this.sortByProperty("volume_24h")}>
                     Volume (24h)
                   </p>
+                </th>
+                <th>
+                  <p>Trade</p>
                 </th>
               </tr>
             </thead>

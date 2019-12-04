@@ -55,14 +55,15 @@ export default class CryptoDataContextProvider extends Component {
     },
 
     sendDataToBackendWithCallback: (URL, data, callback) => {
+      Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
       Axios.post(URL, data).then(res => {
         callback(res.data);
       });
     },
 
     sendDataToBackend: (URL, data) => {
-      Axios.post(URL, data).then(res => {
-      });
+      Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
+      Axios.post(URL, data);
     },
 
     getQueryParam(key) {

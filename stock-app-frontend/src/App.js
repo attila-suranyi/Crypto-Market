@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 
 import CryptoDataContextProvider from "./contexts/CryptoDataContext";
 import CryptoList from "./components/CryptoList";
@@ -14,33 +14,36 @@ import Login from "./components/Login";
 import Portfolio from "./components/Portfolio";
 
 class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <CryptoDataContextProvider>
-          <StockNavBar></StockNavBar>
-
-          <div>
-            <Router>
-              <Route exact path="/">
-                <CryptoList />
-              </Route>
-              <PrivateRoute path="/trade" component={TradeCrypto}></PrivateRoute>
-              <Route path="/sorted" component={CryptoList}></Route>
-              <PrivateRoute path="/order-history" component={OrderHistory}></PrivateRoute>
-              <PrivateRoute path="/open-order" component={OpenOrder}></PrivateRoute>
-              <PrivateRoute path="/wallet" component={Wallet}></PrivateRoute>
-              <PrivateRoute path="/protected" component={Redirect}></PrivateRoute>
-              <Route path="/registration" component={Registration}></Route>
-              <Route path="/signin" component={Login}></Route>
-              <Route path="/portfolio" component={Portfolio}></Route>
-            </Router>
-          </div>
-
-        </CryptoDataContextProvider>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+              <CryptoDataContextProvider>
+                <Router>
+                  <StockNavBar></StockNavBar>
+      
+                  <Route exact path="/">
+                    <CryptoList />
+                  </Route>
+                  <PrivateRoute path="/trade" component={TradeCrypto}></PrivateRoute>
+                  <Route path="/sorted" component={CryptoList}></Route>
+                  <PrivateRoute
+                    path="/order-history"
+                    component={OrderHistory}
+                  ></PrivateRoute>
+                  <PrivateRoute
+                    path="/open-order"
+                    component={OpenOrder}
+                  ></PrivateRoute>
+                  <PrivateRoute path="/wallet" component={Wallet}></PrivateRoute>
+                  <PrivateRoute path="/portfolio" component={Portfolio}></PrivateRoute>
+                  <PrivateRoute path="/protected" component={Redirect}></PrivateRoute>
+                  <Route path="/registration" component={Registration}></Route>
+                  <Route path="/signin" component={Login}></Route>
+                </Router>
+              </CryptoDataContextProvider>
+            </div>
+          );
+        }
 }
 
 export default App;
