@@ -33,10 +33,10 @@ export default class BuyCrypto extends Component {
       price: this.state.price,
       amount: this.state.amount,
       total: this.state.amount * this.state.price,
-      closedTransaction: false
+      closedTransaction: false,
     };
 
-    this.context.sendDataToBackend(`http://localhost:8080/${this.state.transactionType}`, transaction);
+    this.context.sendDataToBackend(`http://localhost:8080/${this.state.transactionType}?userId=${this.context.userId}`, transaction);
   };
 
   render() {

@@ -47,7 +47,7 @@ export default class CryptoDataContextProvider extends Component {
         .then(res => this.setState({ userWallet: res.data }))
     },
 
-    sendDataToBackend: (URL, data, callback) => {
+    sendDataToBackendWithCallback: (URL, data, callback) => {
       Axios.post(URL, data).then(res => {
         callback(res.data);
       });

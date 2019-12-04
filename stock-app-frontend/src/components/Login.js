@@ -28,7 +28,7 @@ export default class Login extends Component {
       password: this.state.password
     };
 
-    this.context.sendDataToBackend(
+    this.context.sendDataToBackendWithCallback(
       "http://localhost:8080/auth/signin",
       userDetails,
       this.saveTokenToLocalStorage

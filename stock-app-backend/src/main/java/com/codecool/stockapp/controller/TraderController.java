@@ -44,15 +44,15 @@ public class TraderController {
     }
 
     @PostMapping("/buy")
-    public boolean buy(@RequestBody Transaction transaction) {
+    public boolean buy(@RequestBody Transaction transaction, @RequestParam long userId) {
         transaction.setTransactionType(TransactionType.BUY);
-        return trader.buy(transaction, 1);
+        return trader.buy(transaction, userId);
     }
 
     @PostMapping("/sell")
-    public boolean sell(@RequestBody Transaction transaction) {
+    public boolean sell(@RequestBody Transaction transaction, @RequestParam long userId) {
         transaction.setTransactionType(TransactionType.SELL);
-        return trader.sell(transaction, 1);
+        return trader.sell(transaction, userId);
     }
 
     @GetMapping("/wallet")
