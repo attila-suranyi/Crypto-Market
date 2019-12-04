@@ -35,6 +35,7 @@ public class TraderController {
         return trader.getCurrencyById(id);
     }
 
+    //TODO do we use this?
     @GetMapping("/orders")
     public List<Transaction> getOrders() {
         return trader.getTransactions();
@@ -53,8 +54,8 @@ public class TraderController {
     }
 
     @GetMapping("/wallet")
-    public List<Wallet> showWallet() {
-        return trader.getWallet(1);
+    public List<Wallet> showWallet(@RequestParam Long userId) {
+        return trader.getWallet(userId);
     }
 
     @GetMapping("/open_order")
