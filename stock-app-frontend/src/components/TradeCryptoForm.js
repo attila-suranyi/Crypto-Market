@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
-import '../assets/css/TradeCryptoForm.css';
+import "../assets/css/TradeCryptoForm.css";
 
 export default class BuyCrypto extends Component {
   static contextType = CryptoDataContext;
@@ -27,8 +27,6 @@ export default class BuyCrypto extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    console.log(this.context.userId);
-
     let transaction = {
       symbol: this.props.symbol,
       currencyId: this.context.singleCryptoData.id,
@@ -38,20 +36,27 @@ export default class BuyCrypto extends Component {
       closedTransaction: false
     };
 
-    this.context.sendDataToBackend(`http://localhost:8080/${this.state.transactionType}?userId=${this.context.userId}`, transaction);
+    this.context.sendDataToBackend(
+      `http://localhost:8080/${this.state.transactionType}?userId=${this.context.userId}`,
+      transaction
+    );
   };
 
   render() {
     return (
       <div className="trade-form">
-        <div className="crypto-symbol"><p>{this.props.tradeDir} {this.props.symbol}</p></div>
+        <div className="crypto-symbol">
+          <p>
+            {this.props.tradeDir} {this.props.symbol}
+          </p>
+        </div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formPrice">
             <Form.Label>Price</Form.Label>
             <Form.Control
-            value={this.state.price}
-            onChange={this.handleChange}
-            name="price"
+              value={this.state.price}
+              onChange={this.handleChange}
+              name="price"
             />
           </Form.Group>
           <Form.Group controlId="formAmount">
@@ -68,9 +73,7 @@ export default class BuyCrypto extends Component {
             <Form.Control
               readOnly
               placeholder="Total"
-              value={
-                this.state.price * this.state.amount
-              }
+              value={this.state.price * this.state.amount}
               name="total"
             />
           </Form.Group>

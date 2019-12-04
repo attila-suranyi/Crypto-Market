@@ -8,11 +8,7 @@ import '../assets/css/OpenOrder.css';
 export default class OrderHistory extends Component {
   static contextType = CryptoDataContext;
 
-  //TODO make user ID dynamic
   componentDidMount() {
-    if (this.context.loggedInUser) {
-      //redirect to login route
-    }
     this.context.fetchUserOrderHistory(
       `http://localhost:8080/order_history?userId=${this.context.userId}`
     );

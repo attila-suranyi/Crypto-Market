@@ -9,7 +9,7 @@ export default class Wallet extends Component {
 
   componentDidMount() {
     this.context.fetchUserWallet(
-      "http://localhost:8080/wallet"
+      `http://localhost:8080/wallet?userId=${this.context.userId}`
     );
   }
 

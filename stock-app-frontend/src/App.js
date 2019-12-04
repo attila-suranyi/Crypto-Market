@@ -17,24 +17,27 @@ class App extends React.Component {
     return (
       <div className="App">
         <CryptoDataContextProvider>
-          <StockNavBar></StockNavBar>
+          <Router>
+            <StockNavBar></StockNavBar>
 
-          <div>
-            <Router>
-              <Route exact path="/">
-                <CryptoList />
-              </Route>
-              <PrivateRoute path="/trade" component={TradeCrypto}></PrivateRoute>
-              <Route path="/sorted" component={CryptoList}></Route>
-              <PrivateRoute path="/order-history" component={OrderHistory}></PrivateRoute>
-              <PrivateRoute path="/open-order" component={OpenOrder}></PrivateRoute>
-              <PrivateRoute path="/wallet" component={Wallet}></PrivateRoute>
-              <PrivateRoute path="/protected" component={Redirect}></PrivateRoute>
-              <Route path="/registration" component={Registration}></Route>
-              <Route path="/signin" component={Login}></Route>
-            </Router>
-          </div>
-
+            <Route exact path="/">
+              <CryptoList />
+            </Route>
+            <PrivateRoute path="/trade" component={TradeCrypto}></PrivateRoute>
+            <Route path="/sorted" component={CryptoList}></Route>
+            <PrivateRoute
+              path="/order-history"
+              component={OrderHistory}
+            ></PrivateRoute>
+            <PrivateRoute
+              path="/open-order"
+              component={OpenOrder}
+            ></PrivateRoute>
+            <PrivateRoute path="/wallet" component={Wallet}></PrivateRoute>
+            <PrivateRoute path="/protected" component={Redirect}></PrivateRoute>
+            <Route path="/registration" component={Registration}></Route>
+            <Route path="/signin" component={Login}></Route>
+          </Router>
         </CryptoDataContextProvider>
       </div>
     );
