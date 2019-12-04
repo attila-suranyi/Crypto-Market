@@ -34,9 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .authorizeRequests()
                     .antMatchers("/auth/signin").permitAll() // allowed by anyone
-                    .antMatchers("/").permitAll()
+                    .antMatchers("/auth/registration").permitAll() // allowed by anyone
                     .antMatchers("/sorted").permitAll()
-                    .anyRequest().authenticated() // anything else need admin role
+                    .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);
     }
