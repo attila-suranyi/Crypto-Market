@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
 import * as CanvasJSReact from '../assets/canvasjs.react';
-//var CanvasJSReact = require('../assets/canvasjs.react');
-var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 
@@ -21,10 +19,10 @@ export default class WalletChart extends Component {
 		let chartObj = [];
 
 		for (let currency of this.props.userWallet) {
-			let singleCurrencyData = {"y": Math.round(currency.usdValue * 100) / 100, "label": currency.symbol};
+			let singleCurrencyData = { "y": Math.round(currency.usdValue * 100) / 100, "label": currency.symbol };
 			chartObj.push(singleCurrencyData);
 		}
-		this.setState({wallet : chartObj});
+		this.setState({ wallet: chartObj });
 	}
 
 	render() {
@@ -48,9 +46,7 @@ export default class WalletChart extends Component {
 		return (
 			<div>
 				<CanvasJSChart options={options}
-				/* onRef={ref => this.chart = ref} */
 				/>
-				{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
 			</div>
 		);
 	}
