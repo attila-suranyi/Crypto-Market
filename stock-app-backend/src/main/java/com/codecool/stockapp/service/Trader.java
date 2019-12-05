@@ -201,7 +201,7 @@ public class Trader {
         return (transaction.getAmount() < transaction.getStockAppUser().getWallet().stream()
                 .filter(x->x.getSymbol().equals(transaction.getSymbol()))
                 .findFirst().get()
-                .getTotalAmount());
+                .getAvailableAmount());
     }
 
     public List<OpenTransaction> getOpenTransactions(Long userId) {
