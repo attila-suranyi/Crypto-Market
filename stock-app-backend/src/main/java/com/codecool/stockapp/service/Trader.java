@@ -108,12 +108,15 @@ public class Trader {
         } else if (transaction.getTransactionType().equals(TransactionType.BUY) && !transaction.isClosedTransaction()) {
             //doesnt need any modification
         } else if (transaction.getTransactionType().equals(TransactionType.SELL) && !transaction.isClosedTransaction()) {
-            wallet.setTotalAmount(wallet.getTotalAmount() - transaction.getAmount());
+            wallet.setTotalAmount(wallet.getTotalAmount());
             wallet.setInOrder(wallet.getInOrder() + transaction.getAmount());
         }
 
         wallet.setAvailableAmount(wallet.getTotalAmount() - wallet.getInOrder());
-        wallet.setUsdValue(wallet.getTotalAmount() * transaction.getPrice());
+
+        double currentPrice = currencyAPIService.getSingleCurrencyPrice(transaction.getCurrencyId());
+
+        wallet.setUsdValue(wallet.getTotalAmount() * currentPrice);
 
         walletRepository.updateWallet(
                 wallet.getAvailableAmount(),
@@ -198,9 +201,9 @@ public class Trader {
     }
 
     private boolean checkAmount(Transaction transaction) {
-        return (transaction.getAmount() < transaction.getStockAppUser().getWallet().stream()
+        return (transaction.getAmount() <= transaction.getStockAppUser().getWallet().stream()
                 .filter(x->x.getSymbol().equals(transaction.getSymbol()))
-                .findFirst().get()
+                .findFirst().orElseGet(null)
                 .getAvailableAmount());
     }
 
@@ -230,12 +233,4 @@ public class Trader {
         StockAppUser user = userRepository.findById(id);
         return walletRepository.getWalletsByStockAppUser(user);
     }
-
-    /*public List<Object> getPortfolio(StockAppUser stockAppUser) {
-        List<Wallet> walletList = walletRepository.getWalletsByStockAppUser(stockAppUser);
-        HashMap<> portfolio = new ArrayList<>();
-        for (Wallet wallet : walletList) {
-            portfolio.add({"y": wallet.getUsdValue(), "label": wallet.getSymbol()})
-        }
-    }*/
 }
