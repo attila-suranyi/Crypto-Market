@@ -22,7 +22,7 @@ export default class BuyCrypto extends Component {
   }
 
   showAlert = (alertData) => {
-    alertData == true ? this.setState({alert:"Order successfully executed!"}) : this.setState({alert:"Don't have enough balance!"})
+    alertData == true ? this.setState({alert:"Order placed!"}) : this.setState({alert:"Not enough balance!"})
     alert(this.state.alert)
   }
 
