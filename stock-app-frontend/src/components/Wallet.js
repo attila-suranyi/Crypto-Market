@@ -8,10 +8,17 @@ import '../assets/css/OpenOrder.css';
 export default class Wallet extends Component {
   static contextType = CryptoDataContext;
 
+  state= {
+    balance: this.context.userBalance
+  }
+
   componentDidMount() {
     this.context.clearUserWallet();
     this.context.fetchUserWallet(
       `http://localhost:8080/wallet?userId=${this.context.userId}`
+    );
+    this.context.fetchUserBalance(
+      `http://localhost:8080/balance?userId=${this.context.userId}`
     );
   }
 
@@ -19,7 +26,7 @@ export default class Wallet extends Component {
     return (
       <div>
         <div>
-          <div className="title-container"><h4 className="title">Wallet</h4></div>
+          <div className="title-container"><h4 className="title">Wallet</h4><h4 class="balance">Balance: {this.state.balance || 0}</h4></div>
           <div className="table-responsive text-nowrap">
             <Table striped bordered hover variant="dark">
               <thead className="black white-text">

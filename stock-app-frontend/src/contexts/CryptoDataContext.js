@@ -13,6 +13,8 @@ export default class CryptoDataContextProvider extends Component {
 
     userWallet: null,
 
+    userBalance: 0,
+
     userId: "",
 
     setUserId: (userId) => {
@@ -52,6 +54,12 @@ export default class CryptoDataContextProvider extends Component {
       Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
       Axios.get(URL)
         .then(res => this.setState({ userWallet: res.data }))
+    },
+
+    fetchUserBalance: URL => {
+      Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
+      Axios.get(URL)
+        .then(res => this.setState({ userBalance: res.data }))
     },
 
     sendDataToBackendWithCallback: (URL, data, callback) => {

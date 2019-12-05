@@ -1,0 +1,12 @@
+.wallet-container{
+    display: flex;
+}
+
+.wallet{
+    display: inline;
+
+}
+
+.wallet-chart{
+    display: inline;
+}

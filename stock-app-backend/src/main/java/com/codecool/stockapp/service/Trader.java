@@ -233,4 +233,9 @@ public class Trader {
         StockAppUser user = userRepository.findById(id);
         return walletRepository.getWalletsByStockAppUser(user);
     }
+
+    public double getBalance(long userId) {
+        StockAppUser user = userRepository.findById(userId);
+        return user.getBalance();
+    }
 }

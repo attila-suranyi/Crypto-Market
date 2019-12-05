@@ -67,4 +67,9 @@ public class TraderController {
     public List<Transaction> getTransactionHistory(@RequestParam Long userId) {
         return trader.getTransactionHistoryByUserId(userId);
     }
+
+    @GetMapping("/balance")
+    public double getBalance(@RequestParam Long userId) {
+        return trader.getBalance(userId);
+    }
 }
