@@ -10,21 +10,21 @@ export default class WalletChart extends Component {
 	static contextType = CryptoDataContext;
 
 	state = {
-		defaultWallet: [{y: 100, label: "fetching"}],
+		//defaultWallet: [{y: 100, label: "fetching"}],
 		wallet: []
 	}
 
 	componentDidMount() {
-		this.context.fetchUserWallet(
-			`http://localhost:8080/wallet?userId=${this.context.userId}`
-		);
+		// this.context.fetchUserWallet(
+		// 	`http://localhost:8080/wallet?userId=${this.context.userId}`
+		// );
 		this.buildChartObject();
 	}
 
 	buildChartObject = () => {
 		let chartObj = [];
 
-		for (let currency of this.context.userWallet) {
+		for (let currency of this.props.userWallet) {
 			let singleCurrencyData = {"y": Math.round(currency.usdValue * 100) / 100, "label": currency.symbol};
 			chartObj.push(singleCurrencyData);
 		}
@@ -46,7 +46,7 @@ export default class WalletChart extends Component {
 				legendText: "{label}",
 				indexLabelFontSize: 16,
 				indexLabel: "{label} - {y} USD",
-				dataPoints: this.context.userWallet ? this.state.wallet : this.state.defaultWallet
+				dataPoints: this.state.wallet
 			}]
 		}
 		return (

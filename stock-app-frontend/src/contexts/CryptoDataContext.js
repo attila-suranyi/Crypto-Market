@@ -11,7 +11,7 @@ export default class CryptoDataContextProvider extends Component {
     userOpenOrders: [],
     userOrderHistory: [],
 
-    userWallet: [],
+    userWallet: null,
 
     userId: "",
 
