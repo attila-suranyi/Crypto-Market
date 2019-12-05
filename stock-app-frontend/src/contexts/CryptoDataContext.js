@@ -13,7 +13,7 @@ export default class CryptoDataContextProvider extends Component {
 
     userWallet: null,
 
-    userBalance: 0,
+    userBalance: null,
 
     userId: "",
 

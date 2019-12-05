@@ -3,14 +3,10 @@ import { CryptoDataContext } from "../contexts/CryptoDataContext";
 import WalletItem from "./WalletItem";
 import WalletChart from "./WalletChart";
 import Table from "react-bootstrap/Table";
-import '../assets/css/OpenOrder.css';
+import "../assets/css/OpenOrder.css";
 
 export default class Wallet extends Component {
   static contextType = CryptoDataContext;
-
-  state= {
-    balance: this.context.userBalance
-  }
 
   componentDidMount() {
     this.context.clearUserWallet();
@@ -26,7 +22,16 @@ export default class Wallet extends Component {
     return (
       <div>
         <div>
-          <div className="title-container"><h4 className="title">Wallet</h4><h4 class="balance">Balance: {this.state.balance || 0}</h4></div>
+          <div className="title-container">
+            <h4 className="title">Wallet</h4>
+            {this.context.userBalance ? (
+              <h4 class="balance" style={{ color: "white", fontSize: 22 }}>
+                Balance: ${this.context.userBalance.toLocaleString()}
+              </h4>
+            ) : (
+              <div>Fetching...</div>
+            )}
+          </div>
           <div className="table-responsive text-nowrap">
             <Table striped bordered hover variant="dark">
               <thead className="black white-text">
@@ -49,7 +54,7 @@ export default class Wallet extends Component {
                 </tr>
               </thead>
               <tbody>
-                {(this.context.userWallet||[]).map(userWallet => (
+                {(this.context.userWallet || []).map(userWallet => (
                   <WalletItem key={userWallet.symbol} userWallet={userWallet} />
                 ))}
               </tbody>
@@ -57,10 +62,11 @@ export default class Wallet extends Component {
           </div>
         </div>
         <div>
-          {console.log(this.context.userWallet)}
           {this.context.userWallet ? (
-            <WalletChart userWallet={this.context.userWallet}/>
-          ) : (<div>Fetching...</div>)}
+            <WalletChart userWallet={this.context.userWallet} />
+          ) : (
+            <div>Fetching...</div>
+          )}
         </div>
       </div>
     );
