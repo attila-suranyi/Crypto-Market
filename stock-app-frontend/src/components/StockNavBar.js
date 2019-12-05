@@ -27,9 +27,9 @@ export default class StockNavBar extends Component {
                   <Nav.Link as={Link} to="/wallet">
                     Wallet
                   </Nav.Link>
-                <Nav.Link as={Link} to="/portfolio">
+                {/* <Nav.Link as={Link} to="/portfolio">
                 Portfolio
-                </Nav.Link>
+                </Nav.Link> */}
                   <NavDropdown title="Orders" id="collasible-nav-dropdown">
                     <NavDropdown.Item as={Link} to="/open-order">
                       Open Orders

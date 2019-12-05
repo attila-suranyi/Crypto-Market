@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import "../assets/css/CryptoItem.css";
 
 import Button from "react-bootstrap/Button";
 
@@ -38,6 +39,7 @@ export default class CryptoItem extends Component {
                 this.props.cryptoData.quote.usd.percent_change_24h
               )
             }}
+            class="change24"
           >
             {this.props.cryptoData.quote.usd.percent_change_24h.toLocaleString()}
             %
@@ -51,7 +53,7 @@ export default class CryptoItem extends Component {
         </td>
         <td>
           <p>
-            <Button variant="dark" size="lg">
+            <Button variant="dark" size="sm">
               <Link
                 to={`/trade?symbol=${this.props.cryptoData.symbol}&id=${this.props.cryptoData.id}`}
                 style={{ color: "#FFF" }}
