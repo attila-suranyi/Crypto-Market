@@ -42,7 +42,6 @@ public class Trader {
     public Trader() {
     }
 
-    //TODO gives back boolean, return the value to the frontend and rename this method according to this
     @Transactional
     public boolean buy(Transaction transaction, long userId) {
         transaction.setStockAppUser(userRepository.findById(userId));
@@ -60,7 +59,6 @@ public class Trader {
         return false;
     }
 
-    //TODO checks!!!: checkBalance, isTransactionExecutable
     @Transactional
     public boolean sell(Transaction transaction, long userId) {
         transaction.setStockAppUser(userRepository.findById(userId));
