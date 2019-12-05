@@ -9,6 +9,7 @@ export default class Wallet extends Component {
   static contextType = CryptoDataContext;
 
   componentDidMount() {
+    this.context.clearUserWallet();
     this.context.fetchUserWallet(
       `http://localhost:8080/wallet?userId=${this.context.userId}`
     );

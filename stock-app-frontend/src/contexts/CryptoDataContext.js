@@ -76,6 +76,10 @@ export default class CryptoDataContextProvider extends Component {
     clearSingleCryptoData: () => {
       this.setState({ singleCryptoData: {} });
     },
+
+    clearUserWallet: () => {
+      this.setState({ userWallet: null });
+    },
   };
 
   render() {
