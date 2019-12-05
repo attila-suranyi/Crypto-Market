@@ -10,14 +10,10 @@ export default class WalletChart extends Component {
 	static contextType = CryptoDataContext;
 
 	state = {
-		//defaultWallet: [{y: 100, label: "fetching"}],
 		wallet: []
 	}
 
 	componentDidMount() {
-		// this.context.fetchUserWallet(
-		// 	`http://localhost:8080/wallet?userId=${this.context.userId}`
-		// );
 		this.buildChartObject();
 	}
 
