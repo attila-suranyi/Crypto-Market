@@ -30,6 +30,7 @@ export default class Registration extends Component {
         };
 
         this.context.sendDataToBackend("http://localhost:8080/auth/registration", user);
+        this.props.history.push("/sorted");
     };
 
 
