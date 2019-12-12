@@ -201,7 +201,7 @@ public class Trader {
     private boolean checkAmount(Transaction transaction) {
         return (transaction.getAmount() <= transaction.getStockAppUser().getWallet().stream()
                 .filter(x->x.getSymbol().equals(transaction.getSymbol()))
-                .findFirst().orElseGet(null)
+                .findFirst().orElseGet(Wallet::new)
                 .getAvailableAmount());
     }
 
