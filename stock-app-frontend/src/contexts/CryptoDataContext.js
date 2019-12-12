@@ -3,6 +3,30 @@ import Axios from "axios";
 
 export const CryptoDataContext = createContext();
 
+function createFetchFunction(url, state) {
+  return () => {
+    Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
+    Axios.get(url).then(res => this.setState({ [state]: res.data.data }));
+  }
+}
+
+function calculator(base, opponent) {
+  return (opponent) => {
+    return base**opponent;
+  }
+}
+
+let func1 = calculator(2);
+let func2 = calculator(3);
+calculator(4);
+calculator(5);
+calculator(6);
+
+func2(2)
+
+let fetch1 = createFetchFunction('index.hu', 'indexResponse');
+fetch1();
+
 export default class CryptoDataContextProvider extends Component {
   state = {
     cryptoData: [],
@@ -26,10 +50,8 @@ export default class CryptoDataContextProvider extends Component {
       Axios.get(URL).then(res => callback(res));
     },
 
-    fetchAllCryptoData: URL => {
-      Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
-      Axios.get(URL).then(res => this.setState({ cryptoData: res.data.data }));
-    },
+    
+    fetchAllCryptoData: (URL) => createFetchFunction(URL, 'cryptoData'),
 
     fetchSingleCryptoDataById: URL => {
       Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;

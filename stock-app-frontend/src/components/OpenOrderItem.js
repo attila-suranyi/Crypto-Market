@@ -6,11 +6,7 @@ export default class OpenOrderItem extends Component {
   };
 
   colorTransactionType(type) {
-    if (type === "BUY") {
-      return "green";
-    } else {
-      return "red";
-    }
+    return type === "BUY"? "green": "red";
   }
 
   render() {

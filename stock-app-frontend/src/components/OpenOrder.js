@@ -14,9 +14,7 @@ export default class OpenOrder extends Component {
   }
 
   getCurrentPriceForOpenOrderCryptos() {
-      let currenyIdList = [];
-      this.context.userOpenOrders.map(openOrderData => 
-        currenyIdList.push(openOrderData.id))
+      let currenyIdList = this.context.userOpenOrders.map(openOrderData => openOrderData.id);
   }
 
   render() {
