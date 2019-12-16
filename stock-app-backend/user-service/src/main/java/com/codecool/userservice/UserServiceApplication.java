@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-//@EnableEurekaClient
+@EnableEurekaClient
 public class UserServiceApplication {
 
     public static void main(String[] args) {
@@ -16,7 +16,7 @@ public class UserServiceApplication {
     }
 
     @Bean
-    //@LoadBalanced
+    @LoadBalanced
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }

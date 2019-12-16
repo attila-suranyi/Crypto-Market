@@ -39,7 +39,11 @@ public class StockAppUser {
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
+    @ElementCollection(fetch = FetchType.LAZY)
+    //@Builder.Default
     private List<Long> walletIdList;
 
+    @ElementCollection(fetch = FetchType.LAZY)
+    //@Builder.Default
     private List<Long> transactionIdList;
 }
