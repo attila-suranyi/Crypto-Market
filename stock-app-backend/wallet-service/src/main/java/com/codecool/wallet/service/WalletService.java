@@ -29,13 +29,8 @@ public class WalletService {
     }
 
     private void updateWallet(Transaction transaction) {
-        Long userId = transaction.getStockAppUserId();
-        StockAppUser user = userCaller.getUser(userId);
 
-        Wallet wallet = user.getWallet().stream()
-                .filter(x -> x.getSymbol().equals(transaction.getSymbol()))
-                .findFirst()
-                .orElseThrow(NoSuchElementException::new);
+        Wallet wallet = walletRepository.findWalletBySymbolAndStockAppUserId(transaction.getSymbol(), transaction.getStockAppUserId());
 
         if (transaction.getTransactionType().equals(TransactionType.BUY) && transaction.isClosedTransaction()) {
             wallet.setTotalAmount(wallet.getTotalAmount() + transaction.getAmount());

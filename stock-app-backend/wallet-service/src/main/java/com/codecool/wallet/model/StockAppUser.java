@@ -39,13 +39,11 @@ public class StockAppUser {
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @OneToMany(mappedBy = "stockAppUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Wallet> wallet;
+    @ElementCollection(fetch = FetchType.LAZY)
+    //@Builder.Default
+    private List<Long> walletIdList;
 
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @OneToMany(mappedBy = "stockAppUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Transaction> transactionList;
+    @ElementCollection(fetch = FetchType.LAZY)
+    //@Builder.Default
+    private List<Long> transactionIdList;
 }
