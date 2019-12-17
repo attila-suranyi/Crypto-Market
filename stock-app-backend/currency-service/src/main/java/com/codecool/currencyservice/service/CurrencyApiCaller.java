@@ -1,7 +1,7 @@
-package com.codecool.currencyservice.api;
+package com.codecool.currencyservice.service;
 
-import com.codecool.temp.model.entity.currency.CryptoCurrency;
-import com.codecool.temp.model.entity.currency.SingleCurrency;
+import com.codecool.currencyservice.model.currency.CryptoCurrency;
+import com.codecool.currencyservice.model.currency.SingleCurrency;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
-public class CurrencyAPIService {
+public class CurrencyApiCaller {
 
     @Value("${crypto.apikey}")
     private String apiKey;

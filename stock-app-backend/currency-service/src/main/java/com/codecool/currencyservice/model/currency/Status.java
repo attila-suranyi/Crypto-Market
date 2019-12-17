@@ -1,6 +1,7 @@
-package com.codecool.temp.model.entity.currency;
+package com.codecool.currencyservice.model.currency;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")

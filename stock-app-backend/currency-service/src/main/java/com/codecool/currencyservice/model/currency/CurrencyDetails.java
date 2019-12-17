@@ -1,11 +1,9 @@
-package com.codecool.temp.model.entity.currency;
-
-import java.util.List;
+package com.codecool.currencyservice.model.currency;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
 
 import javax.annotation.Generated;
+import java.util.List;
 
 @Generated("com.robohorse.robopojogenerator")
 public class CurrencyDetails {
