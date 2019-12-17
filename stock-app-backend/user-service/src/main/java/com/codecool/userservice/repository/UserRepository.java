@@ -17,4 +17,8 @@ public interface UserRepository extends JpaRepository<StockAppUser, Long> {
     @Query("update StockAppUser a set a.balance = :balance where a.id = :id")
     @Modifying(clearAutomatically = true)
     void updateBalance(@Param("balance") Double balance, @Param("id") Long id);
+
+    @Query("select balance from StockAppUser s where s.id = :id")
+    @Modifying(clearAutomatically = true)
+    double getBalance(@Param("id") Long id);
 }

@@ -19,8 +19,7 @@ public class WalletService {
     @Autowired
     private WalletRepository walletRepository;
 
-    private void setWallet(Transaction transaction) {
-        StockAppUser user = userCaller.getUser(transaction.getStockAppUserId());
+    public void setWallet(Transaction transaction) {
         if (isCryptoInWallet(transaction)) {
             updateWallet(transaction);
         } else {
@@ -28,7 +27,7 @@ public class WalletService {
         }
     }
 
-    private void updateWallet(Transaction transaction) {
+    public void updateWallet(Transaction transaction) {
 
         Wallet wallet = walletRepository.findWalletBySymbolAndStockAppUserId(transaction.getSymbol(), transaction.getStockAppUserId());
 
@@ -59,7 +58,7 @@ public class WalletService {
                 wallet.getSymbol());
     }
 
-    private boolean isCryptoInWallet(Transaction transaction) {
+    public boolean isCryptoInWallet(Transaction transaction) {
 
         return walletRepository.getAllByStockAppUserId(transaction.getStockAppUserId())
                 .stream()
@@ -67,7 +66,7 @@ public class WalletService {
                         .equals(transaction.getSymbol()));
     }
 
-    private void createWallet(Transaction transaction) {
+    public void createWallet(Transaction transaction) {
         Wallet wallet = Wallet.builder()
                 .availableAmount(transaction.getAmount())
                 .symbol(transaction.getSymbol())

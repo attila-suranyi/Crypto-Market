@@ -39,7 +39,7 @@ public class Trader {
 
     public Trader() {
     }
-
+    //TRANSACTION SERVICE
     @Transactional
     public boolean buy(Transaction transaction, long userId) {
         transaction.setStockAppUser(userRepository.findById(userId));
@@ -56,7 +56,7 @@ public class Trader {
         }
         return false;
     }
-
+    //TRANSACTION SERVICE
     @Transactional
     public boolean sell(Transaction transaction, long userId) {
         transaction.setStockAppUser(userRepository.findById(userId));
@@ -73,7 +73,7 @@ public class Trader {
         }
         return false;
     }
-
+    //TRANSACTION SERVICE
     private void saveTransactionWithDetails(Transaction transaction, boolean isTransactionClosed) {
         transaction.setDate(Util.getCurrentDate());
         transaction.setClosedTransaction(isTransactionClosed);
@@ -81,7 +81,7 @@ public class Trader {
 
         this.modifyUserBalanceByTransactionTotal(transaction);
     }
-
+    //WALLET SERVICE
     private void setWallet(Transaction transaction, long userId) {
         StockAppUser user = userRepository.findById(userId);
         if (isCryptoInWallet(transaction, user)) {
@@ -90,7 +90,7 @@ public class Trader {
             createWallet(transaction, user);
         }
     }
-
+    //WALLET SERVICE
     private void updateWallet(Transaction transaction) {
         Wallet wallet = transaction.getStockAppUser().getWallet().stream()
                 .filter(x->x.getSymbol().equals(transaction.getSymbol()))
@@ -122,14 +122,14 @@ public class Trader {
                 wallet.getSymbol());
 
     }
-
+    //WALLET SERVICE
     private boolean isCryptoInWallet(Transaction transaction, StockAppUser user) {
         return walletRepository.getWalletsByStockAppUser(user)
                 .stream()
                 .anyMatch(x -> x.getSymbol()
                         .equals(transaction.getSymbol()));
     }
-
+    //WALLET SERVICE
     private void createWallet(Transaction transaction, StockAppUser user) {
         Wallet wallet = Wallet.builder()
                 .availableAmount(transaction.getAmount())
@@ -142,7 +142,7 @@ public class Trader {
 
         walletRepository.save(wallet);
     }
-
+    //TRANSACTION SERVICE
     private void modifyUserBalanceByTransactionTotal(Transaction transaction) {
         double balance;
 
@@ -153,7 +153,7 @@ public class Trader {
         }
         userRepository.updateBalance(balance, transaction.getStockAppUser().getId());
     }
-
+    //TRANSACTION SERVICE
     public boolean isTransactionExecutable(Transaction transaction) {
         double currentPrice = currencyAPIService.getSingleCurrencyPrice(transaction.getCurrencyId());
 
@@ -164,7 +164,7 @@ public class Trader {
         }
         return false;
     }
-
+    //TRANSACTION SERVICE
     @Transactional
     //TODO replace this
     @Scheduled(fixedDelay = 60000)
@@ -177,7 +177,7 @@ public class Trader {
             }
         });
     }
-
+    //TRANSACTION SERVICE
     //TODO replace this, not business logic
     public List<Transaction> getTransactions() {
         return transactionRepository.findAll();
@@ -186,23 +186,24 @@ public class Trader {
     public CryptoCurrency getCurrencies(String sortBy, String sortDir) {
         return currencyAPIService.getCurrencies(sortBy, sortDir);
     }
+    //TRANSACTION SERVICE
     //TODO replace this, not business logic
     public CurrencyDetails getCurrencyById(long id) {
         SingleCurrency currency = currencyAPIService.getSingleCurrency(id);
         return currency.getData().get(id);
     }
-
+    //TRANSACTION SERVICE
     private boolean checkBalance(Transaction transaction) {
         return (transaction.getTotal() < transaction.getStockAppUser().getBalance());
     }
-
+    //TRANSACTION SERVICE
     private boolean checkAmount(Transaction transaction) {
         return (transaction.getAmount() <= transaction.getStockAppUser().getWallet().stream()
                 .filter(x->x.getSymbol().equals(transaction.getSymbol()))
                 .findFirst().orElseGet(null)
                 .getAvailableAmount());
     }
-
+    //TRANSACTION SERVICE
     public List<OpenTransaction> getOpenTransactions(Long userId) {
         List<OpenTransaction> openTransactions = new ArrayList<>();
         List<Transaction> transactions = transactionRepository.getTransactionsByUserIdAndTransactionType(userId, false);
@@ -218,18 +219,18 @@ public class Trader {
         }
         return openTransactions;
     }
-
+    //TRANSACTION SERVICE
     //TODO replace this, not business logic
     public List<Transaction> getTransactionHistoryByUserId(Long userId) {
         return transactionRepository.getTransactionsByUserIdAndTransactionType(userId, true);
     }
-
+    //WALLET SERVICE
     //TODO replace this, not business logic
     public List<Wallet> getWallet(long id) {
         StockAppUser user = userRepository.findById(id);
         return walletRepository.getWalletsByStockAppUser(user);
     }
-
+    //TRANSACTION SERVICE
     public double getBalance(long userId) {
         StockAppUser user = userRepository.findById(userId);
         return user.getBalance();

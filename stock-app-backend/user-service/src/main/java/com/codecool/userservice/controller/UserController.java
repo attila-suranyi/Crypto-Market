@@ -20,6 +20,11 @@ public class UserController {
         return userRepository.findById(userId).orElseThrow(NoSuchElementException::new);
     }
 
+    @GetMapping("/balance")
+    public double getBalance(@RequestParam Long userId) {
+        return userRepository.getBalance(userId);
+    }
+
     @PutMapping
     public ResponseEntity<Boolean> modifyBalance(@RequestParam Long userId, @RequestParam Double balance) {
         userRepository.updateBalance(balance, userId);
