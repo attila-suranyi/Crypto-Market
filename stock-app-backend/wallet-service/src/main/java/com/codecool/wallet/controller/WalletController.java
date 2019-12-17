@@ -21,6 +21,11 @@ public class WalletController {
     @Autowired
     private WalletService walletService;
 
+    @GetMapping("/symbol")
+    public Wallet getWallet(@RequestParam Long userId, @RequestParam String symbol) {
+        return walletRepository.findWalletBySymbolAndStockAppUserId(symbol, userId);
+    }
+
     @GetMapping
     public List<Wallet> getWallets(@RequestParam Long userId) {
         return walletRepository.getAllByStockAppUserId(userId);
