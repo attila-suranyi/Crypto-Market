@@ -1,0 +1,41 @@
+package com.codecool.currencyservice.model.currency;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.annotation.Generated;
+import java.util.Map;
+
+@Generated("com.robohorse.robopojogenerator")
+public class SingleCurrency{
+
+	@JsonProperty("data")
+	private Map<Long, CurrencyDetails> data;
+
+	@JsonProperty("status")
+	private Status status;
+
+	public Map<Long, CurrencyDetails> getData() {
+		return data;
+	}
+
+	public void setData(Map<Long, CurrencyDetails> data) {
+		this.data = data;
+	}
+
+	public void setStatus(Status status){
+		this.status = status;
+	}
+
+	public Status getStatus(){
+		return status;
+	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"SingleCurrency{" + 
+			"data = '" + data + '\'' + 
+			",status = '" + status + '\'' + 
+			"}";
+		}
+}
