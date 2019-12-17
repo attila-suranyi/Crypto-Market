@@ -1,6 +1,8 @@
 package com.codecool.transactionservice.controller;
 
 import com.codecool.transactionservice.model.Wallet;
+import com.codecool.transactionservice.model.currency.CryptoCurrency;
+import com.codecool.transactionservice.model.currency.CurrencyDetails;
 import com.codecool.transactionservice.model.transaction.OpenTransaction;
 import com.codecool.transactionservice.model.transaction.Transaction;
 import com.codecool.transactionservice.model.transaction.TransactionType;
@@ -25,20 +27,20 @@ public class TransactionController {
     @Autowired
     private WalletCaller walletCaller;
 
-    /*@GetMapping("/")
+    @GetMapping("/")
     public CryptoCurrency getCryptoCurrencies() {
-        return trader.getCurrencies("default", "default");
-    }*/
+        return transactionService.getCurrencies("default", "default");
+    }
 
-   /* @GetMapping("/sorted")
+    @GetMapping("/sorted")
     public CryptoCurrency getSortedCryptoCurrencies(@RequestParam String sort_by, @RequestParam String sort_dir) {
-        return trader.getCurrencies(sort_by, sort_dir);
-    }*/
+        return transactionService.getCurrencies(sort_by, sort_dir);
+    }
 
-    /*@GetMapping("/trade")
+    @GetMapping("/trade")
     public CurrencyDetails getCurrencyByID(@RequestParam int id) {
-        return trader.getCurrencyById(id);
-    }*/
+        return transactionService.getCurrencyById(id);
+    }
 
     @GetMapping("/orders")
     public List<Transaction> getOrders() {
