@@ -19,22 +19,21 @@ public class WalletService {
     @Autowired
     private WalletRepository walletRepository;
 
-    private void setWallet(Transaction transaction, long userId) {
-        StockAppUser user =userCaller.getUser(userId);
-        if (isCryptoInWallet(transaction, user)) {
+    private void setWallet(Transaction transaction) {
+        StockAppUser user = userCaller.getUser(transaction.getStockAppUserId());
+        if (isCryptoInWallet(transaction)) {
             updateWallet(transaction);
         } else {
-            createWallet(transaction, user);
+            createWallet(transaction);
         }
     }
 
     private void updateWallet(Transaction transaction) {
         Long userId = transaction.getStockAppUserId();
-        StockAppUser user =userCaller.getUser(userId);
-
+        StockAppUser user = userCaller.getUser(userId);
 
         Wallet wallet = user.getWallet().stream()
-                .filter(x->x.getSymbol().equals(transaction.getSymbol()))
+                .filter(x -> x.getSymbol().equals(transaction.getSymbol()))
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new);
 
@@ -51,7 +50,9 @@ public class WalletService {
 
         wallet.setAvailableAmount(wallet.getTotalAmount() - wallet.getInOrder());
 
-        double currentPrice = currencyAPIService.getSingleCurrencyPrice(transaction.getCurrencyId());
+        //TODO API service
+        //double currentPrice = currencyAPIService.getSingleCurrencyPrice(transaction.getCurrencyId());
+        double currentPrice = 5;
 
         wallet.setUsdValue(wallet.getTotalAmount() * currentPrice);
 
@@ -61,24 +62,24 @@ public class WalletService {
                 wallet.getTotalAmount(),
                 wallet.getUsdValue(),
                 wallet.getSymbol());
-
     }
 
-    private boolean isCryptoInWallet(Transaction transaction, StockAppUser user) {
-        return walletRepository.getWalletsByStockAppUser(user)
+    private boolean isCryptoInWallet(Transaction transaction) {
+
+        return walletRepository.getAllByStockAppUserId(transaction.getStockAppUserId())
                 .stream()
                 .anyMatch(x -> x.getSymbol()
                         .equals(transaction.getSymbol()));
     }
 
-    private void createWallet(Transaction transaction, StockAppUser user) {
+    private void createWallet(Transaction transaction) {
         Wallet wallet = Wallet.builder()
                 .availableAmount(transaction.getAmount())
                 .symbol(transaction.getSymbol())
                 .totalAmount(transaction.getAmount())
                 .inOrder(0)
                 .usdValue(transaction.getAmount() * transaction.getPrice())
-                .stockAppUser(user)
+                .stockAppUserId(transaction.getStockAppUserId())
                 .build();
 
         walletRepository.save(wallet);

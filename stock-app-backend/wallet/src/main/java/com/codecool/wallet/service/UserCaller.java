@@ -12,6 +12,6 @@ public class UserCaller {
     private RestTemplate restTemplate;
 
     public StockAppUser getUser(Long userId) {
-        return restTemplate.getForEntity("http://user-service/user?userId="+userId,StockAppUser.class).getBody();
+        return restTemplate.getForEntity("http://user-service/user?userId=" + userId, StockAppUser.class).getBody();
     }
 }
