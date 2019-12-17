@@ -74,9 +74,9 @@ public class TransactionService {
         double balance;
 
         if (transaction.getTransactionType().equals(TransactionType.BUY)) {
-            balance = userCaller.getUser(transaction.getStockAppUserId()).getBalance() - transaction.getTotal();
+            balance = userCaller.getBalance(transaction.getStockAppUserId()) - transaction.getTotal();
         } else {
-            balance = userCaller.getUser(transaction.getStockAppUserId()).getBalance() + transaction.getTotal();
+            balance = userCaller.getBalance(transaction.getStockAppUserId()) + transaction.getTotal();
         }
         userCaller.updateBalance(balance, transaction.getStockAppUserId());
     }
@@ -122,7 +122,7 @@ public class TransactionService {
     }*/
 
     private boolean checkBalance(Transaction transaction) {
-        return (transaction.getTotal() < transaction.getStockAppUserId());
+        return (transaction.getTotal() < userCaller.getBalance((transaction.getStockAppUserId())));
     }
 
     private boolean checkAmount(Transaction transaction) {

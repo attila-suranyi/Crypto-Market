@@ -1,6 +1,7 @@
 package com.codecool.userservice.controller;
 
 import com.codecool.userservice.model.StockAppUser;
+import com.codecool.userservice.model.UpdateWalletInfo;
 import com.codecool.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +27,8 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<Boolean> modifyBalance(@RequestParam Long userId, @RequestParam Double balance) {
+    public void modifyBalance(@RequestParam Long userId, @RequestParam Double balance) {
         userRepository.updateBalance(balance, userId);
-        return ResponseEntity.ok(true);
     }
 
     @PostMapping

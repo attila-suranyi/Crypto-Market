@@ -28,27 +28,27 @@ public class WalletCaller {
         return restTemplate.getForEntity("http://wallet-service/wallet/user?userId=" + userId, Wallet[].class).getBody();
     }
 
-    public ResponseEntity updateWallet(Transaction transaction) {
+    public void updateWallet(Transaction transaction) {
         HttpHeaders header = new HttpHeaders();
         header.add(HttpHeaders.ACCEPT, "application/json");
 
-        return restTemplate.exchange(
+        restTemplate.exchange(
                 "http://wallet-service/wallet",
                 HttpMethod.PUT,
                 new HttpEntity<>(transaction, header),
-                ResponseEntity.class
+                Void.class
         ).getBody();
     }
 
-    public ResponseEntity setWallet(Transaction transaction) {
+    public void setWallet(Transaction transaction) {
         HttpHeaders header = new HttpHeaders();
         header.add(HttpHeaders.ACCEPT, "application/json");
 
-        return restTemplate.exchange(
+        restTemplate.exchange(
                 "http://wallet-service/wallet",
                 HttpMethod.POST,
                 new HttpEntity<>(transaction, header),
-                ResponseEntity.class
+                Void.class
         ).getBody();
     }
 }
