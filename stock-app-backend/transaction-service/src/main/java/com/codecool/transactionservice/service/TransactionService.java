@@ -2,6 +2,7 @@ package com.codecool.transactionservice.service;
 
 import com.codecool.transactionservice.model.StockAppUser;
 import com.codecool.transactionservice.model.Util;
+import com.codecool.transactionservice.model.Wallet;
 import com.codecool.transactionservice.repository.TransactionRepository;
 import com.codecool.transactionservice.model.transaction.OpenTransaction;
 import com.codecool.transactionservice.model.transaction.Transaction;

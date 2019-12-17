@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Service
 public class WalletCaller {
 
@@ -19,7 +21,11 @@ public class WalletCaller {
     private RestTemplate restTemplate;
 
     public Wallet getWallet(Long userId) {
-        return restTemplate.getForEntity("http://wallet-service/user?userId=" + userId, Wallet.class).getBody();
+        return restTemplate.getForEntity("http://wallet-service/wallet/symbol/user?userId=" + userId, Wallet.class).getBody();
+    }
+
+    public Wallet[] getWalletList(Long userId) {
+        return restTemplate.getForEntity("http://wallet-service/wallet/user?userId=" + userId, Wallet[].class).getBody();
     }
 
     public ResponseEntity updateWallet(Transaction transaction) {
