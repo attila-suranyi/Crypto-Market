@@ -19,12 +19,12 @@ public class WalletCaller {
     @Autowired
     private RestTemplate restTemplate;
 
-    public Wallet getWallet(Long userId) {
-        return restTemplate.getForEntity("http://wallet-service/wallet/symbol/user?userId=" + userId, Wallet.class).getBody();
+    public Wallet getWallet(Long userId,String symbol) {
+        return restTemplate.getForEntity("http://wallet-service/wallet/symbol?userId=" + userId + "&symbol=" + symbol, Wallet.class).getBody();
     }
 
     public Wallet[] getWalletList(Long userId) {
-        return restTemplate.getForEntity("http://wallet-service/wallet/user?userId=" + userId, Wallet[].class).getBody();
+        return restTemplate.getForEntity("http://wallet-service/wallet?userId=" + userId, Wallet[].class).getBody();
     }
 
     public void updateWallet(Transaction transaction) {
@@ -40,14 +40,12 @@ public class WalletCaller {
     }
 
     public void setWallet(Transaction transaction) {
-        HttpHeaders header = new HttpHeaders();
-        header.add(HttpHeaders.ACCEPT, "application/json");
-
+        HttpEntity<Transaction> request = new HttpEntity<>(transaction);
         restTemplate.exchange(
                 "http://wallet-service/wallet",
                 HttpMethod.POST,
-                new HttpEntity<>(transaction, header),
-                Void.class
-        ).getBody();
+                request,
+                Transaction.class
+        );
     }
 }
