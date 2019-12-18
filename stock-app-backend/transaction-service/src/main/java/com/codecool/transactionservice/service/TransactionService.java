@@ -128,7 +128,7 @@ public class TransactionService {
     }
 
     private boolean checkAmount(Transaction transaction) {
-        return (transaction.getAmount() <= walletCaller.getWallet(transaction.getStockAppUserId())
+        return (transaction.getAmount() <= walletCaller.getWallet(transaction.getStockAppUserId(),transaction.getSymbol())
                 .getAvailableAmount());
     }
 
