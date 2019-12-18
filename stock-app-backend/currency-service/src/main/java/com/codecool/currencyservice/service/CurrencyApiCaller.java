@@ -1,7 +1,8 @@
 package com.codecool.currencyservice.service;
 
-import com.codecool.currencyservice.model.currency.CryptoCurrency;
-import com.codecool.currencyservice.model.currency.SingleCurrency;
+
+import com.codecool.cryptomarketjsonclasses.model.currency.CryptoCurrency;
+import com.codecool.cryptomarketjsonclasses.model.currency.SingleCurrency;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
