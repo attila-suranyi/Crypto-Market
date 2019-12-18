@@ -5,6 +5,7 @@ import com.codecool.userservice.model.UpdateWalletInfo;
 import com.codecool.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;
@@ -19,6 +20,10 @@ public class UserController {
     @GetMapping
     public StockAppUser getUser(@RequestParam Long userId) {
         return userRepository.findById(userId).orElseThrow(NoSuchElementException::new);
+    }
+    @GetMapping("/{name}")
+    public StockAppUser getUser(@PathVariable String name) {
+        return userRepository.findByUserName(name).orElseThrow(() -> new UsernameNotFoundException("Username: " + name + " not found"));
     }
 
     @GetMapping("/balance")
