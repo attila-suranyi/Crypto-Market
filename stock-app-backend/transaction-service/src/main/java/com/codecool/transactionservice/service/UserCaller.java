@@ -20,21 +20,21 @@ public class UserCaller {
         return restTemplate.getForEntity("http://user-service/user?userId=" + userId, StockAppUser.class).getBody();
     }
 
-    public ResponseEntity updateBalance(double balance, long userId) {
+    public void updateBalance(double balance, long userId) {
         UpdateWalletInfo walletInfo = new UpdateWalletInfo(balance, userId);
         HttpHeaders header = new HttpHeaders();
         header.add(HttpHeaders.ACCEPT, "application/json");
 
-        return restTemplate.exchange(
-                "http://user-service/user?userId=" + userId,
+         restTemplate.exchange(
+                "http://user-service/user?userId=" + userId + "&balance=" + balance,
                 HttpMethod.PUT,
-                new HttpEntity<UpdateWalletInfo>(walletInfo, header),
-                ResponseEntity.class
+                new HttpEntity<>(walletInfo, header),
+                Void.class
         ).getBody();
     }
 
     public Double getBalance(Long userId) {
-        return restTemplate.getForEntity("http://user-service/user?userId=" + userId, Double.class).getBody();
+        return restTemplate.getForEntity("http://user-service/user/balance?userId=" + userId, Double.class).getBody();
     }
 }
 

@@ -1,6 +1,9 @@
 package com.codecool.transactionservice.service;
 
 
+import com.codecool.cryptomarketjsonclasses.model.currency.CryptoCurrency;
+import com.codecool.cryptomarketjsonclasses.model.currency.CurrencyDetails;
+import com.codecool.cryptomarketjsonclasses.model.currency.SingleCurrency;
 import com.codecool.cryptomarketjsonclasses.model.transaction.OpenTransaction;
 import com.codecool.cryptomarketjsonclasses.model.transaction.Transaction;
 import com.codecool.cryptomarketjsonclasses.model.transaction.TransactionType;
@@ -26,6 +29,9 @@ public class TransactionService {
 
     @Autowired
     private  WalletCaller walletCaller;
+
+    @Autowired
+    private CurrencyCaller currencyCaller;
 
     @Transactional
     public boolean buy(Transaction transaction, long userId) {
@@ -73,17 +79,15 @@ public class TransactionService {
         double balance;
 
         if (transaction.getTransactionType().equals(TransactionType.BUY)) {
-            balance = userCaller.getUser(transaction.getStockAppUserId()).getBalance() - transaction.getTotal();
+            balance = userCaller.getBalance(transaction.getStockAppUserId()) - transaction.getTotal();
         } else {
-            balance = userCaller.getUser(transaction.getStockAppUserId()).getBalance() + transaction.getTotal();
+            balance = userCaller.getBalance(transaction.getStockAppUserId()) + transaction.getTotal();
         }
         userCaller.updateBalance(balance, transaction.getStockAppUserId());
     }
 
     public boolean isTransactionExecutable(Transaction transaction) {
-        //TODO API SERVICE
-        //double currentPrice = currencyAPIService.getSingleCurrencyPrice(transaction.getCurrencyId());
-        double currentPrice = 100;
+        double currentPrice = currencyCaller.getSingleCurrencyPrice(transaction.getCurrencyId());
 
         if (transaction.getTransactionType().equals(TransactionType.BUY)) {
             return transaction.getPrice() >= currentPrice;
@@ -110,18 +114,17 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
-    //TODO API SERVICE
-    /*public CryptoCurrency getCurrencies(String sortBy, String sortDir) {
-        return currencyAPIService.getCurrencies(sortBy, sortDir);
+    public CryptoCurrency getCurrencies(String sortBy, String sortDir) {
+        return currencyCaller.getCurrencies(sortBy, sortDir);
     }
 
     public CurrencyDetails getCurrencyById(long id) {
-        SingleCurrency currency = currencyAPIService.getSingleCurrency(id);
+        SingleCurrency currency = currencyCaller.getCurrency(id);
         return currency.getData().get(id);
-    }*/
+    }
 
     private boolean checkBalance(Transaction transaction) {
-        return (transaction.getTotal() < transaction.getStockAppUserId());
+        return (transaction.getTotal() < userCaller.getBalance((transaction.getStockAppUserId())));
     }
 
     private boolean checkAmount(Transaction transaction) {
@@ -137,9 +140,7 @@ public class TransactionService {
             OpenTransaction openTransaction = new OpenTransaction();
             BeanUtils.copyProperties(transaction, openTransaction);
             Long id = transaction.getCurrencyId();
-            //TODO API SERVICE
-            //Double currentPrice = currencyAPIService.getSingleCurrencyPrice(id);
-            double currentPrice = 100;
+            Double currentPrice = currencyCaller.getSingleCurrencyPrice(id);
             openTransaction.setCurrentPrice(currentPrice);
             openTransactions.add(openTransaction);
         }
