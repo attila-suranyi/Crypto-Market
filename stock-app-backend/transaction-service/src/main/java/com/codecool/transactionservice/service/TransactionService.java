@@ -1,11 +1,11 @@
 package com.codecool.transactionservice.service;
 
-import com.codecool.transactionservice.model.StockAppUser;
+
+import com.codecool.cryptomarketjsonclasses.model.transaction.OpenTransaction;
+import com.codecool.cryptomarketjsonclasses.model.transaction.Transaction;
+import com.codecool.cryptomarketjsonclasses.model.transaction.TransactionType;
 import com.codecool.transactionservice.model.Util;
 import com.codecool.transactionservice.repository.TransactionRepository;
-import com.codecool.transactionservice.model.transaction.OpenTransaction;
-import com.codecool.transactionservice.model.transaction.Transaction;
-import com.codecool.transactionservice.model.transaction.TransactionType;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

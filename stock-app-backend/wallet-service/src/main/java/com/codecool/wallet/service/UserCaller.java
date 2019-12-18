@@ -1,6 +1,6 @@
 package com.codecool.wallet.service;
 
-import com.codecool.wallet.model.StockAppUser;
+import com.codecool.cryptomarketjsonclasses.model.StockAppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

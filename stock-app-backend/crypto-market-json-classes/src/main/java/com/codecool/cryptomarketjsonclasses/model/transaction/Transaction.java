@@ -1,10 +1,11 @@
-package com.codecool.wallet.model;
+package com.codecool.cryptomarketjsonclasses.model.transaction;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 
 @Data
 @NoArgsConstructor
@@ -42,7 +43,7 @@ public class Transaction {
     @Column(nullable = false)
     private boolean closedTransaction;
 
-    //@JsonIgnore
-    //@ToString.Exclude
+    /*@JsonIgnore
+    @ToString.Exclude*/
     private Long stockAppUserId;
 }

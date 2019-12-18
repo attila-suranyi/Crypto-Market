@@ -1,9 +1,8 @@
 package com.codecool.transactionservice.service;
 
-import com.codecool.transactionservice.model.StockAppUser;
-import com.codecool.transactionservice.model.UpdateWalletInfo;
-import com.codecool.transactionservice.model.Wallet;
-import com.codecool.transactionservice.model.transaction.Transaction;
+
+import com.codecool.cryptomarketjsonclasses.model.Wallet;
+import com.codecool.cryptomarketjsonclasses.model.transaction.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

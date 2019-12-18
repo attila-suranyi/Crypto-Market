@@ -1,9 +1,8 @@
 package com.codecool.wallet.service;
 
-import com.codecool.wallet.model.StockAppUser;
-import com.codecool.wallet.model.Transaction;
-import com.codecool.wallet.model.TransactionType;
-import com.codecool.wallet.model.Wallet;
+import com.codecool.cryptomarketjsonclasses.model.transaction.Transaction;
+import com.codecool.cryptomarketjsonclasses.model.transaction.TransactionType;
+import com.codecool.cryptomarketjsonclasses.model.Wallet;
 import com.codecool.wallet.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

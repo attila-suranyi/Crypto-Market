@@ -1,6 +1,6 @@
 package com.codecool.userservice.repository;
 
-import com.codecool.userservice.model.StockAppUser;
+import com.codecool.cryptomarketjsonclasses.model.StockAppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

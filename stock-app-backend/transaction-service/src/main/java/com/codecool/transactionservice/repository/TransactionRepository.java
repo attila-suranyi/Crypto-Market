@@ -1,6 +1,6 @@
 package com.codecool.transactionservice.repository;
 
-import com.codecool.transactionservice.model.transaction.Transaction;
+import com.codecool.cryptomarketjsonclasses.model.transaction.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,8 +1,6 @@
-package com.codecool.wallet.model;
+package com.codecool.cryptomarketjsonclasses.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-
 import javax.persistence.*;
 
 @Data

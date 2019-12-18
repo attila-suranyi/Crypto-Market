@@ -62,6 +62,16 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- Own Dependency -->
+
+        <dependency>
+            <groupId>com.codecool</groupId>
+            <artifactId>crypto-market-json-classes</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

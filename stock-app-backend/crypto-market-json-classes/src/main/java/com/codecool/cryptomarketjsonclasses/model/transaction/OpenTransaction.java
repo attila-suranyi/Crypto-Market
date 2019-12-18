@@ -1,4 +1,4 @@
-package com.codecool.transactionservice.model.transaction;
+package com.codecool.cryptomarketjsonclasses.model.transaction;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

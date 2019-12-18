@@ -1,6 +1,6 @@
 package com.codecool.wallet.repository;
 
-import com.codecool.wallet.model.Wallet;
+import com.codecool.cryptomarketjsonclasses.model.Wallet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

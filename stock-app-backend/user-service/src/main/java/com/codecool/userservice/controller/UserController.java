@@ -1,6 +1,6 @@
 package com.codecool.userservice.controller;
 
-import com.codecool.userservice.model.StockAppUser;
+import com.codecool.cryptomarketjsonclasses.model.StockAppUser;
 import com.codecool.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
