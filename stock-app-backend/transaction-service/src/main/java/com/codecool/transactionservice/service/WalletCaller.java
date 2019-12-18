@@ -19,7 +19,7 @@ public class WalletCaller {
     @Autowired
     private RestTemplate restTemplate;
 
-    public Wallet getWallet(Long userId,String symbol) {
+    public Wallet getWallet(Long userId, String symbol) {
         return restTemplate.getForEntity("http://wallet-service/wallet/symbol?userId=" + userId + "&symbol=" + symbol, Wallet.class).getBody();
     }
 
@@ -45,7 +45,7 @@ public class WalletCaller {
                 "http://wallet-service/wallet",
                 HttpMethod.POST,
                 request,
-                Transaction.class
+                Void.class
         );
     }
 }
