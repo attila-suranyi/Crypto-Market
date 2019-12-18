@@ -25,7 +25,7 @@ public class WalletCaller {
     }
 
     public Wallet[] getWalletList(Long userId) {
-        return restTemplate.getForEntity("http://wallet-service/wallet/user?userId=" + userId, Wallet[].class).getBody();
+        return restTemplate.getForEntity("http://wallet-service/wallet?userId=" + userId, Wallet[].class).getBody();
     }
 
     public void updateWallet(Transaction transaction) {
