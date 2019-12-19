@@ -43,7 +43,7 @@ export default class BuyCrypto extends Component {
     };
     
     this.context.sendDataToBackendWithCallback(
-      `http://localhost:8082/${this.state.transactionType}?userId=${this.context.userId}`,
+      `http://localhost:8762/transaction/${this.state.transactionType}?userId=${this.context.userId}`,
       transaction,
       this.showAlert
       );

@@ -11,10 +11,10 @@ export default class Wallet extends Component {
   componentDidMount() {
     this.context.clearUserWallet();
     this.context.fetchUserWallet(
-      `http://localhost:8082/wallet?userId=${this.context.userId}`
+      `http://localhost:8762/transaction/wallet?userId=${this.context.userId}`
     );
     this.context.fetchUserBalance(
-      `http://localhost:8082/balance?userId=${this.context.userId}`
+      `http://localhost:8762/transaction/balance?userId=${this.context.userId}`
     );
   }
 
