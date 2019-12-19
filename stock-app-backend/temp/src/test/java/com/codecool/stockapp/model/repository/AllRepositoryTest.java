@@ -1,9 +1,6 @@
 package com.codecool.stockapp.model.repository;
 
 
-import com.codecool.stockapp.model.entity.StockAppUser;
-import com.codecool.stockapp.model.entity.transaction.Transaction;
-import com.codecool.stockapp.model.entity.transaction.TransactionType;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

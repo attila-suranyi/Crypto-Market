@@ -33,8 +33,9 @@ public class TransactionService {
     @Autowired
     private CurrencyCaller currencyCaller;
 
+    // TODO userID in transaction already?
     @Transactional
-    public boolean buy(Transaction transaction, long userId) {
+    public boolean buy(Transaction transaction, Long userId) {
         transaction.setStockAppUserId(userId);
 
         if (checkBalance(transaction)) {
@@ -51,15 +52,15 @@ public class TransactionService {
     }
 
     @Transactional
-    public boolean sell(Transaction transaction, long userId) {
+    public boolean sell(Transaction transaction, Long userId) {
         transaction.setStockAppUserId(userId);
 
         if (checkAmount(transaction)) {
-            if (this.isTransactionExecutable(transaction)) {
-                this.saveTransactionWithDetails(transaction, true);
+            if (isTransactionExecutable(transaction)) {
+                saveTransactionWithDetails(transaction, true);
                 walletCaller.updateWallet(transaction);
             } else {
-                this.saveTransactionWithDetails(transaction, false);
+                saveTransactionWithDetails(transaction, false);
                 walletCaller.updateWallet(transaction);
             }
             return true;
@@ -72,10 +73,10 @@ public class TransactionService {
         transaction.setClosedTransaction(isTransactionClosed);
         transactionRepository.saveAndFlush(transaction);
 
-        this.modifyUserBalanceByTransactionTotal(transaction);
+        modifyUserBalanceByTransactionTotal(transaction);
     }
 
-    private void modifyUserBalanceByTransactionTotal(Transaction transaction) {
+    public void modifyUserBalanceByTransactionTotal(Transaction transaction) {
         double balance;
 
         if (transaction.getTransactionType().equals(TransactionType.BUY)) {
@@ -123,7 +124,7 @@ public class TransactionService {
         return currency.getData().get(id);
     }
 
-    private boolean checkBalance(Transaction transaction) {
+    public boolean checkBalance(Transaction transaction) {
         return (transaction.getTotal() < userCaller.getBalance((transaction.getStockAppUserId())));
     }
 
