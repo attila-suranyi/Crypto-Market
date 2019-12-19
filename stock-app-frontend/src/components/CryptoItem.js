@@ -39,7 +39,7 @@ export default class CryptoItem extends Component {
                 this.props.cryptoData.quote.usd.percent_change_24h
               )
             }}
-            class="change24"
+            className="change24"
           >
             {this.props.cryptoData.quote.usd.percent_change_24h.toLocaleString()}
             %
