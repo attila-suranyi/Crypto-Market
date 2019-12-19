@@ -28,10 +28,10 @@ class TransactionServiceTest {
     private UserCaller userCallerMock;
 
     @Mock
-    private WalletCaller walletCallerMock;
+    private TransactionRepository transactionRepositoryMock;
 
     @Mock
-    private TransactionRepository transactionRepositoryMock;
+    private WalletCaller walletCallerMock;
 
     @Test
     void isTransactionExecutableTest() {
@@ -94,10 +94,13 @@ class TransactionServiceTest {
 
         when(userCallerMock.getBalance(any())).thenReturn(100D);
         when(currencyCallerMock.getSingleCurrencyPrice(any())).thenReturn(70D);
+        when(transactionRepositoryMock.saveAndFlush(isA(Transaction.class))).thenReturn(null);
 
         doNothing().when(userCallerMock).updateBalance(isA(Double.class), isA(Long.class));
 
-        assertTrue(service.buy(affordableTransaction));
-        assertFalse(service.buy(tooExpensiveTransaction));
+        doNothing().when(walletCallerMock).setWallet(isA(Transaction.class));
+
+        assertTrue(service.buy(affordableTransaction, 1L));
+        assertFalse(service.buy(tooExpensiveTransaction, 1L));
     }
 }
