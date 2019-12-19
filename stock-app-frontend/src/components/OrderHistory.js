@@ -10,7 +10,7 @@ export default class OrderHistory extends Component {
 
   componentDidMount() {
     this.context.fetchUserOrderHistory(
-      `http://localhost:8080/order_history?userId=${this.context.userId}`
+      `http://localhost:8762/transaction/order_history?userId=${this.context.userId}`
     );
   }
 

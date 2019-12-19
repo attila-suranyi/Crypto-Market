@@ -20,7 +20,7 @@ export default class TradeCrypto extends Component {
     this.setState({ symbol });
     this.setState({ id });
     this.context.fetchSingleCryptoDataById(
-      `http://localhost:8080/trade?id=${id}`
+      `http://localhost:8762/transaction/trade?id=${id}`
     );
   }
 
