@@ -16,6 +16,9 @@ public class WalletService {
     private UserCaller userCaller;
 
     @Autowired
+    private CurrencyCaller currencyCaller;
+
+    @Autowired
     private WalletRepository walletRepository;
 
     public void setWallet(Transaction transaction) {
@@ -43,9 +46,8 @@ public class WalletService {
 
         wallet.setAvailableAmount(wallet.getTotalAmount() - wallet.getInOrder());
 
-        //TODO API service
-        //double currentPrice = currencyAPIService.getSingleCurrencyPrice(transaction.getCurrencyId());
-        double currentPrice = 5;
+
+        double currentPrice = currencyCaller.getSingleCurrencyPrice(transaction.getCurrencyId());
 
         wallet.setUsdValue(wallet.getTotalAmount() * currentPrice);
 
