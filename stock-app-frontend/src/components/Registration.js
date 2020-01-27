@@ -29,7 +29,7 @@ export default class Registration extends Component {
             password: this.state.password
         };
 
-        this.context.sendDataToBackend("http://localhost:8762/auth/registration", user);
+        this.context.sendDataToBackend(`http://${this.context.backendIp}/auth/registration`, user);
         this.props.history.push("/sorted");
     };
 

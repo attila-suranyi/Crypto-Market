@@ -16,7 +16,7 @@ export default class CryptoList extends Component {
   //we build the URL after getting the sorted data, so users can use the link
   loadCryptoData(sort_by, sort_dir) {
     const query_string = `?sort_by=${sort_by}&sort_dir=${sort_dir}`;
-    const url = `http://localhost:8762/transaction/sorted${query_string}`;
+    const url = `http://${this.context.backendIp}/transaction/sorted${query_string}`;
     this.context.fetchAllCryptoData(url);
 
     this.setState({ sort_by, sort_dir });

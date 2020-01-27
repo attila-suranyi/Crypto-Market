@@ -5,6 +5,7 @@ export const CryptoDataContext = createContext();
 
 export default class CryptoDataContextProvider extends Component {
   state = {
+    backendIp: "10.44.31.245:8762",
     cryptoData: [],
     singleCryptoData: {},
 

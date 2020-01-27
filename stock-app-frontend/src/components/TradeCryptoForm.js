@@ -23,7 +23,7 @@ export default class BuyCrypto extends Component {
 
   showAlert = (alertData) => {
     alertData == true ? this.setState({alert:"Order placed!"}) : this.setState({alert:"Not enough balance!"})
-    alert(this.state.alert)
+    alert(this.state.alert) //TODO
   }
 
   handleChange = event => {
@@ -43,7 +43,7 @@ export default class BuyCrypto extends Component {
     };
     
     this.context.sendDataToBackendWithCallback(
-      `http://localhost:8762/transaction/${this.state.transactionType}?userId=${this.context.userId}`,
+      `http://${this.context.backendIp}/transaction/${this.state.transactionType}?userId=${this.context.userId}`,
       transaction,
       this.showAlert
       );
