@@ -1,27 +1,22 @@
-import React, {Component} from 'react';
+import React from 'react';
 // import {Alert, AlertTitle} from '@material-ui/lab/Alert';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 
 const TradeFeedback = (props) => {
     if (props.result === "success") {
-        return successful;
+        return <Alert severity="success" onClose={() =>{props.changeAlert(null)}}>
+                   <AlertTitle>Success</AlertTitle>
+                   Transaction successful!
+               </Alert>;
     }
+
     if (props.result === "error") {
-        return failed;
+        return <Alert severity="error" onClose={() =>{props.changeAlert(null)}}>
+                   <AlertTitle>Transaction Error</AlertTitle>
+                   Not enough funds.
+               </Alert>;
     }
-}
-
-const successful =
-    <Alert severity="success">
-        <AlertTitle>Success</AlertTitle>
-        Transaction successful!
-    </Alert>;
-
-const failed =
-    <Alert severity="error">
-        <AlertTitle>Error</AlertTitle>
-        An error occurred during transaction.
-    </Alert>;
+};
 
 export default TradeFeedback;

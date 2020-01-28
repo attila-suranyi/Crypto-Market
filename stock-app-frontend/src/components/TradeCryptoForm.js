@@ -24,11 +24,11 @@ export default class BuyCrypto extends Component {
   }
 
   showAlert = (alertData) => {
-    // return <TradeFeedback result={alertData}/>
-    this.setState(alertData ?
-        {alert: "success"} :
-        {alert: "error"}
-    )
+    alertData ? this.changeAlert("success") : this.changeAlert("error")
+  };
+
+  changeAlert = (alert) => {
+    this.setState({alert: alert})
   };
 
   handleChange = event => {
@@ -37,6 +37,7 @@ export default class BuyCrypto extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    this.changeAlert(null);
     
     let transaction = {
       symbol: this.props.symbol,
@@ -93,7 +94,8 @@ export default class BuyCrypto extends Component {
             {this.props.tradeDir}
           </Button>
         </Form>
-        {this.state.alert ? <TradeFeedback result={this.state.alert} /> : ''}
+        {this.state.alert ?
+            <TradeFeedback result={this.state.alert} changeAlert={this.changeAlert} /> : ''}
       </div>
     );
   }
