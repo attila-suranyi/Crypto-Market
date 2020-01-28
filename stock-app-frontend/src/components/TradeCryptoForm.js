@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
 import "../assets/css/TradeCryptoForm.css";
+import TradeFeedback from "./TradeFeedback";
+
 
 export default class BuyCrypto extends Component {
   static contextType = CryptoDataContext;
@@ -12,7 +14,7 @@ export default class BuyCrypto extends Component {
     amount: 0,
     total: "",
     transactionType: this.props.tradeDir === "Buy" ? "buy" : "sell",
-    alert: ""
+    alert: null
   };
 
   componentDidMount() {
@@ -22,9 +24,12 @@ export default class BuyCrypto extends Component {
   }
 
   showAlert = (alertData) => {
-    alertData == true ? this.setState({alert:"Order placed!"}) : this.setState({alert:"Not enough balance!"})
-    alert(this.state.alert) //TODO
-  }
+    // return <TradeFeedback result={alertData}/>
+    this.setState(alertData ?
+        {alert: "success"} :
+        {alert: "error"}
+    )
+  };
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -88,6 +93,7 @@ export default class BuyCrypto extends Component {
             {this.props.tradeDir}
           </Button>
         </Form>
+        {this.state.alert ? <TradeFeedback result={this.state.alert} /> : ''}
       </div>
     );
   }
