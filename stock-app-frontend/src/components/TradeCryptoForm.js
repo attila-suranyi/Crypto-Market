@@ -4,6 +4,7 @@ import { CryptoDataContext } from "../contexts/CryptoDataContext";
 import "../assets/css/TradeCryptoForm.css";
 import TradeFeedback from "./TradeFeedback";
 
+var storages = require('store/storages/localStorage')
 
 export default class BuyCrypto extends Component {
   static contextType = CryptoDataContext;
@@ -48,8 +49,10 @@ export default class BuyCrypto extends Component {
       closedTransaction: false
     };
     
+    let userId = storages.read("userId") ? storages.read("userId") : this.context.userId;
+
     this.context.sendDataToBackendWithCallback(
-      `http://${this.context.backendIp}/transaction/${this.state.transactionType}?userId=${this.context.userId}`,
+      `http://${this.context.backendIp}/transaction/${this.state.transactionType}?userId=${userId}`,
       transaction,
       this.showAlert
       );
