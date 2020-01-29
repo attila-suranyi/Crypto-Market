@@ -24,55 +24,56 @@ export default class CryptoDataContextProvider extends Component {
 
     fetchDataWithCallback: (URL, callback) => {
       Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
-      Axios.get(URL).then(res => callback(res));
+      
+      Axios.get(URL, {withCredentials: true}).then(res => callback(res));
     },
 
     fetchAllCryptoData: URL => {
       Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
-      Axios.get(URL).then(res => this.setState({ cryptoData: res.data.data }));
+      Axios.get(URL, {withCredentials: true}).then(res => this.setState({ cryptoData: res.data.data }));
     },
 
     fetchSingleCryptoDataById: URL => {
       Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
-      Axios.get(URL).then(res => {
+      Axios.get(URL, {withCredentials: true}).then(res => {
         this.setState({ singleCryptoData: res.data });
       });
     },
 
     fetchUserOrderHistory: URL => {
       Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
-      Axios.get(URL)
+      Axios.get(URL, {withCredentials: true})
         .then(res => this.setState({ userOrderHistory: res.data }))
     },
 
     fetchUserOpenOrders: URL => {
       Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
-      Axios.get(URL)
+      Axios.get(URL, {withCredentials: true})
         .then(res => this.setState({ userOpenOrders: res.data }))
     },
 
     fetchUserWallet: URL => {
       Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
-      Axios.get(URL)
+      Axios.get(URL, {withCredentials: true})
         .then(res => this.setState({ userWallet: res.data }))
     },
 
     fetchUserBalance: URL => {
       Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
-      Axios.get(URL)
+      Axios.get(URL, {withCredentials: true})
         .then(res => this.setState({ userBalance: res.data }))
     },
 
     sendDataToBackendWithCallback: (URL, data, callback) => {
       Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
-      Axios.post(URL, data).then(res => {
+      Axios.post(URL, data, {withCredentials: true}).then(res => {
         callback(res.data);
       });
     },
 
     sendDataToBackend: (URL, data) => {
       Axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
-      Axios.post(URL, data);
+      Axios.post(URL, data, {withCredentials: true});
     },
 
     getQueryParam(key) {
