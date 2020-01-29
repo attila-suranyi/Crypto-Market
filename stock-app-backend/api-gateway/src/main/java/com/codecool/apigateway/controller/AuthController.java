@@ -71,9 +71,8 @@ public class AuthController {
 
             response.addCookie(cookie);
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Access-Control-Allow-Credentials","true");
-            headers.add("Access-Control-Allow-Origin","true"); //is value right?
+            response.setHeader("Access-Control-Allow-Credentials","true");
+            response.setHeader("Access-Control-Allow-Origin","http://localhost:3000");
 
             return ResponseEntity.ok(model);
 
