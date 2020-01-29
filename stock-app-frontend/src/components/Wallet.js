@@ -5,16 +5,19 @@ import WalletChart from "./WalletChart";
 import Table from "react-bootstrap/Table";
 import "../assets/css/OpenOrder.css";
 
+var storages = require('store/storages/localStorage')
+
 export default class Wallet extends Component {
   static contextType = CryptoDataContext;
 
   componentDidMount() {
+    let userId = storages.read("userId") ? storages.read("userId") : this.context.userId;
     this.context.clearUserWallet();
     this.context.fetchUserWallet(
-      `http://${this.context.backendIp}/transaction/wallet?userId=${this.context.userId}`
+      `http://${this.context.backendIp}/transaction/wallet?userId=${userId}`
     );
     this.context.fetchUserBalance(
-      `http://${this.context.backendIp}/transaction/balance?userId=${this.context.userId}`
+      `http://${this.context.backendIp}/transaction/balance?userId=${userId}`
     );
   }
 

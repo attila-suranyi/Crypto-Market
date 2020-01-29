@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
 
+var storages = require('store/storages/localStorage')
+
 export default class StockNavBar extends Component {
   static contextType = CryptoDataContext;
 
   removeToken = () => {
     localStorage.removeItem("token");
-    //this.props.history.push("/sorted");
+    storages.remove("userId")
   };
 
   render() {
