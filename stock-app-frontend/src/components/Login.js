@@ -16,8 +16,6 @@ export default class Login extends Component {
   };
 
   saveTokenToLocalStorage = (data) => {
-    localStorage.setItem("token", data.token);
-    Axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
     this.props.history.push("/protected");
     this.context.setUserId(data.id);
   }
