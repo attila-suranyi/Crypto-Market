@@ -1,5 +1,6 @@
 package com.codecool.apigateway.security;
 
+import com.google.common.collect.ImmutableList;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,8 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/auth/signin").permitAll() // allowed by anyone
-                    .antMatchers("/auth/registration").permitAll() // allowed by anyone
+                    .antMatchers("/auth/**").permitAll() // allowed by anyone
                     .antMatchers("/transaction/sorted").permitAll()
                     .anyRequest().authenticated()
                 .and()
@@ -48,7 +48,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
+        //configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedOrigins(ImmutableList.of("http://localhost:3000"));
+        configuration.setAllowCredentials(true);
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
         configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
