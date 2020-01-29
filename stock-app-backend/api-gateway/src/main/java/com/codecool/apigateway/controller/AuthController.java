@@ -4,6 +4,7 @@ import com.codecool.apigateway.model.UserCredentials;
 import com.codecool.apigateway.security.JwtTokenServices;
 import com.codecool.apigateway.service.UserCaller;
 import com.codecool.cryptomarketjsonclasses.model.StockAppUser;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,6 +16,8 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +45,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity signin(@RequestBody UserCredentials userCredentials) {
+    public ResponseEntity signin(@RequestBody UserCredentials userCredentials, HttpServletResponse response) {
         try {
             // authenticationManager.authenticate calls loadUserByUsername in CustomUserDetailsService
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userCredentials.getUsername(), userCredentials.getPassword()));
@@ -58,8 +61,22 @@ public class AuthController {
             model.put("username", userCredentials.getUsername());
             model.put("roles", roles);
             model.put("id", userId);
-            model.put("token", token);
+            model.put("token", token); //do we still need this?
+
+            Cookie cookie = new Cookie("token",token);
+            cookie.setMaxAge(7 * 24 * 60 * 60);
+            cookie.setSecure(true);
+            cookie.setHttpOnly(true);
+            cookie.setPath("/");
+
+            response.addCookie(cookie);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Access-Control-Allow-Credentials","true");
+            headers.add("Access-Control-Allow-Origin","true"); //is value right?
+
             return ResponseEntity.ok(model);
+
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
