@@ -1,11 +1,12 @@
 import React, { Component, createContext } from "react";
 import Axios from "axios";
+var storages = require('store/storages/localStorage')
 
 export const CryptoDataContext = createContext();
 
 export default class CryptoDataContextProvider extends Component {
   state = {
-    backendIp: "10.44.32.139:8762",
+    backendIp: "localhost:8762",
     cryptoData: [],
     singleCryptoData: {},
 
@@ -20,6 +21,7 @@ export default class CryptoDataContextProvider extends Component {
 
     setUserId: (userId) => {
       this.setState({userId : userId});
+      storages.write("userId", userId);
     },
 
     fetchDataWithCallback: (URL, callback) => {

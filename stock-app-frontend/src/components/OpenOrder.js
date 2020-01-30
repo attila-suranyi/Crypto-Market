@@ -4,12 +4,15 @@ import OpenOrderItem from "./OpenOrderItem";
 import Table from "react-bootstrap/Table";
 import '../assets/css/OpenOrder.css';
 
+var storages = require('store/storages/localStorage')
+
 export default class OpenOrder extends Component {
   static contextType = CryptoDataContext;
 
   componentDidMount() {
+    let userId = storages.read("userId") ? storages.read("userId") : this.context.userId;
     this.context.fetchUserOpenOrders(
-      `http://${this.context.backendIp}/transaction/open_order?userId=${this.context.userId}`
+      `http://${this.context.backendIp}/transaction/open_order?userId=${userId}`
     );
   }
 

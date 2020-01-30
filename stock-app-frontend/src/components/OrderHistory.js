@@ -5,12 +5,15 @@ import OrderHistoryItem from "./OrderHistoryItem";
 import Table from "react-bootstrap/Table";
 import '../assets/css/OpenOrder.css';
 
+var storages = require('store/storages/localStorage')
+
 export default class OrderHistory extends Component {
   static contextType = CryptoDataContext;
 
   componentDidMount() {
+    let userId = storages.read("userId") ? storages.read("userId") : this.context.userId;
     this.context.fetchUserOrderHistory(
-      `http://${this.context.backendIp}/transaction/order_history?userId=${this.context.userId}`
+      `http://${this.context.backendIp}/transaction/order_history?userId=${userId}`
     );
   }
 

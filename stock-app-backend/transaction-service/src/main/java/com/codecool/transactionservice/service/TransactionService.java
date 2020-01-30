@@ -1,6 +1,7 @@
 package com.codecool.transactionservice.service;
 
 
+import com.codecool.cryptomarketjsonclasses.model.Wallet;
 import com.codecool.cryptomarketjsonclasses.model.currency.CryptoCurrency;
 import com.codecool.cryptomarketjsonclasses.model.currency.CurrencyDetails;
 import com.codecool.cryptomarketjsonclasses.model.currency.SingleCurrency;
@@ -41,11 +42,10 @@ public class TransactionService {
         if (checkBalance(transaction)) {
             if (isTransactionExecutable(transaction)) {
                 saveTransactionWithDetails(transaction, true);
-                walletCaller.setWallet(transaction);
             } else {
                 saveTransactionWithDetails(transaction, false);
-                walletCaller.setWallet(transaction);
             }
+            walletCaller.setWallet(transaction);
             return true;
         }
         return false;
@@ -58,11 +58,10 @@ public class TransactionService {
         if (checkAmount(transaction)) {
             if (isTransactionExecutable(transaction)) {
                 saveTransactionWithDetails(transaction, true);
-                walletCaller.updateWallet(transaction);
             } else {
                 saveTransactionWithDetails(transaction, false);
-                walletCaller.updateWallet(transaction);
             }
+            walletCaller.updateWallet(transaction);
             return true;
         }
         return false;
@@ -129,8 +128,12 @@ public class TransactionService {
     }
 
     private boolean checkAmount(Transaction transaction) {
-        return (transaction.getAmount() <= walletCaller.getWallet(transaction.getStockAppUserId(),transaction.getSymbol())
-                .getAvailableAmount());
+        Wallet currentWallet = walletCaller.getWallet(transaction.getStockAppUserId(),transaction.getSymbol());
+        if (currentWallet != null){
+            return (transaction.getAmount() <= currentWallet.getAvailableAmount());
+        }else {
+            return false;
+        }
     }
 
     public List<OpenTransaction> getOpenTransactions(Long userId) {

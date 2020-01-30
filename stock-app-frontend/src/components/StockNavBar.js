@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
 
+import Cookies from 'js-cookie';
+var storages = require('store/storages/localStorage')
+
 export default class StockNavBar extends Component {
   static contextType = CryptoDataContext;
 
   removeToken = () => {
-    localStorage.removeItem("token");
-    //this.props.history.push("/sorted");
+    storages.remove("userId");
   };
 
   render() {
@@ -21,7 +23,7 @@ export default class StockNavBar extends Component {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            {localStorage.getItem("token") ? (
+            {Cookies.get("token") ? (
               <React.Fragment>
                 <Nav className="mr-auto">
                   <Nav.Link as={Link} to="/wallet">

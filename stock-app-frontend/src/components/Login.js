@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from "mdbreact";
-import Axios from "axios";
+import Cookies from 'js-cookie';
 
 export default class Login extends Component {
   static contextType = CryptoDataContext;
@@ -16,6 +16,7 @@ export default class Login extends Component {
   };
 
   saveTokenToLocalStorage = (data) => {
+    console.log(Cookies.get('token'));
     this.props.history.push("/protected");
     this.context.setUserId(data.id);
   }
