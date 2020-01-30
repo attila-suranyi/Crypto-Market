@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 import { CryptoDataContext } from "../contexts/CryptoDataContext";
 
-import Cookies from 'js-cookie';
 var storages = require('store/storages/localStorage')
 
 export default class StockNavBar extends Component {
@@ -23,7 +22,7 @@ export default class StockNavBar extends Component {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            {Cookies.get("token") ? (
+            {storages.read("userId") ? (
               <React.Fragment>
                 <Nav className="mr-auto">
                   <Nav.Link as={Link} to="/wallet">
