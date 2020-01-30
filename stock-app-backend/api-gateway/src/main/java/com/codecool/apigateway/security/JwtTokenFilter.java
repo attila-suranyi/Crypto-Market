@@ -28,9 +28,11 @@ public class JwtTokenFilter extends GenericFilterBean {
 
         Cookie[] cookies = ((HttpServletRequest) req).getCookies();
 
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                token = cookie.getValue();
+        if (cookies != null){
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    token = cookie.getValue();
+                }
             }
         }
 
